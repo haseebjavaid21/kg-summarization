@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+
+    <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <table class="table" id="table1">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Subject</th>
+            <th scope="col">Predicate</th>
+            <th scope="col">Object</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <script src="includes/jquery/jquery.min.js"></script>
+    <script src="includes/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $.getJSON("output.json", function(data) {
+          $.each(data, function(subject, typeList) {
+            $.each(typeList, function(type, objectList) {
+              $.each(objectList, function(index, object) {
+                var $tr = $("<tr>")
+                  .append(
+                    $("<td>").text(subject),
+                    $("<td>").text(type),
+                    $("<td>").text(object.value)
+                  )
+                  .appendTo("#tableBody");
+              });
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

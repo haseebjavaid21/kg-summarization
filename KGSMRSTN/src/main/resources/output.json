@@ -1,0 +1,67 @@
+{ 
+  "http://dbpedia.org/resource/Świętokrzyskie_Voivodeship" : { 
+    "http://dbpedia.org/ontology/isPartOf" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Gmina_Pacanów"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Gmina" : { 
+    "http://purl.org/linguistics/gold/hypernym" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Gmina_Pacanów"
+    }
+     ]
+  }
+   ,
+  "http://www.wikidata.org/entity/Q553728" : { 
+    "http://www.w3.org/2002/07/owl#sameAs" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Gmina_Pacanów"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Voivodeships_of_Poland" : { 
+    "http://dbpedia.org/property/subdivisionType" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Gmina_Pacanów"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Gmina_Pacanów" : { 
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/ontology/Settlement"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://www.wikidata.org/entity/Q486972"
+    }
+     ] ,
+    "http://www.w3.org/2002/07/owl#sameAs" : [ { 
+      "type" : "uri" ,
+      "value" : "http://www.wikidata.org/entity/Q553728"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Gmina_Pacanów"
+    }
+     ] ,
+    "http://dbpedia.org/property/seat" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Pacanów"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Busko_County" : { 
+    "http://dbpedia.org/ontology/isPartOf" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Gmina_Pacanów"
+    }
+     ]
+  }
+}

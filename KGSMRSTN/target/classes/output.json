@@ -1,0 +1,71 @@
+{ 
+  "http://dbpedia.org/resource/Category:Physiographic_sections" : { 
+    "http://purl.org/dc/terms/subject" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/White_Mountains_(New_Hampshire)"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/White_Mountains_(New_Hampshire)" : { 
+    "http://purl.org/linguistics/gold/hypernym" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Range"
+    }
+     ] ,
+    "http://www.w3.org/2002/07/owl#sameAs" : [ { 
+      "type" : "uri" ,
+      "value" : "http://www.wikidata.org/entity/Q1556007"
+    }
+     ] ,
+    "http://purl.org/dc/terms/subject" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Category:Cretaceous_volcanism"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Category:White_Mountain_National_Forest"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/ontology/MountainRange" : { 
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/White_Mountains_(New_Hampshire)"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Category:White_Mountains_(New_Hampshire)" : { 
+    "http://purl.org/dc/terms/subject" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/White_Mountains_(New_Hampshire)"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Category:Cretaceous_volcanism" : { 
+    "http://purl.org/dc/terms/subject" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/White_Mountains_(New_Hampshire)"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Category:Volcanism_of_New_Hampshire" : { 
+    "http://purl.org/dc/terms/subject" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/White_Mountains_(New_Hampshire)"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Category:White_Mountain_National_Forest" : { 
+    "http://purl.org/dc/terms/subject" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/White_Mountains_(New_Hampshire)"
+    }
+     ]
+  }
+}
