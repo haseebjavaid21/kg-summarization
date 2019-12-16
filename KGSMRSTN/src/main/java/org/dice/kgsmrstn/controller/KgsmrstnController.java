@@ -32,102 +32,95 @@ import com.google.gson.Gson;
 @RestController
 public class KgsmrstnController {
 
-	@GetMapping(value = "/kgraph/type/{type}/max/{max}/min/{min}",produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
-    public Boolean getKGraph( @PathVariable("type") String type, @PathVariable("max") int max, @PathVariable("min") int min) {
-		
-		final TripleSelectorFactory factory = new TripleSelectorFactory();
-		TripleSelector tripleSelector = null;
-		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
-		runConfig.setSqparqlEndPoint("http://dbpedia.org/sparql");
-		runConfig.setMinSentence(min);
-		runConfig.setMaxSentence(max);
-		runConfig.setSeed(System.nanoTime());
-		runConfig.setSelectorType(type);
-		
-		List<Statement> triples;
-		final Set<String> classes = new HashSet<>();
-		classes.add("<http://dbpedia.org/ontology/Person>");
-		classes.add("<http://dbpedia.org/ontology/Place>");
-		classes.add("<http://dbpedia.org/ontology/Organisation>");
-		
-		SelectorType selectorType = runConfig.getSelectorTypeEnum();
-		
-		tripleSelector = factory.create(selectorType, classes,
-				 new HashSet<>(), runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
-				runConfig.getSeed());
-		
-		triples = tripleSelector.getNextStatements();
-		
-		//Possible Solution #1,but written as a JSON file.
-		Model m = ModelFactory.createDefaultModel();
-		ListIterator<Statement> StmtIterator = triples.listIterator();
-		try {
-            while (StmtIterator.hasNext()) {
-            	Statement stmt = (Statement) StmtIterator.next();
-                m.add(stmt);
-            }
-        } 
-        catch(Exception e){
-        	e.printStackTrace();
-        }
-        FileOutputStream oFile = null;
-		try {
-			oFile = new FileOutputStream("./src/main/resources/output.json", false);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
-        m = m.write(oFile, "RDF/JSON");
-		if(!(m.isEmpty()))
-			return true;
-		else return false;
-		
-		
-		/*FileOutputStream oFile;
-		oFile = new FileOutputStream("output4.json", false);
-		ResultSetFormatter.outputAsJSON(oFile, triples);*/
-		
-		
-        
-        //Sol #2,Exception thrown
-        /*List<ModelDTO> list=new ArrayList<ModelDTO>();
-		StmtIterator = triples.listIterator();
+    @GetMapping(value = "/kgraph/type/{type}/max/{max}/min/{min}", produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
+    public Boolean getKGraph(@PathVariable("type") String type, @PathVariable("max") int max, @PathVariable("min") int min) {
+
+        final TripleSelectorFactory factory = new TripleSelectorFactory();
+        TripleSelector tripleSelector = null;
+        KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
+        runConfig.setSqparqlEndPoint("http://dbpedia.org/sparql");
+        runConfig.setMinSentence(min);
+        runConfig.setMaxSentence(max);
+        runConfig.setSeed(System.nanoTime());
+        runConfig.setSelectorType(type);
+        //runConfig.setSelectorType("simple");
+
+        List<Statement> triples;
+        final Set<String> classes = new HashSet<>();
+        classes.add("<http://dbpedia.org/ontology/Person>");
+        classes.add("<http://dbpedia.org/ontology/Place>");
+        classes.add("<http://dbpedia.org/ontology/Organisation>");
+
+        SelectorType selectorType = runConfig.getSelectorTypeEnum();
+
+        tripleSelector = factory.create(selectorType, classes,
+                         new HashSet<>(), runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
+                        runConfig.getSeed());
+
+        triples = tripleSelector.getNextStatements();
+
+        //Possible Solution #1,but written as a JSON file.
+        Model m = ModelFactory.createDefaultModel();
+        ListIterator<Statement> StmtIterator = triples.listIterator();
         try {
             while (StmtIterator.hasNext()) {
-            	Statement stmt = (Statement) StmtIterator.next();
-                Resource s = stmt.getSubject();
-                Resource p = stmt.getPredicate();
-                RDFNode o = stmt.getObject();
-                ModelDTO modelDTO = new ModelDTO();
-                modelDTO.setSubject(s);
-                modelDTO.setPredicate(p);
-                modelDTO.setObject(o);
-                list.add(modelDTO);
+                Statement stmt = (Statement) StmtIterator.next();
+                m.add(stmt);
             }
-        } 
-        catch(Exception e){
-        	e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return list;*/
-      
-        
+        FileOutputStream oFile = null;
+        try {
+            oFile = new FileOutputStream("./src/main/resources/output.json", false);
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        m = m.write(oFile, "RDF/JSON");
+        if (!(m.isEmpty())) {
+            return true;
+        } else {
+            return false;
+        }
+
+        /*FileOutputStream oFile;
+         oFile = new FileOutputStream("output4.json", false);
+         ResultSetFormatter.outputAsJSON(oFile, triples);*/
+        //Sol #2,Exception thrown
+        /*List<ModelDTO> list=new ArrayList<ModelDTO>();
+         StmtIterator = triples.listIterator();
+         try {
+         while (StmtIterator.hasNext()) {
+         Statement stmt = (Statement) StmtIterator.next();
+         Resource s = stmt.getSubject();
+         Resource p = stmt.getPredicate();
+         RDFNode o = stmt.getObject();
+         ModelDTO modelDTO = new ModelDTO();
+         modelDTO.setSubject(s);
+         modelDTO.setPredicate(p);
+         modelDTO.setObject(o);
+         list.add(modelDTO);
+         }
+         } 
+         catch(Exception e){
+         e.printStackTrace();
+         }
+         return list;*/
       //Sol #4,Exception again
         /*String triplesAsString  = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-	    objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-	    try {
-			triplesAsString = objectMapper.writeValueAsString(triples);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    return triplesAsString;*/
-	    
+         ObjectMapper objectMapper = new ObjectMapper();
+         objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+         try {
+         triplesAsString = objectMapper.writeValueAsString(triples);
+         } catch (JsonProcessingException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+         }
+         return triplesAsString;*/
 	  //Sol #3,Exception thrown
   		/*Gson json = new Gson();
-  		String response = json.toJson(m);
-        return response;*/
-        
-        
+         String response = json.toJson(m);
+         return response;*/
     }
 
 }
