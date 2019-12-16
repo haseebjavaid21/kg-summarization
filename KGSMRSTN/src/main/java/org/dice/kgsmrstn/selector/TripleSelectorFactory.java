@@ -15,7 +15,7 @@ import java.util.Set;
 public class TripleSelectorFactory {
 
 	public enum SelectorType {
-		STAR, SIM_STAR, PATH, HYBRID
+		STAR, SIM_STAR, PATH, HYBRID, SIMPLE
 	};
 
 	public TripleSelector create(SelectorType type, Set<String> sourceClasses, Set<String> targetClasses,
@@ -31,6 +31,8 @@ public class TripleSelectorFactory {
 			return new PathBasedTripleSelector(sourceClasses, targetClasses, endpoint, graph, minSize, maxSize, seed);
 		case HYBRID:
 			return new HybridTripleSelector(sourceClasses, targetClasses, endpoint, graph, minSize, maxSize, seed);
+                case SIMPLE:
+			return new SimpleSelector(sourceClasses, targetClasses, endpoint, graph);
 		}
 		return null;
 	}
