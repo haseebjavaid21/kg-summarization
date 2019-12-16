@@ -33,7 +33,7 @@ import com.google.gson.Gson;
 public class KgsmrstnController {
 
 	@GetMapping(value = "/kgraph/type/{type}/max/{max}/min/{min}",produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
-    public Boolean getKGraph( @PathVariable("type") String type, @PathVariable("max") int max, @PathVariable("min") int min) {
+    public List<ModelDTO> getKGraph( @PathVariable("type") String type, @PathVariable("max") int max, @PathVariable("min") int min) {
 		
 		final TripleSelectorFactory factory = new TripleSelectorFactory();
 		TripleSelector tripleSelector = null;
@@ -59,7 +59,7 @@ public class KgsmrstnController {
 		triples = tripleSelector.getNextStatements();
 		
 		//Possible Solution #1,but written as a JSON file.
-		Model m = ModelFactory.createDefaultModel();
+		/*Model m = ModelFactory.createDefaultModel();
 		ListIterator<Statement> StmtIterator = triples.listIterator();
 		try {
             while (StmtIterator.hasNext()) {
@@ -79,7 +79,7 @@ public class KgsmrstnController {
         m = m.write(oFile, "RDF/JSON");
 		if(!(m.isEmpty()))
 			return true;
-		else return false;
+		else return false;*/
 		
 		
 		/*FileOutputStream oFile;
@@ -89,8 +89,8 @@ public class KgsmrstnController {
 		
         
         //Sol #2,Exception thrown
-        /*List<ModelDTO> list=new ArrayList<ModelDTO>();
-		StmtIterator = triples.listIterator();
+        List<ModelDTO> list=new ArrayList<ModelDTO>();
+        ListIterator<Statement> StmtIterator = triples.listIterator();
         try {
             while (StmtIterator.hasNext()) {
             	Statement stmt = (Statement) StmtIterator.next();
@@ -107,7 +107,7 @@ public class KgsmrstnController {
         catch(Exception e){
         	e.printStackTrace();
         }
-        return list;*/
+        return list;
       
         
       //Sol #4,Exception again
