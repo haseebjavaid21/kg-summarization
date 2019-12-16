@@ -75,11 +75,10 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
         query = "PREFIX : <http://dbpedia.org/resource/>\n"
                 + "SELECT * WHERE {\n"
                 + "?s ?p ?o\n"
-                + "FILTER (?s=<http://dbpedia.org/resource/Brad_Pitt>)\n"
+                + "FILTER (?s=<http://dbpedia.org/resource/Brad_Pitt> OR ?o=<http://dbpedia.org/resource/Brad_Pitt>)\n"
                 + "}";
                // }
         // OR ?o=<http://dbpedia.org/resource/Brad_Pitt>
-        System.out.println("Query " + query);
         Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
 
         QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
