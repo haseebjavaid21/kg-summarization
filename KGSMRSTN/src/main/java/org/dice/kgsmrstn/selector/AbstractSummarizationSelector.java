@@ -6,12 +6,19 @@
 package org.dice.kgsmrstn.selector;
 
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
+
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import org.aksw.agdistis.graph.Node;
+import org.aksw.agdistis.graph.PageRank;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -41,6 +48,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
     private String endpoint;
     private String graph;
     private boolean useSymmetricCbd = false;
+    DirectedSparseGraph<Node, String> g = new DirectedSparseGraph<Node, String>();
 
     public AbstractSummarizationSelector(Set<String> targetClasses, String endpoint, String graph) {
         this.targetClasses = targetClasses;
@@ -72,11 +80,12 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
     protected List<Statement> getResources(Set<String> classes) {
         String query = "";
         // if (classes == null && classes.isEmpty()) {
-        query = "PREFIX : <http://dbpedia.org/resource/>\n"
-                + "SELECT * WHERE {\n"
-                + "?s ?p ?o\n"
-                + "FILTER (?s=<http://dbpedia.org/resource/Brad_Pitt>)\n"
-                + "}";
+        query = "PREFIX dbr: <http://dbpedia.org/resource/>\n"
+        	   +"PREFIX dbo: <http://dbpedia.org/ontology/>\n"
+                + "SELECT DISTINCT  * WHERE {\n"
+                + "?s  a                     dbo:Person ;\n"
+                + "    ?p                    ?o\n"
+                + "} LIMIT 1000";
                // }
         // OR ?o=<http://dbpedia.org/resource/Brad_Pitt>
         System.out.println("Query " + query);
@@ -86,7 +95,36 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
         List result = new ArrayList<>();
         Model m = ModelFactory.createDefaultModel();
         // execute a Select query
+//        try {
+//            ResultSet results = httpQuery.execSelect();
+//            QuerySolution solution;
+//            int xx = 0;
+//            while (results.hasNext()) {
+//                solution = results.next();
+//                // get the value of the variables in the select clause
+//                try {
+//                    Property p = m.createProperty(solution.get("p").asResource().getURI());
+//                    if (solution.get("o").isLiteral()) {
+//                        m.add(solution.getResource("s"), p, solution.getLiteral("o"));
+//                    } else {
+//                        m.add(solution.getResource("s"), p, solution.getResource("o"));
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+////                xx += 1;
+////                if(xx == 10) {
+////                    break;
+////                }
+//            }
+//        } finally {
+//            httpQuery.close();
+//        }
+        
+        
+        //Shreyas code
         try {
+        	
             ResultSet results = httpQuery.execSelect();
             QuerySolution solution;
             int xx = 0;
@@ -94,23 +132,45 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
                 solution = results.next();
                 // get the value of the variables in the select clause
                 try {
-                    Property p = m.createProperty(solution.get("p").asResource().getURI());
-                    if (solution.get("o").isLiteral()) {
-                        m.add(solution.getResource("s"), p, solution.getLiteral("o"));
-                    } else {
-                        m.add(solution.getResource("s"), p, solution.getResource("o"));
-                    }
+//                    Property p = m.createProperty(solution.get("p").asResource().getURI());
+//                    if (solution.get("o").isLiteral()) {
+//                        m.add(solution.getResource("s"), p, solution.getLiteral("o"));
+//                    } else {
+//                        m.add(solution.getResource("s"), p, solution.getResource("o"));
+//                    }
+                	
+//               	Node node = (Node) solution.get("o");
+//                	String s = solution.get("p").toString();
+//                	 g.addEdge(s, (Node) solution.get("s"), node);
+                	
+                	
+                	String s = solution.get("s").toString();
+                	String p = solution.get("p").toString();
+                	String o = solution.get("o").toString();
+                	
+                	Node curr_s = new Node(s, 0, 0, "pagerank");
+                	Node curr_o = new Node(o, 0, 1, "pagerank");
+                	if(!(g.containsEdge(p) && g.containsVertex(curr_s)))
+                		g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
+                	
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-//                xx += 1;
-//                if(xx == 10) {
-//                    break;
-//                }
+
             }
         } finally {
             httpQuery.close();
         }
+        
+        PageRank pr = new PageRank();
+		pr.runPr(g, 100, 0.001);
+		
+		Collection<Node> nodes = g.getVertices();
+		
+		
+		
+		
+        System.out.println("Graph conatins "+g.getVertexCount()+" verticies and "+g.getEdgeCount()+" edges");
         return sortStatements(m.listStatements());
     }
 
