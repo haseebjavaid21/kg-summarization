@@ -165,12 +165,16 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
         PageRank pr = new PageRank();
 		pr.runPr(g, 100, 0.001);
 		
-		Collection<Node> nodes = g.getVertices();
+		ArrayList<Node> orderedList = new ArrayList<Node>();
+		orderedList.addAll(g.getVertices());
+		Collections.sort(orderedList);
 		
 		
 		
 		
-        System.out.println("Graph conatins "+g.getVertexCount()+" verticies and "+g.getEdgeCount()+" edges");
+		
+		
+        System.out.println("Vertcies are "+orderedList.toString());
         return sortStatements(m.listStatements());
     }
 
