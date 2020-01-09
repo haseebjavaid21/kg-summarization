@@ -1,4 +1,4 @@
-package org.aksw.agdistis.util;
+package org.dice.kgsmrstn.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,11 +55,10 @@ public class TripleIndex {
 
 	public TripleIndex() throws IOException {
 		Properties prop = new Properties();
-		InputStream input = TripleIndex.class.getResourceAsStream("/config/agdistis.properties");
+		InputStream input = TripleIndex.class.getResourceAsStream("/application.properties");
 		prop.load(input);
 
-		String envIndex = System.getenv("AGDISTIS_INDEX");
-		String index = envIndex != null ? envIndex : prop.getProperty("index");
+		String index = prop.getProperty("index");
 		log.info("The index will be here: " + index);
 
 		directory = new MMapDirectory(new File(index));

@@ -15,9 +15,11 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.dice.kgsmrstn.config.KgsmrstnRunConfig;
 import org.dice.kgsmrstn.config.ModelDTO;
+import org.dice.kgsmrstn.selector.AbstractSummarizationSelector;
 import org.dice.kgsmrstn.selector.TripleSelector;
 import org.dice.kgsmrstn.selector.TripleSelectorFactory;
 import org.dice.kgsmrstn.selector.TripleSelectorFactory.SelectorType;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,14 +33,23 @@ import com.google.gson.Gson;
 
 @RestController
 public class KgsmrstnController {
+	
+	private static final String DB_ONTOLOGY_PERSON = "<http://dbpedia.org/ontology/Person>";
+	private static final String DB_ONTOLOGY_PLACE = "<http://dbpedia.org/ontology/Place>";
+	private static final String DB_ONTOLOGY_ORGANISATION = "<http://dbpedia.org/ontology/Organisation>";
+	private static final String ENDPOINT = "http://dbpedia.org/sparql";
+	
+	private org.slf4j.Logger log = LoggerFactory.getLogger(KgsmrstnController.class);
 
     @GetMapping(value = "/kgraph/type/{type}/max/{max}/min/{min}", produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
     public Boolean getKGraph(@PathVariable("type") String type, @PathVariable("max") int max, @PathVariable("min") int min) {
 
+    	log.info("In getKGraph");
+    	
         final TripleSelectorFactory factory = new TripleSelectorFactory();
         TripleSelector tripleSelector = null;
         KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
-        runConfig.setSqparqlEndPoint("http://dbpedia.org/sparql");
+        runConfig.setSqparqlEndPoint(ENDPOINT);
         runConfig.setMinSentence(min);
         runConfig.setMaxSentence(max);
         runConfig.setSeed(System.nanoTime());
@@ -47,9 +58,9 @@ public class KgsmrstnController {
 
         List<Statement> triples;
         final Set<String> classes = new HashSet<>();
-        classes.add("<http://dbpedia.org/ontology/Person>");
-        classes.add("<http://dbpedia.org/ontology/Place>");
-        classes.add("<http://dbpedia.org/ontology/Organisation>");
+        classes.add(DB_ONTOLOGY_PERSON);
+        classes.add(DB_ONTOLOGY_PLACE);
+        classes.add(DB_ONTOLOGY_ORGANISATION);
 
         SelectorType selectorType = runConfig.getSelectorTypeEnum();
 

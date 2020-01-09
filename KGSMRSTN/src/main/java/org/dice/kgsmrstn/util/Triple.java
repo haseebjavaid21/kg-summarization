@@ -1,4 +1,4 @@
-package org.aksw.agdistis.util;
+package org.dice.kgsmrstn.util;
 
 public class Triple implements Comparable<Triple> {
 	public Triple(String subject, String predicate, String object) {

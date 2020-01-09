@@ -1,4 +1,4 @@
-package org.aksw.agdistis.graph;
+package org.dice.kgsmrstn.graph;
 
 import java.io.IOException;
 import java.text.DecimalFormat;

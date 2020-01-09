@@ -1,4 +1,4 @@
-package org.aksw.agdistis.util;
+package org.dice.kgsmrstn.util;
 
 import java.io.Reader;
 
