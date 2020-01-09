@@ -5,6 +5,7 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,8 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.Syntax;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
@@ -29,12 +32,16 @@ import org.slf4j.LoggerFactory;
  *
  * @author Haseeb Javaid
  */
-public abstract class AbstractSummarizationSelector implements TripleSelector {
+public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 	private static final String DB_RESOURCE = "http://dbpedia.org/resource/";
 	private static final String DB_ONTOLOGY = "http://dbpedia.org/ontology/";
 
 	private static final String ALGORITHM = "pagerank";
+	
+	//private List<String> topEntitiesBeforeExpansion = new ArrayList<String>();
+	private List<String> topEntitiesBeforeExpansion = new ArrayList<String>();
+	public List<Model> triples = new ArrayList<Model>();
 
 	private org.slf4j.Logger log = LoggerFactory.getLogger(AbstractSummarizationSelector.class);
 
@@ -60,8 +67,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 
 		QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
 		new ArrayList<>();
-		Model m = ModelFactory.createDefaultModel();
-		try {
+			Model m = ModelFactory.createDefaultModel();
+			try {
 
 			ResultSet results = httpQuery.execSelect();
 			QuerySolution solution;
@@ -87,11 +94,37 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 			httpQuery.close();
 		}
 
-		// run Page Rank
+		// run Page Rank to get the top entities of type 'Person'
 		List<Node> highRankNodes = runPageRank(g);
 		
+		for(Node node:highRankNodes) {
+			topEntitiesBeforeExpansion.add(node.getCandidateURI());
+		}
+		//run BFS
+		DirectedSparseGraph<Node, String> graph = runBFS(highRankNodes);
+		
+		//Finally run the Page Rank algorithm to the entities after their BFS expansion
+		List<Node> topNodes = runPageRank(graph);
+		Model model = ModelFactory.createDefaultModel();
+		for(Node node: topNodes) {
+			
+			Collection<Node> neighbourNodes = graph.getNeighbors(node);
+			for(Node succesorNode : neighbourNodes ) {
+				
+				String sub = node.getCandidateURI();
+				String pred = graph.findEdge(node, succesorNode);
+				String object = succesorNode.getCandidateURI();
+				
+				Resource subject = model.createResource(sub);
+				//TODO NPE
+				Property predicate = model.createProperty(pred.split(";")[1]);
 
-		return sortStatements(m.listStatements());
+				model.add(subject, predicate, object);
+			}
+			
+		}
+		
+		return sortStatements(model.listStatements());
 	}
 
 
@@ -110,9 +143,33 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 			}
 
 		}
-		highRankNodes = highRankNodes.subList(0, 10);
+		highRankNodes = highRankNodes.subList(0, 50);
 		return highRankNodes;
 
+	}
+	
+	private DirectedSparseGraph<Node, String> runBFS(List<Node> highRankNodes) {
+    	Integer maxDepth = 2;
+    	String edgeType = DB_ONTOLOGY;
+    	String nodeType = DB_RESOURCE;
+    	DirectedSparseGraph<Node, String> graph = new DirectedSparseGraph<Node, String>();
+    	for (Node node: highRankNodes) {
+		graph.addVertex(node);	
+		}
+    	BreadthFirstSearch bfs = null;
+		try {
+			bfs = new BreadthFirstSearch(new TripleIndex(), ALGORITHM);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			graph = bfs.run(maxDepth, graph, edgeType, nodeType);
+		} catch (UnsupportedEncodingException e) {
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return graph;
 	}
 
 	protected List<Statement> sortStatements(StmtIterator stmtIterator) {
