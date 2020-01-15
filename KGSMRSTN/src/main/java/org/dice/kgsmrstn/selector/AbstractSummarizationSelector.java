@@ -39,10 +39,6 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 	private static final String ALGORITHM = "pagerank";
 	
-	//private List<String> topEntitiesBeforeExpansion = new ArrayList<String>();
-	private List<String> topEntitiesBeforeExpansion = new ArrayList<String>();
-	public List<Model> triples = new ArrayList<Model>();
-
 	private org.slf4j.Logger log = LoggerFactory.getLogger(AbstractSummarizationSelector.class);
 
 	private String endpoint;
@@ -58,18 +54,18 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 	}
 
 	protected List<Statement> getResources(Set<String> classes) {
-		String query = "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
-				+ "SELECT DISTINCT  * WHERE {\n" + "?s  a                     dbo:Person ;\n"
-				+ "    ?p                    ?o\n" + "} LIMIT 10000";
+		String query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +  "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+				+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
+				+ "    ?p                    ?o\n" 
+				+"FILTER  regex(?o, 'http://xmlns.com/foaf/0.1/')."
+				+"} LIMIT 10000";
 		// }
 		log.info("Query " + query);
 		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
 
 		QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
-		new ArrayList<>();
-			Model m = ModelFactory.createDefaultModel();
+		List<Node> allNodesRanked = new ArrayList<Node>();
 			try {
-
 			ResultSet results = httpQuery.execSelect();
 			QuerySolution solution;
 			while (results.hasNext()) {
@@ -84,7 +80,6 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 					Node curr_o = new Node(o, 0, 1, ALGORITHM);
 					if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
 						g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -95,33 +90,40 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		}
 
 		// run Page Rank to get the top entities of type 'Person'
-		List<Node> highRankNodes = runPageRank(g);
+		allNodesRanked = runPageRank(g);
 		
-		for(Node node:highRankNodes) {
-			topEntitiesBeforeExpansion.add(node.getCandidateURI());
+		List<Node> highRankNodes = new ArrayList<Node>();
+		for (Node node : allNodesRanked) {
+			if (node.getCandidateURI().contains(DB_RESOURCE)) {
+				highRankNodes.add(node);
+			}
 		}
+		//get 'Top-50' nodes
+		highRankNodes = highRankNodes.subList(0, 50);
+		
 		//run BFS
 		DirectedSparseGraph<Node, String> graph = runBFS(highRankNodes);
 		
 		//Finally run the Page Rank algorithm to the entities after their BFS expansion
 		List<Node> topNodes = runPageRank(graph);
 		Model model = ModelFactory.createDefaultModel();
+		//form the triples of all the top nodes 
 		for(Node node: topNodes) {
-			
-			Collection<Node> neighbourNodes = graph.getNeighbors(node);
-			for(Node succesorNode : neighbourNodes ) {
-				
-				String sub = node.getCandidateURI();
-				String pred = graph.findEdge(node, succesorNode);
-				String object = succesorNode.getCandidateURI();
-				
-				Resource subject = model.createResource(sub);
-				//TODO NPE
-				Property predicate = model.createProperty(pred.split(";")[1]);
-
-				model.add(subject, predicate, object);
+			if(highRankNodes.contains(node)){
+				Collection<Node> neighbourNodes = graph.getNeighbors(node);
+				for(Node succesorNode : neighbourNodes ) {
+					
+					String sub = node.getCandidateURI();
+					String pred = graph.findEdge(node, succesorNode);
+					String object = succesorNode.getCandidateURI();
+					
+					if(pred!= null){
+						Resource subject = model.createResource(sub);
+						Property predicate = model.createProperty(pred.split(";")[1]);
+						model.add(subject, predicate, object);
+					}
+				}
 			}
-			
 		}
 		
 		return sortStatements(model.listStatements());
@@ -136,15 +138,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		orderedList.addAll(g.getVertices());
 		Collections.sort(orderedList);
 
-		List<Node> highRankNodes = new ArrayList<Node>();
-		for (Node node : g.getVertices()) {
-			if (node.getCandidateURI().contains(DB_RESOURCE)) {
-				highRankNodes.add(node);
-			}
-
-		}
-		highRankNodes = highRankNodes.subList(0, 50);
-		return highRankNodes;
+		return orderedList;
 
 	}
 	
