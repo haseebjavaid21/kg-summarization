@@ -58,9 +58,9 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 	}
 
 	protected List<Statement> getResources(Set<String> classes) {
-		String query = "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
-				+ "SELECT DISTINCT  * WHERE {\n" + "?s  a                     dbo:Person ;\n"
-				+ "    ?p                    ?o\n" + "} LIMIT 10000";
+		String query =  "select distinct ?s\n"+
+	 "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;" 
+				+ " ?p ?o.}";
 		// }
 		log.info("Query " + query);
 		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
