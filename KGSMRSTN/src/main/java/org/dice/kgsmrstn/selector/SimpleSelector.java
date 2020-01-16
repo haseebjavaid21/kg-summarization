@@ -23,6 +23,8 @@ public class SimpleSelector extends AbstractSummarizationSelector {
 	private Random r = new Random(20);
 	private int minSize = 1;
 	private int maxSize = 5;
+	private String clazz;
+	private Integer topk;
 
 	/**
 	 * Constructor
@@ -51,6 +53,7 @@ public class SimpleSelector extends AbstractSummarizationSelector {
 		}
 		this.maxSize = maxSize;
 		this.r = new Random(seed);
+		
 	}
 
 	/**
@@ -65,10 +68,12 @@ public class SimpleSelector extends AbstractSummarizationSelector {
 	 * @param graph
 	 *            Graph to query (null if none)
 	 */
-	public SimpleSelector(Set<String> sourceClasses, Set<String> targetClasses, String endpoint, String graph) {
+	public SimpleSelector(Set<String> sourceClasses, Set<String> targetClasses, String endpoint, String graph,String clazz,int topk) {
 		super(targetClasses, endpoint, graph);
 		this.sourceClasses = sourceClasses;
 		resources = null;
+		this.clazz = clazz;
+		this.topk = topk;
 	}
 
 	/**
@@ -80,7 +85,7 @@ public class SimpleSelector extends AbstractSummarizationSelector {
 	public List<Statement> getNextStatements() {
             if (resources == null) {
             	String Keyword="";
-                resources = getResources(sourceClasses,"organisation");
+                resources = getResources(sourceClasses,clazz,topk);
             }
             Set<Statement> result = new HashSet<>();
             // int size = minSize + r.nextInt(maxSize - minSize + 1);

@@ -41,8 +41,8 @@ public class KgsmrstnController {
 	
 	private org.slf4j.Logger log = LoggerFactory.getLogger(KgsmrstnController.class);
 
-    @GetMapping(value = "/kgraph/type/{type}/max/{max}/min/{min}", produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
-    public Boolean getKGraph(@PathVariable("type") String type, @PathVariable("max") int max, @PathVariable("min") int min) {
+    @GetMapping(value = "/kgraph/type/{type}/class/{clazz}/top/{topk}", produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
+    public Boolean getKGraph(@PathVariable("type") String type, @PathVariable("clazz") String clazz, @PathVariable("topk") int topk) {
 
     	log.info("In getKGraph");
     	
@@ -50,10 +50,10 @@ public class KgsmrstnController {
         TripleSelector tripleSelector = null;
         KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
         runConfig.setSqparqlEndPoint(ENDPOINT);
-        runConfig.setMinSentence(min);
-        runConfig.setMaxSentence(max);
         runConfig.setSeed(System.nanoTime());
         runConfig.setSelectorType(type);
+        runConfig.setClazz(clazz);
+        runConfig.setTopk(topk);
         //runConfig.setSelectorType("simple");
 
         List<Statement> triples;
@@ -66,7 +66,7 @@ public class KgsmrstnController {
 
         tripleSelector = factory.create(selectorType, classes,
                          new HashSet<>(), runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
-                        runConfig.getSeed());
+                        runConfig.getSeed(),runConfig.getClazz(),runConfig.getTopk());
 
         triples = tripleSelector.getNextStatements();
 

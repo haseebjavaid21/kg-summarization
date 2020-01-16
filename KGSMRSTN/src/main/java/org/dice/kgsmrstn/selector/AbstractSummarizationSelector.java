@@ -54,11 +54,11 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		this.endpoint = endpoint;
 	}
 
-	protected List<Statement> getResources(Set<String> classes, String Keyword) {
+	protected List<Statement> getResources(Set<String> classes, String clazz,int topk) {
 
 		String query = "";
 
-		switch (Keyword) {
+		switch (clazz) {
 		case "person": query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +  "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
 				+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
 				+ "    ?p                    ?o\n" 
@@ -141,7 +141,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 		}
 		//get 'Top-50' nodes
-		highRankNodes = highRankNodes.subList(0, 50);
+		highRankNodes = highRankNodes.subList(0, topk);
 
 		//run BFS
 		DirectedSparseGraph<Node, String> graph = runBFS(highRankNodes);
