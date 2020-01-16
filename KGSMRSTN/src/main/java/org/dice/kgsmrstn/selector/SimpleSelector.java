@@ -79,7 +79,8 @@ public class SimpleSelector extends AbstractSummarizationSelector {
 	@Override
 	public List<Statement> getNextStatements() {
             if (resources == null) {
-                resources = getResources(sourceClasses);
+            	String Keyword="";
+                resources = getResources(sourceClasses,"organisation");
             }
             Set<Statement> result = new HashSet<>();
             // int size = minSize + r.nextInt(maxSize - minSize + 1);

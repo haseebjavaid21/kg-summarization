@@ -10,6 +10,7 @@ public class Node implements Comparable<Node> {
 	private double activation;
 	private String candidateURI;
 	private String algo;
+	private String type;
 	private int level;
 	private double hubWeightForCalculation = 1;
 	private double authorityWeightForCalculation = 1;
@@ -34,6 +35,7 @@ public class Node implements Comparable<Node> {
 		this.predecessors = new HashSet<Node>();
 		this.pageRank = 0;
 		this.algo = algo;
+		
 	}
 
 	@Override
@@ -101,6 +103,11 @@ public class Node implements Comparable<Node> {
 
 	public void addId(int id) {
 		ids.add(id);
+	}
+	
+	public String gettype() {
+		
+		return type;
 	}
 
 	public HashSet<Integer> getId() {
