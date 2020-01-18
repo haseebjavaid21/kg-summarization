@@ -19,7 +19,7 @@ public class TripleSelectorFactory {
 	};
 
 	public TripleSelector create(SelectorType type, Set<String> sourceClasses, Set<String> targetClasses,
-			String endpoint, String graph, int minSize, int maxSize, long seed) {
+			String endpoint, String graph, int minSize, int maxSize, long seed,String clazz,int topk) {
 		switch (type) {
 		case STAR:
 			return new SimpleSummarySelector(sourceClasses, targetClasses, endpoint, graph, minSize, maxSize, seed,
@@ -31,8 +31,8 @@ public class TripleSelectorFactory {
 			return new PathBasedTripleSelector(sourceClasses, targetClasses, endpoint, graph, minSize, maxSize, seed);
 		case HYBRID:
 			return new HybridTripleSelector(sourceClasses, targetClasses, endpoint, graph, minSize, maxSize, seed);
-                case SIMPLE:
-			return new SimpleSelector(sourceClasses, targetClasses, endpoint, graph);
+        case SIMPLE:
+			return new SimpleSelector(sourceClasses, targetClasses, endpoint, graph,clazz,topk);
 		}
 		return null;
 	}
