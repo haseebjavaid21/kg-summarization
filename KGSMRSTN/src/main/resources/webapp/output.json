@@ -1,0 +1,1448 @@
+{ 
+  "http://dbpedia.org/resource/Christopher_Timothy" : { 
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Bala,_Gwynedd"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/occupation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Christopher_Timothy__1"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Walter_Gilbert" : { 
+    "http://dbpedia.org/ontology/doctoralStudent" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Helen_Donis-Keller"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/George_M._Church"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Benno_Müller-Hill"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gerald_Guralnik"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/field" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Biochemistry"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Physics"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/award" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Nobel_Prize_in_Chemistry"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/NAS_Award_in_Molecular_Biology"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Louisa_Gross_Horwitz_Prize"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/almaMater" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/University_of_Cambridge"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Harvard_University"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Massachusetts"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Boston"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/doctoralAdvisor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Abdus_Salam"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/James_Hill_(master_mason)" : { 
+    "http://dbpedia.org/ontology/country" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/United_Kingdom"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Hunter_Tootoo" : { 
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/George_Qulaut"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/party" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Liberal_Party_of_Canada"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Rankin_Inlet"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Northwest_Territories"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/primeMinister" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Justin_Trudeau"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/otherParty" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/New_Democratic_Party"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Albert_Moore_(footballer,_born_1863)" : { 
+    "http://dbpedia.org/ontology/team" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Notts_County_F.C."
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Forward_(association_football)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Nottingham"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/careerStation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Albert_Moore_(footballer,_born_1863)__1"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Count_Francesco_Matarazzo" : { 
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Province_of_Salerno"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Kingdom_of_Italy"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Castellabate"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Brazil"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/São_Paulo"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/São_Paulo_(state)"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Aimé_Bonpland" : { 
+    "http://dbpedia.org/ontology/knownFor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Alexander_von_Humboldt"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/field" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Physician"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Biologist"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Botany"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Natural_history"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/award" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/French_Academy_of_Sciences"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/almaMater" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/University_of_Paris"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/La_Rochelle"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/France"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Paso_de_los_Libres"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Argentina"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/nationality" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/French_people"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/George_Grant_(baseball)" : { 
+    "http://dbpedia.org/ontology/debutTeam" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/History_of_the_St._Louis_Browns"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Pitcher"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Tallassee,_Alabama"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Montgomery,_Alabama"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/William_Vickrey" : { 
+    "http://dbpedia.org/ontology/influenced" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Harvey_J._Levin"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jacques_Drèze"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/award" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Nobel_Memorial_Prize_in_Economic_Sciences"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/field" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Public_economics"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/almaMater" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Yale_University"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/influencedBy" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Harold_Hotelling"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/John_Maynard_Keynes"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Canada"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Victoria,_British_Columbia"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Harrison,_New_York"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/United_States"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/institution" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Columbia_University"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart" : { 
+    "http://dbpedia.org/ontology/team" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/C.R.D._Libolo"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/União_São_João_Esporte_Clube"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/FK_Železnik"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Clube_Atlético_Penapolense"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Busan_IPark"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/W_Connection_F.C."
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Midfielder"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Brazil"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/São_Gonçalo,_Rio_de_Janeiro"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/careerStation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart__3"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart__2"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart__9"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart__8"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart__7"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart__6"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart__5"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gefferson_da_Silva_Goulart__4"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Jerome_Allen_(basketball)" : { 
+    "http://dbpedia.org/ontology/college" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Penn_Quakers_men's_basketball"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Philadelphia"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/termPeriod" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__1"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__5"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__4"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__10"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__3"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__2"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__9"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__8"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__7"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jerome_Allen_(basketball)__6"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/draftTeam" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Minnesota_Timberwolves"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Josh_Brookes" : { 
+    "http://dbpedia.org/ontology/team" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Shaun_Muir_Racing"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Sydney"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/New_South_Wales"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Jonas_Svensson_(tennis)" : { 
+    "http://dbpedia.org/ontology/country" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Sweden"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gothenburg"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/residence" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Monte_Carlo"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/John_Watkins_(baseball)" : { 
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Catcher"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Manager_(baseball)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Durham,_North_Carolina"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Ferenc_Münnich" : { 
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/János_Kádár"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/party" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hungarian_Socialist_Workers'_Party"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hungarian_Working_People's_Party"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hungarian_Communist_Party"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Seregélyes"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Austria-Hungary"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hungarian_People's_Republic"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Budapest"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/nationality" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hungary"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Jack_Clancy" : { 
+    "http://dbpedia.org/ontology/team" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Green_Bay_Packers"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Miami_Dolphins"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Wide_receiver"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Iowa_Hawkeyes_football"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Humboldt,_Iowa"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Ted_Harris_(mathematician)" : { 
+    "http://dbpedia.org/ontology/knownFor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Harris_chain"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/almaMater" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Princeton_University"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/doctoralAdvisor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Samuel_S._Wilks"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Christopher_Windebank" : { 
+    "http://dbpedia.org/ontology/nationality" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/United_Kingdom"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/England"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Jørn_Utzon" : { 
+    "http://dbpedia.org/ontology/award" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Pritzker_Architecture_Prize"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Denmark"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Copenhagen"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Helsingør"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/significantBuilding" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Bagsværd_Church"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Sydney_Opera_House"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Kuwait_National_Assembly_Building"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Ernst_Grünfeld" : { 
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Austria"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Bonnie_Korzeniowski" : { 
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Deanne_Crothers"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/predecessor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/MaryAnn_Mihychuk"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/party" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Manitoba_New_Democratic_Party"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/religion" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/United_Church_of_Canada"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/termPeriod" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Bonnie_Korzeniowski__1"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/region" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/St._James_(provincial_electoral_district)"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Chic_Milligan" : { 
+    "http://dbpedia.org/ontology/team" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Colchester_United_F.C."
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Defender_(association_football)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Scotland"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Ardrossan"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/careerStation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Chic_Milligan__1"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Ashish_Bagai" : { 
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Delhi"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/John_George_III,_Elector_of_Saxony" : { 
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/John_George_IV,_Elector_of_Saxony"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/predecessor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/John_George_II,_Elector_of_Saxony"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/parent" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Margravine_Magdalene_Sibylle_of_Brandenburg-Bayreuth"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Dresden"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/restingPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Freiberg_Cathedral"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Tübingen"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/spouse" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Princess_Anna_Sophie_of_Denmark"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/George_Parker,_4th_Earl_of_Macclesfield" : { 
+    "http://dbpedia.org/ontology/predecessor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Thomas_Pelham,_2nd_Earl_of_Chichester"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Ulick_de_Burgh,_1st_Marquess_of_Clanricarde"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/termPeriod" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/George_Parker,_4th_Earl_of_Macclesfield__1"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/primeMinister" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Robert_Jenkinson,_2nd_Earl_of_Liverpool"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/William_Pitt_the_Younger"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/F._J._Robinson,_1st_Viscount_Goderich"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Spencer_Perceval"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/William_Cavendish-Bentinck,_3rd_Duke_of_Portland"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/William_Grenville,_1st_Baron_Grenville"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Arthur_Wellesley,_1st_Duke_of_Wellington"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/George_Canning"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/monarch" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/William_IV_of_the_United_Kingdom"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/George_IV_of_the_United_Kingdom"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/George_III_of_the_United_Kingdom"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/nationality" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/British_people"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/James_J._Hill" : { 
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Upper_Canada"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Guelph/Eramosa"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Saint_Paul,_Minnesota"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/occupation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/James_J._Hill__1"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/nationality" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Canadian_Americans"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Gaston_Tremblay" : { 
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Louis_Vézina"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/predecessor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Albert_Gervais"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/party" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Union_Nationale_(Quebec)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Quebec"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Quebec_City"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/termPeriod" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Gaston_Tremblay__1"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/George_Turpin" : { 
+    "http://dbpedia.org/ontology/country" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/United_Kingdom"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Farouk_of_Egypt" : { 
+    "http://dbpedia.org/ontology/predecessor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Fuad_I_of_Egypt"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Fuad_II_of_Egypt"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/parent" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Nazli_Sabri"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Abdeen_Palace"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Cairo"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Sultanate_of_Egypt"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/restingPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Al-Rifa'i_Mosque"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Egypt"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Rome"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Italy"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/spouse" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Farida_of_Egypt"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Narriman_Sadek"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Hayley_Crofts" : { 
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Invercargill"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/New_Zealand"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Al_Clancy" : { 
+    "http://dbpedia.org/ontology/debutTeam" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/History_of_the_St._Louis_Browns"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Third_baseman"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Santa_Fe,_New_Mexico"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Las_Cruces,_New_Mexico"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Harry_Taylor_(rugby_league)" : { 
+    "http://dbpedia.org/ontology/formerTeam" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hull_F.C."
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/John_Cheyne_(physician)" : { 
+    "http://dbpedia.org/ontology/knownFor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Cheyne\u2013Stokes_respiration"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/field" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Medicine"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/almaMater" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/University_of_Edinburgh"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Scotland"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Leith"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Buckinghamshire"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/England"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/residence" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/United_Kingdom"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/John_Capper" : { 
+    "http://dbpedia.org/ontology/award" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Order_of_the_Bath"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Royal_Victorian_Order"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Legion_of_Honour"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Uttar_Pradesh"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/India"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Lucknow"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/East_Sussex"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eastbourne"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/England"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/militaryBranch" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/British_Army"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/militaryUnit" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Royal_Engineers"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/battle" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/World_War_I"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Second_Boer_War"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Tirah_Campaign"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Eddie_Soto" : { 
+    "http://dbpedia.org/ontology/team" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Los_Angeles_Salsa"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/East_Los_Angeles_Cobras"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Fontana_Falcons"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Chapman_University"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Cal_State_Fullerton_Titans"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Orange_County_Blue_Star"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/United_States_national_beach_soccer_team"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Forward_(association_football)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/managerClub" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/UCLA_Bruins_men's_soccer"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/LA_Galaxy"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/California_State_University,_Fullerton"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Long_Beach_City_College"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/California_State_University,_Long_Beach"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Artesia,_California"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/careerStation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__9"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__8"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__7"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__6"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__5"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__10"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__11"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__14"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__12"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__13"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__4"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__3"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__2"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Eddie_Soto__1"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/John_Burton_(footballer,_born_1863)" : { 
+    "http://dbpedia.org/ontology/team" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Aston_Villa_F.C."
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Defender_(association_football)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Birmingham"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Handsworth,_West_Midlands"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/England"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hockley,_West_Midlands"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/careerStation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/John_Burton_(footballer,_born_1863)__3"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/John_Burton_(footballer,_born_1863)__2"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/CJ_de_Villiers" : { 
+    "http://dbpedia.org/ontology/country" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/South_Africa"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Orange_Free_State_Province"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Kroonstad"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Free_State_(province)"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Liván_Hernández" : { 
+    "http://dbpedia.org/ontology/debutTeam" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Miami_Marlins"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/position" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Pitcher"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Cuba"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Villa_Clara_Province"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Jean_Ballantyne" : { 
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hawke's_Bay_Region"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/New_Zealand"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hastings,_New_Zealand"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Ilona_Staller" : { 
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Hungary"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Budapest"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/spouse" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Jeff_Koons"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Clay_Smothers" : { 
+    "http://dbpedia.org/ontology/almaMater" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Prairie_View_A&M_University"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/party" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Republican_Party_(United_States)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Malakoff,_Texas"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Texas"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Henderson_County,_Texas"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/termPeriod" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Clay_Smothers__1"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/residence" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Dallas"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/occupation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Radio"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Teacher"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/nationality" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/African_Americans"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Edward_Hill_(politician)" : { 
+    "http://dbpedia.org/ontology/residence" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Shirley_Plantation"
+    }
+    , { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Charles_City_County,_Virginia"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/occupation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Soldier"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/child" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Edward_Hill,_Jr."
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/John_Kirby_Allen" : { 
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Thomas_Jefferson_Rusk"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/relation" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Augustus_Chapman_Allen"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/birthPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Sullivan,_New_York"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/termPeriod" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/John_Kirby_Allen__1"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/deathPlace" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Houston"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/nationality" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Texians"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Leo_IV,_King_of_Armenia" : { 
+    "http://dbpedia.org/ontology/successor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Constantine_II,_King_of_Armenia"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/predecessor" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Oshin,_King_of_Armenia"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/spouse" : [ { 
+      "type" : "literal" ,
+      "value" : "http://dbpedia.org/resource/Alice_of_Korikos"
+    }
+     ]
+  }
+}
