@@ -7,71 +7,78 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
+	
+    <link rel="apple-touch-icon" sizes="180x180" href="includes/images/icons/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="includes/images/icons/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="includes/images/icons/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <!-- Bootstrap CSS -->
 
     <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Sigma Imports -->
 
-    <script src="includes/sigma/sigma.core.js"></script>
-    <script src="includes/sigma/conrad.js"></script>
-    <script src="includes/sigma/utils/sigma.utils.js"></script>
-    <script src="includes/sigma/utils/sigma.polyfills.js"></script>
-    <script src="includes/sigma/sigma.settings.js"></script>
-    <script src="includes/sigma/classes/sigma.classes.dispatcher.js"></script>
-    <script src="includes/sigma/classes/sigma.classes.configurable.js"></script>
-    <script src="includes/sigma/classes/sigma.classes.graph.js"></script>
-    <script src="includes/sigma/classes/sigma.classes.camera.js"></script>
-    <script src="includes/sigma/classes/sigma.classes.quad.js"></script>
-    <script src="includes/sigma/classes/sigma.classes.edgequad.js"></script>
-    <script src="includes/sigma/captors/sigma.captors.mouse.js"></script>
-    <script src="includes/sigma/captors/sigma.captors.touch.js"></script>
-    <script src="includes/sigma/renderers/sigma.renderers.canvas.js"></script>
-    <script src="includes/sigma/renderers/sigma.renderers.webgl.js"></script>
-    <script src="includes/sigma/renderers/sigma.renderers.svg.js"></script>
-    <script src="includes/sigma/renderers/sigma.renderers.def.js"></script>
-    <script src="includes/sigma/renderers/webgl/sigma.webgl.nodes.def.js"></script>
-    <script src="includes/sigma/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
-    <script src="includes/sigma/renderers/webgl/sigma.webgl.edges.def.js"></script>
-    <script src="includes/sigma/renderers/webgl/sigma.webgl.edges.fast.js"></script>
-    <script src="includes/sigma/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.labels.def.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.hovers.def.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.nodes.def.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.edges.def.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.edges.curve.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
-    <script src="includes/sigma/renderers/canvas/sigma.canvas.extremities.def.js"></script>
-    <script src="includes/sigma/renderers/svg/sigma.svg.utils.js"></script>
-    <script src="includes/sigma/renderers/svg/sigma.svg.nodes.def.js"></script>
-    <script src="includes/sigma/renderers/svg/sigma.svg.edges.def.js"></script>
-    <script src="includes/sigma/renderers/svg/sigma.svg.edges.curve.js"></script>
-    <script src="includes/sigma/renderers/svg/sigma.svg.labels.def.js"></script>
-    <script src="includes/sigma/renderers/svg/sigma.svg.hovers.def.js"></script>
-    <script src="includes/sigma/middlewares/sigma.middlewares.rescale.js"></script>
-    <script src="includes/sigma/middlewares/sigma.middlewares.copy.js"></script>
-    <script src="includes/sigma/misc/sigma.misc.animation.js"></script>
-    <script src="includes/sigma/misc/sigma.misc.bindEvents.js"></script>
-    <script src="includes/sigma/misc/sigma.misc.bindDOMEvents.js"></script>
-    <script src="includes/sigma/misc/sigma.misc.drawHovers.js"></script>
+    <script src="includes/vendor/sigma/sigma.core.js"></script>
+    <script src="includes/vendor/sigma/conrad.js"></script>
+    <script src="includes/vendor/sigma/utils/sigma.utils.js"></script>
+    <script src="includes/vendor/sigma/utils/sigma.polyfills.js"></script>
+    <script src="includes/vendor/sigma/sigma.settings.js"></script>
+    <script src="includes/vendor/sigma/classes/sigma.classes.dispatcher.js"></script>
+    <script src="includes/vendor/sigma/classes/sigma.classes.configurable.js"></script>
+    <script src="includes/vendor/sigma/classes/sigma.classes.graph.js"></script>
+    <script src="includes/vendor/sigma/classes/sigma.classes.camera.js"></script>
+    <script src="includes/vendor/sigma/classes/sigma.classes.quad.js"></script>
+    <script src="includes/vendor/sigma/classes/sigma.classes.edgequad.js"></script>
+    <script src="includes/vendor/sigma/captors/sigma.captors.mouse.js"></script>
+    <script src="includes/vendor/sigma/captors/sigma.captors.touch.js"></script>
+    <script src="includes/vendor/sigma/renderers/sigma.renderers.canvas.js"></script>
+    <script src="includes/vendor/sigma/renderers/sigma.renderers.webgl.js"></script>
+    <script src="includes/vendor/sigma/renderers/sigma.renderers.svg.js"></script>
+    <script src="includes/vendor/sigma/renderers/sigma.renderers.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+    <script src="includes/vendor/sigma/renderers/webgl/sigma.webgl.edges.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+    <script src="includes/vendor/sigma/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.labels.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.edges.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="includes/vendor/sigma/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/svg/sigma.svg.utils.js"></script>
+    <script src="includes/vendor/sigma/renderers/svg/sigma.svg.nodes.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/svg/sigma.svg.edges.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/svg/sigma.svg.edges.curve.js"></script>
+    <script src="includes/vendor/sigma/renderers/svg/sigma.svg.labels.def.js"></script>
+    <script src="includes/vendor/sigma/renderers/svg/sigma.svg.hovers.def.js"></script>
+    <script src="includes/vendor/sigma/middlewares/sigma.middlewares.rescale.js"></script>
+    <script src="includes/vendor/sigma/middlewares/sigma.middlewares.copy.js"></script>
+    <script src="includes/vendor/sigma/misc/sigma.misc.animation.js"></script>
+    <script src="includes/vendor/sigma/misc/sigma.misc.bindEvents.js"></script>
+    <script src="includes/vendor/sigma/misc/sigma.misc.bindDOMEvents.js"></script>
+    <script src="includes/vendor/sigma/misc/sigma.misc.drawHovers.js"></script>
 
     <!-- sigma plugins -->
-    <script src="includes/sigma/plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.parallelEdges/utils.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curve.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curvedArrow.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curve.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curvedArrow.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.edgeLabels/settings.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
-    <script src="includes/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.parallelEdges/utils.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curve.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+    <script src="includes/vendor/sigma/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
 
     <style>
         #graph-container {
@@ -80,6 +87,46 @@
         left: 0;
         right: 0;
         position: absolute;
+        }
+        #entityPopup {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          left:90%;
+          width: 150px;
+          height: auto;
+          overflow: hidden;
+          background-color: rgba(0,0,0,.7);
+          z-index: 5000;
+          padding: 10px;
+          margin: 0px;
+          border-radius: 10px;
+          display: none;
+        }
+        #entityPopup:hover {
+          background-color: rgba(0,0,0,.8);
+        }
+        #entityPopup a{
+          font-size: 10px;
+          word-break: break-all; 
+          word-wrap: break-word;
+          display: block;
+        }
+        #entityPopup p{
+          width: 140px;
+          font-size: 10px;
+          word-break: break-all; 
+          word-wrap: break-word;
+          text-decoration: underline;
+          margin: 0;
+        }
+        #entityPopup button{
+          width: 40px;
+          height: 20px;
+          position: relative;
+          left: 50px;
+          font-size: 10px;
+          margin-top: 20px;
         }
     </style>
 
@@ -90,8 +137,20 @@
       <div id="graph-container"></div>
     </div>
 
-    <script src="includes/jquery/jquery.min.js"></script>
+    <div id="entityPopup">
+      <p style="color: #c33;">subject</p>
+      <a href="http://dbpedia.org/resource/Christopher_Timothy" target="_blank" id="subjectEntity">http://dbpedia.org/resource/Christopher_Timothy</a>
+      <p style="color: #c3c3c3;">predicate</p style="color: #c33;">
+      <a href="http://dbpedia.org/ontology/birthPlace" target="_blank" id="predicate">http://dbpedia.org/ontology/birthPlace</a>
+      <p style="color: #3c3;">object</p style="color: #3c3;">
+      <a href="http://dbpedia.org/resource/Bala,_Gwynedd" target="_blank" id=" ">http://dbpedia.org/resource/Bala,_Gwynedd</a>
+      
+      <button type="button" id="popupBtn">close</button>
+    </div>
+
+    <script src="includes/vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="includes/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
       $(document).ready(function() {
@@ -102,52 +161,74 @@
         g = {
         nodes: [],
         edges: []
-        };
+        }
+        nodeIds = [];
+
 
         var uriParts;
         var subNode, objNode, relType;
         i = 0;
+
+        
+      
+        function displayEdgeInfo(edge) {
+            $('#subjectEntity').attr('href',edge.source);
+            $('#predicate').attr('href',edge.relType);
+            $('#objectEntity').attr('href',edge.target);
+            $('#subjectEntity').html(edge.source);
+            $('#predicate').html(edge.relType);
+            $('#objectEntity').html(edge.target);
+							$("#entityPopup").fadeIn(500);
+        }
+
+        $('#popupBtn').click(function() {
+							$("#entityPopup").fadeOut(500);
+              console.log("hello");
+        });
+
         $.getJSON("output.json", function(data) {
           $.each(data, function(subject, typeList) {
             
-            uriParts = subject.split('/');
-            // inserting subject nodes
-            subNode = {
-                    id: 'n' + (++i),
-                    label: uriParts[uriParts.length-1],
-                    uri: subject,
-                    x: Math.random(),
-                    y: Math.random(),
-                    size: 160,
-                    color: "#"+((1<<24)*Math.random()|0).toString(16)
-                };
-            g.nodes.push(subNode);
+            if(nodeIds.indexOf(subject) == -1) {
+              uriParts = subject.split('/');
+              // inserting subject nodes
+              g.nodes.push({
+                  id: subject,
+                  label: uriParts[uriParts.length-1],
+                  x: Math.random(),
+                  y: Math.random(),
+                  size: 300,
+                  color: "#"+((1<<24)*Math.random()|0).toString(16)
+              });
+              nodeIds.push(subject);
+            }
+            
             $.each(typeList, function(type, objectList) {
               relType = type.split('/');
               $.each(objectList, function(index, object) {
                 
                 // inserting object nodes and their edges
-                
-                
+
+              if(nodeIds.indexOf(object.value) == -1) {
                 uriParts = object.value.split('/');
                 // inserting subject nodes
-                objNode = {
-                        id: 'n' + (++i),
-                        label: uriParts[uriParts.length-1],
-                        uri: object.value,
-                        x: Math.random(),
-                        y: Math.random(),
-                        size: 80,
-                        color: "#"+((1<<24)*Math.random()|0).toString(16)
-                    };
-                g.nodes.push(objNode);
+                g.nodes.push({
+                    id: object.value,
+                    label: uriParts[uriParts.length-1],
+                    x: Math.random(),
+                    y: Math.random(),
+                    size: 300,
+                    color: "#"+((1<<24)*Math.random()|0).toString(16)
+                });
+                nodeIds.push(object.value);
+              }
 
                 g.edges.push({
-                    id: 'e_' + objNode.id,
-                    label: relType[relType.length-1],
+                    id: 'e_' + nodeIds.indexOf(subject) + "_" + nodeIds.indexOf(object.value),
+                    label: relType[relType.length-1]  +  " >>",
                     relType: type,
-                    source: subNode.id,
-                    target: objNode.id,
+                    source: subject,
+                    target: object.value,
                     size: 1,
                     color: '#ccc'
                 });
@@ -163,12 +244,12 @@
           },
         settings: {
           doubleClickEnabled: false,
-          minEdgeSize: 0.5,
-          maxEdgeSize: 1,
+          minEdgeSize: 1,
+          maxEdgeSize: 1.5,
           enableEdgeHovering: true,
-          edgeHoverColor: 'edge',
-          defaultEdgeHoverColor: '#000',
-          edgeHoverSizeRatio: 1,
+          edgeHoverColor: '#00a',
+          defaultEdgeHoverColor: '#00a',
+          edgeHoverSizeRatio: 3,
           edgeHoverExtremities: true,
         }
         });
@@ -179,20 +260,22 @@
         
 
         // Bind the events:
-        sigmaObj.bind('overNode outNode clickNode doubleClickNode rightClickNode', function(e) {
-          console.log(e.type, e.data.node.label, e.data.captor);
+        // sigmaObj.bind('clickNode', function(e) {
+        //   console.log(e.type, e.data.node.label, e.data.captor);
+        // });
+        sigmaObj.bind('clickEdge', function(e) {
+          
+          displayEdgeInfo(e.data.edge);
         });
-        sigmaObj.bind('overEdge outEdge clickEdge doubleClickEdge rightClickEdge', function(e) {
-          console.log(e.type, e.data.edge, e.data.captor);
-        });
-        sigmaObj.bind('clickStage', function(e) {
-          console.log(e.type, e.data.captor);
-        });
-        sigmaObj.bind('doubleClickStage rightClickStage', function(e) {
-          console.log(e.type, e.data.captor);
-        });
+        // sigmaObj.bind('clickStage', function(e) {
+        //   console.log(e.type, e.data.captor);
+        // });
+        // sigmaObj.bind('doubleClickStage rightClickStage', function(e) {
+        //   console.log(e.type, e.data.captor);
+        // });
 
         });
+      
       });
     </script>
   </body>
