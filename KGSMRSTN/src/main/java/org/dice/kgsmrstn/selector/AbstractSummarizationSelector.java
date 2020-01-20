@@ -73,16 +73,19 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 				+ "{ ?s  a dbo:Organisation ;" 
 				+"       ?p   ?o."
 				+"} LIMIT 10000";
+		break;
 
+			case "country":  query =  "select distinct ?s ?p ?o\n"
+					+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;"
+					+"?p ?o. "
+					+"FILTER (lang(?o) = 'en')} order by ?o";
+        break;
 		default:
 			break;
 		}
 		
 		//Query for country
-		//		String query =  "select distinct ?s ?p ?o\n"
-		//				+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;" 
-		//				+"?p ?o. "
-		//				+"FILTER (lang(?o) = 'en')} order by ?o";
+
 
 		//Query for person
 		
