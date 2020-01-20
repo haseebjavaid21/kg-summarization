@@ -42,7 +42,7 @@ public class KgsmrstnController {
 	private org.slf4j.Logger log = LoggerFactory.getLogger(KgsmrstnController.class);
 
     @GetMapping(value = "/kgraph/type/{type}/class/{clazz}/top/{topk}", produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
-    public Boolean getKGraph(@PathVariable("type") String type, @PathVariable("clazz") String clazz, @PathVariable("topk") int topk) {
+    public String getKGraph(@PathVariable("type") String type, @PathVariable("clazz") String clazz, @PathVariable("topk") int topk) {
 
     	log.info("In getKGraph");
     	
@@ -79,19 +79,38 @@ public class KgsmrstnController {
                 m.add(stmt);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"" + e.getMessage() + "\"" +
+                    "}" +
+                    ")";
         }
         FileOutputStream oFile = null;
         try {
-            oFile = new FileOutputStream("./src/main/resources/output.json", false);
+            oFile = new FileOutputStream("./src/main/resources/webapp/output.json", false);
         } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"" + e1.getMessage() + "\"" +
+                    "}" +
+                    ")";
         }
         m = m.write(oFile, "RDF/JSON");
         if (!(m.isEmpty())) {
-            return true;
+            return "callback(" +
+                "{" +
+                "'status':" + true +
+                "}" +
+                ")";
         } else {
-            return false;
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"\"" +
+                    "}" +
+                    ")";
         }
 
         /*FileOutputStream oFile;
@@ -132,6 +151,8 @@ public class KgsmrstnController {
   		/*Gson json = new Gson();
          String response = json.toJson(m);
          return response;*/
+
+
     }
 
 }
