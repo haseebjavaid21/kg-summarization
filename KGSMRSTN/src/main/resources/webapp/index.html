@@ -96,16 +96,16 @@
 					jsonpCallback: "callback",
 					type: "GET",
 					success: function(data) {
-						setTimeout(function(){
-							$("#overlay").fadeOut(300);
-						},500);
 						if (data.status) {
-							var win = window.open("/results.html");
+							window.open("/results.html");
 						} else if(data.status == false) {
 							if(data.msg != "") {
 								alert(data.msg);
 							}
 						}
+						setTimeout(function(){
+							$("#overlay").fadeOut(300);
+						},500);
 					}
 				});
 			});
