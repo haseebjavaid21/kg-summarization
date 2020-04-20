@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+
+    <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <title>Knowledge Graph | Search</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-md-6 mx-auto text-center">
+        <div class="header-title">
+          <h1 class="wv-heading--title">
+            Knowledge Graph
+          </h1>
+          <h2 class="wv-heading--subtitle">------------</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 mx-auto">
+          <div class="myform form ">
+            <form action="" method="post" name="kgform" id="kgform">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >Type</span
+                  >
+                </div>
+                <select class="form-control" name="type" id="type" required>
+                  <option value="star">star</option>
+                  <option value="hybrid">hybrid</option>
+                  <option value="path">path</option>
+                  <option selected value="sym">sym</option>
+                  <option value="summary">summary</option>
+                </select>
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >Min</span
+                  >
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="min"
+                  id="min"
+                  value="3"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >Max</span
+                  >
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="max"
+                  id="max"
+                  value="10"
+                  required
+                />
+              </div>
+
+              <div style="margin-top:10px" class="form-group">
+                <div class="col-sm-12 controls">
+                  <button
+                    class="btn btn-primary btn-lg btn-block"
+                    id="btnSearch"
+                    type="button"
+                  >
+                    Search
+                  </button>
+                  <button
+                    class="btn btn-secondary btn-lg btn-block"
+                    type="reset"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="includes/jquery/jquery.min.js"></script>
+    <script src="includes/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $("#btnSearch").click(function() {
+          var min = $("#min").val();
+          var max = $("#max").val();
+          var type = $("#type").val();
+          var url =
+            "http://localhost:8082/kg/kgraph/type/" +
+            type +
+            "/max/" +
+            max +
+            "/min/" +
+            min;
+
+          console.log(url);
+          $.ajax({
+            url: url,
+            dataType: "JSONP",
+            jsonpCallback: "callback",
+            type: "GET",
+            success: function(data) {
+              if (data.status) {
+                var win = window.open("results.html");
+              }
+            }
+          });
+        });
+        $(".list-group-item").on("click", function() {
+          $(".glyphicon", this)
+            .toggleClass("glyphicon-chevron-right")
+            .toggleClass("glyphicon-chevron-down");
+        });
+      });
+    </script>
+  </body>
+</html>

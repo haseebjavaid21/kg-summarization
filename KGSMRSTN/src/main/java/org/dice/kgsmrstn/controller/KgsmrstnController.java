@@ -15,9 +15,11 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.dice.kgsmrstn.config.KgsmrstnRunConfig;
 import org.dice.kgsmrstn.config.ModelDTO;
+import org.dice.kgsmrstn.selector.AbstractSummarizationSelector;
 import org.dice.kgsmrstn.selector.TripleSelector;
 import org.dice.kgsmrstn.selector.TripleSelectorFactory;
 import org.dice.kgsmrstn.selector.TripleSelectorFactory.SelectorType;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,31 +33,40 @@ import com.google.gson.Gson;
 
 @RestController
 public class KgsmrstnController {
+	
+	private static final String DB_ONTOLOGY_PERSON = "<http://dbpedia.org/ontology/Person>";
+	private static final String DB_ONTOLOGY_PLACE = "<http://dbpedia.org/ontology/Place>";
+	private static final String DB_ONTOLOGY_ORGANISATION = "<http://dbpedia.org/ontology/Organisation>";
+	private static final String ENDPOINT = "http://dbpedia.org/sparql";
+	
+	private org.slf4j.Logger log = LoggerFactory.getLogger(KgsmrstnController.class);
 
-    @GetMapping(value = "/kgraph/type/{type}/max/{max}/min/{min}", produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
-    public Boolean getKGraph(@PathVariable("type") String type, @PathVariable("max") int max, @PathVariable("min") int min) {
+    @GetMapping(value = "/kgraph/type/{type}/class/{clazz}/top/{topk}", produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
+    public String getKGraph(@PathVariable("type") String type, @PathVariable("clazz") String clazz, @PathVariable("topk") int topk) {
 
+    	log.info("In getKGraph");
+    	
         final TripleSelectorFactory factory = new TripleSelectorFactory();
         TripleSelector tripleSelector = null;
         KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
-        runConfig.setSqparqlEndPoint("http://dbpedia.org/sparql");
-        runConfig.setMinSentence(min);
-        runConfig.setMaxSentence(max);
+        runConfig.setSqparqlEndPoint(ENDPOINT);
         runConfig.setSeed(System.nanoTime());
         runConfig.setSelectorType(type);
+        runConfig.setClazz(clazz);
+        runConfig.setTopk(topk);
         //runConfig.setSelectorType("simple");
 
         List<Statement> triples;
         final Set<String> classes = new HashSet<>();
-        classes.add("<http://dbpedia.org/ontology/Person>");
-        classes.add("<http://dbpedia.org/ontology/Place>");
-        classes.add("<http://dbpedia.org/ontology/Organisation>");
+        classes.add(DB_ONTOLOGY_PERSON);
+        classes.add(DB_ONTOLOGY_PLACE);
+        classes.add(DB_ONTOLOGY_ORGANISATION);
 
         SelectorType selectorType = runConfig.getSelectorTypeEnum();
 
         tripleSelector = factory.create(selectorType, classes,
                          new HashSet<>(), runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
-                        runConfig.getSeed());
+                        runConfig.getSeed(),runConfig.getClazz(),runConfig.getTopk());
 
         triples = tripleSelector.getNextStatements();
 
@@ -68,19 +79,38 @@ public class KgsmrstnController {
                 m.add(stmt);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"" + e.getMessage() + "\"" +
+                    "}" +
+                    ")";
         }
         FileOutputStream oFile = null;
         try {
-            oFile = new FileOutputStream("./src/main/resources/output.json", false);
+            oFile = new FileOutputStream("./src/main/resources/webapp/output.json", false);
         } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"" + e1.getMessage() + "\"" +
+                    "}" +
+                    ")";
         }
         m = m.write(oFile, "RDF/JSON");
         if (!(m.isEmpty())) {
-            return true;
+            return "callback(" +
+                "{" +
+                "'status':" + true +
+                "}" +
+                ")";
         } else {
-            return false;
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"\"" +
+                    "}" +
+                    ")";
         }
 
         /*FileOutputStream oFile;
@@ -121,6 +151,8 @@ public class KgsmrstnController {
   		/*Gson json = new Gson();
          String response = json.toJson(m);
          return response;*/
+
+
     }
 
 }

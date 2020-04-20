@@ -14,7 +14,8 @@ public class KgsmrstnRunConfig {
 	private int maxSentence = DEF_MAX_SENTENCE;
 	private String sqparqlEndPoint = DEF_SPARQL_EP;
 	private String selectorType;
-
+	private String clazz;
+	private Integer topk;
 
 	public long getSeed() {
 		return seed;
@@ -55,6 +56,23 @@ public class KgsmrstnRunConfig {
 	public void setSqparqlEndPoint(String sqparqlEndPoint) {
 		this.sqparqlEndPoint = sqparqlEndPoint;
 	}
+	
+
+	public String getClazz() {
+		return clazz;
+	}
+
+	public void setClazz(String clazz) {
+		this.clazz = clazz;
+	}
+
+	public Integer getTopk() {
+		return topk;
+	}
+
+	public void setTopk(Integer topk) {
+		this.topk = topk;
+	}
 
 	public SelectorType getSelectorTypeEnum() {
 		SelectorType res = null;
@@ -74,8 +92,10 @@ public class KgsmrstnRunConfig {
 
 	@Override
 	public String toString() {
-		return "KgsmrztnRunConfig [seed=" + seed + ", minSentence=" + minSentence + ", maxSentence=" + maxSentence
-				+ ", sqparqlEndPoint=" + sqparqlEndPoint + ", selectorType=" + selectorType + "]";
+		return "KgsmrstnRunConfig [seed=" + seed + ", minSentence=" + minSentence + ", maxSentence=" + maxSentence
+				+ ", sqparqlEndPoint=" + sqparqlEndPoint + ", selectorType=" + selectorType + ", clazz=" + clazz
+				+ ", topk=" + topk + "]";
 	}
 
+	
 }
