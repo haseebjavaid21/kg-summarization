@@ -66,6 +66,8 @@ public class KgsmrstnRunConfig {
 			res = SelectorType.PATH;
 		} else if (selectorType.matches("sym")) {
 			res = SelectorType.SIM_STAR;
+		} else if (selectorType.matches("simple")) {
+			res = SelectorType.SIMPLE;
 		}
 		return res;
 	}

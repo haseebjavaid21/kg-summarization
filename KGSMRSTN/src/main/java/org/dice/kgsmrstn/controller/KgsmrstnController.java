@@ -35,99 +35,96 @@ public class KgsmrstnController {
 	@GetMapping(value = "/kgraph/type/{type}/max/{max}/min/{min}",produces = MediaType.APPLICATION_JSON_VALUE)//, produces = "text/plain"
 	public String getKGraph( @PathVariable("type") String type, @PathVariable("max") int max, @PathVariable("min") int min) {
 
-		final TripleSelectorFactory factory = new TripleSelectorFactory();
-		TripleSelector tripleSelector = null;
-		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
-		runConfig.setSqparqlEndPoint("http://dbpedia.org/sparql");
-		runConfig.setMinSentence(min);
-		runConfig.setMaxSentence(max);
-		runConfig.setSeed(System.nanoTime());
-		runConfig.setSelectorType(type);
+  final TripleSelectorFactory factory = new TripleSelectorFactory();
+  TripleSelector tripleSelector = null;
+  KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
+  runConfig.setSqparqlEndPoint("http://dbpedia.org/sparql");
+  runConfig.setMinSentence(min);
+  runConfig.setMaxSentence(max);
+  runConfig.setSeed(System.nanoTime());
+  runConfig.setSelectorType(type);
 
-		List<Statement> triples;
-		final Set<String> classes = new HashSet<>();
-		classes.add("<http://dbpedia.org/ontology/Person>");
-		classes.add("<http://dbpedia.org/ontology/Place>");
-		classes.add("<http://dbpedia.org/ontology/Organisation>");
+  List<Statement> triples;
+  final Set<String> classes = new HashSet<>();
+  classes.add("<http://dbpedia.org/ontology/Person>");
+  classes.add("<http://dbpedia.org/ontology/Place>");
+  classes.add("<http://dbpedia.org/ontology/Organisation>");
 
-		SelectorType selectorType = runConfig.getSelectorTypeEnum();
+  SelectorType selectorType = runConfig.getSelectorTypeEnum();
 
-		tripleSelector = factory.create(selectorType, classes,
-				new HashSet<>(), runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
-				runConfig.getSeed());
+  tripleSelector = factory.create(selectorType, classes,
+      new HashSet<>(), runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
+      runConfig.getSeed());
 
-		triples = tripleSelector.getNextStatements();
+  triples = tripleSelector.getNextStatements();
 
-		//Possible Solution #1,but written as a JSON file.
-		Model m = ModelFactory.createDefaultModel();
-		ListIterator<Statement> StmtIterator = triples.listIterator();
-		try {
-			while (StmtIterator.hasNext()) {
-				Statement stmt = (Statement) StmtIterator.next();
-				m.add(stmt);
-			}
-		}
-		catch(Exception e){
-			return "callback({'status': false, 'error': "+ e.getMessage() +"})";
-		}
-		FileOutputStream oFile = null;
-		try {
-			oFile = new FileOutputStream("./src/main/resources/output.json", false);
-		} catch (FileNotFoundException e1) {
-			return "callback({'status': false, 'error': "+ e1.getMessage() +"})";
-		}
-		m = m.write(oFile, "RDF/JSON");
-		if(!(m.isEmpty()))
-			return "callback({'status': true})";
-		else return "callback({'status': false, 'error':''})";
-		
-		
-		/*FileOutputStream oFile;
-		oFile = new FileOutputStream("output4.json", false);
-		ResultSetFormatter.outputAsJSON(oFile, triples);*/
+  //Possible Solution #1,but written as a JSON file.
+  Model m = ModelFactory.createDefaultModel();
+  ListIterator<Statement> StmtIterator = triples.listIterator();
+  try {
+    while (StmtIterator.hasNext()) {
+      Statement stmt = (Statement) StmtIterator.next();
+      m.add(stmt);
+    }
+  }
+  catch(Exception e){
+    return "callback({'status': false, 'error': "+ e.getMessage() +"})";
+  }
+  FileOutputStream oFile = null;
+  try {
+    oFile = new FileOutputStream("./src/main/resources/output.json", false);
+  } catch (FileNotFoundException e1) {
+    return "callback({'status': false, 'error': "+ e1.getMessage() +"})";
+  }
+  m = m.write(oFile, "RDF/JSON");
+  if(!(m.isEmpty()))
+    return "callback({'status': true})";
+  else return "callback({'status': false, 'error':''})";
 
 
-
-		//Sol #2,Exception thrown
-        /*List<ModelDTO> list=new ArrayList<ModelDTO>();
-		StmtIterator = triples.listIterator();
-        try {
-            while (StmtIterator.hasNext()) {
-            	Statement stmt = (Statement) StmtIterator.next();
-                Resource s = stmt.getSubject();
-                Resource p = stmt.getPredicate();
-                RDFNode o = stmt.getObject();
-                ModelDTO modelDTO = new ModelDTO();
-                modelDTO.setSubject(s);
-                modelDTO.setPredicate(p);
-                modelDTO.setObject(o);
-                list.add(modelDTO);
-            }
-        } 
-        catch(Exception e){
-        	e.printStackTrace();
-        }
-        return list;*/
+  /*FileOutputStream oFile;
+  oFile = new FileOutputStream("output4.json", false);
+  ResultSetFormatter.outputAsJSON(oFile, triples);*/
 
 
-		//Sol #4,Exception again
-        /*String triplesAsString  = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-	    objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-	    try {
-			triplesAsString = objectMapper.writeValueAsString(triples);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    return triplesAsString;*/
 
-		//Sol #3,Exception thrown
-  		/*Gson json = new Gson();
-  		String response = json.toJson(m);
-        return response;*/
+  //Sol #2,Exception thrown
+      /*List<ModelDTO> list=new ArrayList<ModelDTO>();
+  StmtIterator = triples.listIterator();
+      try {
+          while (StmtIterator.hasNext()) {
+            Statement stmt = (Statement) StmtIterator.next();
+              Resource s = stmt.getSubject();
+              Resource p = stmt.getPredicate();
+              RDFNode o = stmt.getObject();
+              ModelDTO modelDTO = new ModelDTO();
+              modelDTO.setSubject(s);
+              modelDTO.setPredicate(p);
+              modelDTO.setObject(o);
+              list.add(modelDTO);
+          }
+      } 
+      catch(Exception e){
+        e.printStackTrace();
+      }
+      return list;*/
 
 
+  //Sol #4,Exception again
+      /*String triplesAsString  = null;
+      ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+    try {
+    triplesAsString = objectMapper.writeValueAsString(triples);
+  } catch (JsonProcessingException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  }
+    return triplesAsString;*/
+
+  //Sol #3,Exception thrown
+    /*Gson json = new Gson();
+    String response = json.toJson(m);
+      return response;*/
 	}
-
 }
