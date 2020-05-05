@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +28,11 @@ import org.dice.kgsmrstn.graph.Node;
 import org.dice.kgsmrstn.graph.PageRank;
 import org.dice.kgsmrstn.util.TripleIndex;
 import org.slf4j.LoggerFactory;
+
+import org.apache.jena.rdf.model.Model ;
+import org.apache.jena.rdf.model.ModelFactory ;
+import org.apache.jena.riot.RDFDataMgr ;
+import org.apache.jena.riot.RDFLanguages ;
 
 /**
  *
@@ -56,81 +62,117 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 	protected List<Statement> getResources(Set<String> classes, String clazz,int topk) {
 
-		String query = "";
+            //Reading from file part
+            try {
+                /*
+                System.out.println("Starting Work");
+                RdfTripleItemReader obj = new RdfTripleItemReader();
+                obj.setFileName("D:\\Project Data\\persondata_en.ttl\\persondata_en2.ttl");
+                obj.doOpen();
+            	*/
+            	
+            	Model m = ModelFactory.createDefaultModel() ;
+                // read into the model.
+                m.read("D:\\Project Data\\persondata_en.ttl\\persondata_en2.ttl") ;
+                System.out.println(m.size());
+                StmtIterator st = m.listStatements();
 
-		switch (clazz) {
-		case "person": query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +  "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
-				+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
-				+ "    ?p                    ?o\n" 
-				+"FILTER  regex(?o, 'http://xmlns.com/foaf/0.1/')."
-				+"} LIMIT 10000";
-			
-			break;
-			
-		case "organisation":	 query = "PREFIX  dbo:  <http://dbpedia.org/ontology/>" 
-				+ "PREFIX  dbr:  <http://dbpedia.org/resource/>"
-				 +"SELECT DISTINCT  * WHERE\n"
-				+ "{ ?s  a dbo:Organisation ;" 
-				+"       ?p   ?o."
-				+"} LIMIT 10000";
-		break;
+                while (st.hasNext()) {
+    				// get the value of the variables in the select clause
+    				try {
+    					Statement et = st.next();
+    					String s = et.getSubject().toString();
+    					String p = et.getPredicate().toString();
+    					String o = et.getObject().toString();
 
-			case "country":  query =  "select distinct ?s ?p ?o\n"
-					+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;"
-					+"?p ?o. "
-					+"FILTER (lang(?o) = 'en')} order by ?o";
-        break;
-		default:
-			break;
-		}
-		
-		//Query for country
+    					Node curr_s = new Node(s, 0, 0, ALGORITHM);
+    					Node curr_o = new Node(o, 0, 1, ALGORITHM);
+    					if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
+    						g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
+    				} catch (Exception e) {
+    					e.printStackTrace();
+    				}
+    			}
+            } catch(Exception ex) {
+                System.out.println("Unable to Parse");
+            }
+            //========================================================
+//		String query = "";
+//
+//		switch (clazz) {
+//		case "person": query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +  "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+//				+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
+//				+ "    ?p                    ?o\n" 
+//				+"FILTER  regex(?o, 'http://xmlns.com/foaf/0.1/')."
+//				+"} LIMIT 10000";
+//			
+//			break;
+//			
+//		case "organisation":	 query = "PREFIX  dbo:  <http://dbpedia.org/ontology/>" 
+//				+ "PREFIX  dbr:  <http://dbpedia.org/resource/>"
+//				 +"SELECT DISTINCT  * WHERE\n"
+//				+ "{ ?s  a dbo:Organisation ;" 
+//				+"       ?p   ?o."
+//				+"} LIMIT 10000";
+//		break;
+//
+//			case "country":  query =  "select distinct ?s ?p ?o\n"
+//					+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;"
+//					+"?p ?o. "
+//					+"FILTER (lang(?o) = 'en')} order by ?o";
+//        break;
+//		default:
+//			break;
+//		}
+//		
+//		//Query for country
+//
+//
+//		//Query for person
+//		
+//
+//
+//
+//
+//		//Query for organisation
+//		
+//
+//
+//
+//
+//
+//
+//		//log.info("Query " + query);
+//                System.out.println(query);
+//		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
+//
+//		QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
+//		try {
+//			ResultSet results = httpQuery.execSelect();
+//			QuerySolution solution;
+//			while (results.hasNext()) {
+//				solution = results.next();
+//				// get the value of the variables in the select clause
+//				try {
+//					String s = solution.get("s").toString();
+//					String p = solution.get("p").toString();
+//					String o = solution.get("o").toString();
+//
+//					Node curr_s = new Node(s, 0, 0, ALGORITHM);
+//					Node curr_o = new Node(o, 0, 1, ALGORITHM);
+//					if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
+//						g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//
+//			}
+//		} finally {
+//			httpQuery.close();
+//		}
 
 
-		//Query for person
-		
-
-
-
-
-		//Query for organisation
-		
-
-
-
-
-
-
-		log.info("Query " + query);
-		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
-
-		QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
-		List<Node> allNodesRanked = new ArrayList<Node>();
-		try {
-			ResultSet results = httpQuery.execSelect();
-			QuerySolution solution;
-			while (results.hasNext()) {
-				solution = results.next();
-				// get the value of the variables in the select clause
-				try {
-					String s = solution.get("s").toString();
-					String p = solution.get("p").toString();
-					String o = solution.get("o").toString();
-
-					Node curr_s = new Node(s, 0, 0, ALGORITHM);
-					Node curr_o = new Node(o, 0, 1, ALGORITHM);
-					if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
-						g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		} finally {
-			httpQuery.close();
-		}
-
-
+ 		List<Node> allNodesRanked = new ArrayList<Node>();
 
 		// run Page Rank to get the top entities of type 'Person'
 		allNodesRanked = runPageRank(g);
