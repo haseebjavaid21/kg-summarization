@@ -13,6 +13,6 @@ class KgsmrstnApplicationTests {
 
         public static void main(String[] args) {
 		KgsmrstnController kc = new KgsmrstnController();
-                kc.getKGraph("simple", "person" , 20);
+                kc.getKGraph("simple", "country" , 2);
 	}
 }

@@ -48,6 +48,7 @@ public class BreadthFirstSearch {
 						Node Node = new Node(targetNode.getObject(), 0, levelNow, algo);
 						q.add(Node);
 						graph.addEdge(graph.getEdgeCount() + ";" + targetNode.getPredicate(), currentNode, Node);
+					
 					}
 					
 					if(targetNode.getPredicate().contains("label")) {

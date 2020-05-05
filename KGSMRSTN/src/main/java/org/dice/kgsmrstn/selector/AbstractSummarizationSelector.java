@@ -7,6 +7,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +29,7 @@ import org.dice.kgsmrstn.graph.Node;
 import org.dice.kgsmrstn.graph.PageRank;
 import org.dice.kgsmrstn.util.TripleIndex;
 import org.slf4j.LoggerFactory;
-
+import org.dice.kgsmrstn.graph.*;
 /**
  *
  * @author Haseeb Javaid
@@ -44,6 +46,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 	private String endpoint;
 	private DirectedSparseGraph<Node, String> g = new DirectedSparseGraph<Node, String>();
+	HashMap<Node, List<Node>> adjNodes = new HashMap<>();
+	HashMap<Integer, List<Node>> component = new HashMap<>();
 
 	public AbstractSummarizationSelector(Set<String> targetClasses, String endpoint, String graph) {
 		this.endpoint = endpoint;
@@ -133,28 +137,78 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 
 		// run Page Rank to get the top entities of type 'Person'
-		allNodesRanked = runPageRank(g);
+		//allNodesRanked = runPageRank(g);
+		allNodesRanked.addAll(g.getVertices());
+		
 
 		List<Node> highRankNodes = new ArrayList<Node>();
-		for (Node node : allNodesRanked) {
-			if (node.getLevel() == 0) {
+	for (Node node : allNodesRanked) {
+		if ((node.getLevel() == 0 && !(highRankNodes.contains(node)))) {
 				highRankNodes.add(node);
-			}
+				}
 
 
 		}
 		//get 'Top-50' nodes
-		highRankNodes = highRankNodes.subList(0, topk);
+		//highRankNodes = highRankNodes.subList(0, 50);
 
 		//run BFS
 		DirectedSparseGraph<Node, String> graph = runBFS(highRankNodes);
+		
+		//SALSA
+		for (Object n : graph.getVertices()) {
+			Node node = (Node) n;
+			adjNodes.put(node, new ArrayList<>());
+			for (Object n1 : graph.getSuccessors(node)) {
+				Node neighbourNodes = (Node) n1;
+				adjNodes.get(node).add(neighbourNodes);
+			}
+		}
+		
+		ComponentId comp = new ComponentId();
+		
+		
+		
+		
+		
+		component = comp.findComponets(adjNodes);
+		
+		SALSA algo = new SALSA();
+		try {
+		algo.runSALSA(graph, component);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 
 		//Finally run the Page Rank algorithm to the entities after their BFS expansion
-		List<Node> topNodes = runPageRank(graph);
+		List<Node> topNodes = runSalsa(graph, component);
+		Collections.reverse(topNodes);
+		int p = 0;
+		List<Node> temp = new ArrayList<>();
+for (Node node : topNodes) {
+	
+	if(allNodesRanked.contains(node)) {
+		temp.add(node);
+		System.out.println("Weight is "+node+" "+node.getAuthorityWeight());
+		p=p+1;
+	}	
+	
+	if(p>49)
+		break;
+		
+		}
+		
+		
 		Model model = ModelFactory.createDefaultModel();
 		//form the triples of all the top nodes 
-		for(Node node: topNodes) {
-			if(highRankNodes.contains(node)){
+		
+		for(Node node: temp) {
+			
+						    
 				Collection<Node> neighbourNodes = graph.getNeighbors(node);
 				for(Node succesorNode : neighbourNodes ) {
 
@@ -168,20 +222,41 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 						model.add(subject, predicate, object);
 					}
 				}
-			}
+					
+		
+		
+			    
+		
 		}
 
 		return sortStatements(model.listStatements());
 	}
 
 
-	private List<Node> runPageRank(DirectedSparseGraph<Node, String> g) {
-		PageRank pr = new PageRank();
-		pr.runPr(g, 100, 0.001);
+	private List<Node> runSalsa(DirectedSparseGraph<Node, String> g, HashMap<Integer, List<Node>> component) {
+		
+		SALSA sal = new SALSA();
+		try {
+			sal.runSALSA(g, component);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		
 		ArrayList<Node> orderedList = new ArrayList<Node>();
 		orderedList.addAll(g.getVertices());
-		Collections.sort(orderedList);
+		Collections.sort(orderedList, new Comparator<Node>() {
+
+			@Override
+			public int compare(Node o1, Node o2) {
+				// TODO Auto-generated method stub
+				return Double.compare(o1.getAuthorityWeight(), o2.getAuthorityWeight());
+			}
+		});
+	
+		
+		
 
 		return orderedList;
 
@@ -211,6 +286,20 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 		return graph;
 	}
+	
+	private List<Node> runPageRank(DirectedSparseGraph<Node, String> g) {
+		PageRank pr = new PageRank();
+		pr.runPr(g, 100, 0.001);
+
+		ArrayList<Node> orderedList = new ArrayList<Node>();
+		orderedList.addAll(g.getVertices());
+		Collections.sort(orderedList);
+
+		return orderedList;
+
+	}
+	
+	
 
 	protected List<Statement> sortStatements(StmtIterator stmtIterator) {
 		List<Statement> result = new ArrayList<Statement>();
