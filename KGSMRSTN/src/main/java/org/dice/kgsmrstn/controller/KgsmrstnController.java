@@ -88,7 +88,7 @@ public class KgsmrstnController {
         }
         FileOutputStream oFile = null;
         try {
-            oFile = new FileOutputStream("./src/main/resources/webapp/output.json", false);
+            oFile = new FileOutputStream("./src/main/resources/webapp/output_10_withIsum.ttl", false);
         } catch (FileNotFoundException e1) {
             return "callback(" +
                     "{" +
@@ -97,7 +97,7 @@ public class KgsmrstnController {
                     "}" +
                     ")";
         }
-        m = m.write(oFile, "RDF/JSON");
+        m = m.write(oFile, "Turtle");
         if (!(m.isEmpty())) {
             return "callback(" +
                 "{" +
