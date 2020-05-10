@@ -20,6 +20,8 @@ public class Node implements Comparable<Node> {
 	private double authorityWeight;
 	private double pageRank;
 	private double pageRankNew;
+	private Boolean backlink = false;
+	private double linksumNodeScore;
 
 	private HashSet<Node> predecessors;
 	private HashSet<Node> successors;
@@ -42,7 +44,8 @@ public class Node implements Comparable<Node> {
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("#.####");
 		return candidateURI + ":" + String.valueOf(df.format(activation)) + " H: " + String.valueOf(df.format(hubWeight)
-				+ " A: " + String.valueOf(df.format(authorityWeight) + " PR: " + String.valueOf(df.format(pageRank))));
+				+ " A: " + String.valueOf(df.format(authorityWeight) + " PR: " + pageRank)) + "BL: "+backlink
+				+  "LS: " + this.linksumNodeScore;
 	}
 
 	@Override
@@ -233,5 +236,23 @@ public class Node implements Comparable<Node> {
 	public void setPageRankNew(double pageRankNew) {
 		this.pageRankNew = pageRankNew;
 	}
+
+	public Boolean getBacklink() {
+		return backlink;
+	}
+
+	public void setBacklink(Boolean backlink) {
+		this.backlink = backlink;
+	}
+
+	public double getLinksumScore() {
+		return linksumNodeScore;
+	}
+
+	public void setLinksumScore(double linksumScore) {
+		this.linksumNodeScore = linksumScore;
+	}
+	
+	
 
 }

@@ -16,6 +16,8 @@ public class KgsmrstnRunConfig {
 	private String selectorType;
 	private String clazz;
 	private Integer topk;
+	
+	private String entity;
 
 	public long getSeed() {
 		return seed;
@@ -73,6 +75,14 @@ public class KgsmrstnRunConfig {
 	public void setTopk(Integer topk) {
 		this.topk = topk;
 	}
+	
+	public String getEntity() {
+		return entity;
+	}
+
+	public void setEntity(String entity) {
+		this.entity = entity;
+	}
 
 	public SelectorType getSelectorTypeEnum() {
 		SelectorType res = null;
@@ -86,6 +96,8 @@ public class KgsmrstnRunConfig {
 			res = SelectorType.SIM_STAR;
 		} else if (selectorType.matches("simple")) {
 			res = SelectorType.SIMPLE;
+		} else if (selectorType.matches("entity")) {
+			res = SelectorType.ENTITY;
 		}
 		return res;
 	}
@@ -94,8 +106,9 @@ public class KgsmrstnRunConfig {
 	public String toString() {
 		return "KgsmrstnRunConfig [seed=" + seed + ", minSentence=" + minSentence + ", maxSentence=" + maxSentence
 				+ ", sqparqlEndPoint=" + sqparqlEndPoint + ", selectorType=" + selectorType + ", clazz=" + clazz
-				+ ", topk=" + topk + "]";
+				+ ", topk=" + topk + ", entity=" + entity + "]";
 	}
 
+	
 	
 }

@@ -37,7 +37,8 @@ public class KgsmrstnController {
 	private static final String DB_ONTOLOGY_PERSON = "<http://dbpedia.org/ontology/Person>";
 	private static final String DB_ONTOLOGY_PLACE = "<http://dbpedia.org/ontology/Place>";
 	private static final String DB_ONTOLOGY_ORGANISATION = "<http://dbpedia.org/ontology/Organisation>";
-	private static final String ENDPOINT = "http://dbpedia.org/sparql";
+	private static final String DB_ENDPOINT = "http://dbpedia.org/sparql";
+	private static final String WIKI_ENDPOINT = "https://query.wikidata.org/";
 	
 	private org.slf4j.Logger log = LoggerFactory.getLogger(KgsmrstnController.class);
 
@@ -49,7 +50,7 @@ public class KgsmrstnController {
         final TripleSelectorFactory factory = new TripleSelectorFactory();
         TripleSelector tripleSelector = null;
         KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
-        runConfig.setSqparqlEndPoint(ENDPOINT);
+        runConfig.setSqparqlEndPoint(DB_ENDPOINT);
         runConfig.setSeed(System.nanoTime());
         runConfig.setSelectorType(type);
         runConfig.setClazz(clazz);
@@ -151,8 +152,81 @@ public class KgsmrstnController {
   		/*Gson json = new Gson();
          String response = json.toJson(m);
          return response;*/
+    }
+    
+    @GetMapping(value = "kgraph/type/{type}/entity/{entity}")
+    public String getSummarizedInfoOfAnEntity(@PathVariable("type") String type,@PathVariable("entity") String entity){
+    	
+    	log.info("In getSummarizedInfoOfAnEntity...");
+    	
+    	final TripleSelectorFactory factory = new TripleSelectorFactory();
+        TripleSelector tripleSelector = null;
+        KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
+        runConfig.setSqparqlEndPoint(DB_ENDPOINT);
+        runConfig.setSeed(System.nanoTime());
+        runConfig.setSelectorType(type);
+        
+        entity = (entity.contains(" ")?entity.replace(" ", "_"):entity);
+        runConfig.setEntity(entity);
+        //runConfig.setClazz(clazz);
+        //runConfig.setTopk(topk);
 
+        List<Statement> triples;
+        /*final Set<String> classes = new HashSet<>();
+        classes.add(DB_ONTOLOGY_PERSON);
+        classes.add(DB_ONTOLOGY_PLACE);
+        classes.add(DB_ONTOLOGY_ORGANISATION);*/
 
+        SelectorType selectorType = runConfig.getSelectorTypeEnum();
+
+        tripleSelector = factory.create(selectorType, null,
+                         null, runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
+                        runConfig.getSeed(),runConfig.getEntity(),0);
+
+        triples = tripleSelector.getNextStatements();
+
+        //Possible Solution #1,but written as a JSON file.
+        Model m = ModelFactory.createDefaultModel();
+        ListIterator<Statement> StmtIterator = triples.listIterator();
+        try {
+            while (StmtIterator.hasNext()) {
+                Statement stmt = (Statement) StmtIterator.next();
+                m.add(stmt);
+            }
+        } catch (Exception e) {
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"" + e.getMessage() + "\"" +
+                    "}" +
+                    ")";
+        }
+        FileOutputStream oFile = null;
+        try {
+            oFile = new FileOutputStream("./src/main/resources/webapp/output.json", false);
+        } catch (FileNotFoundException e1) {
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"" + e1.getMessage() + "\"" +
+                    "}" +
+                    ")";
+        }
+        m = m.write(oFile, "RDF/JSON");
+        if (!(m.isEmpty())) {
+            return "callback(" +
+                "{" +
+                "'status':" + true +
+                "}" +
+                ")";
+        } else {
+            return "callback(" +
+                    "{" +
+                    "'status':" + false +
+                    ",'msg' :\"\"" +
+                    "}" +
+                    ")";
+        }
     }
 
 }
