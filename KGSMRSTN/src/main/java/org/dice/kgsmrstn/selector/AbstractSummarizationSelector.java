@@ -1,12 +1,15 @@
 package org.dice.kgsmrstn.selector;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import edu.uci.ics.jung.graph.Graph;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -23,16 +26,24 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.dice.kgsmrstn.graph.BreadthFirstSearch;
+import org.dice.kgsmrstn.graph.HITSAlgorithm;
 import org.dice.kgsmrstn.graph.Node;
 import org.dice.kgsmrstn.graph.PageRank;
 import org.dice.kgsmrstn.util.TripleIndex;
 import org.slf4j.LoggerFactory;
 
+import com.github.andrewoma.dexx.collection.HashMap;
+
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFLanguages;
+
 /**
  *
  * @author Haseeb Javaid
  */
-public abstract class AbstractSummarizationSelector implements TripleSelector{
+public abstract class AbstractSummarizationSelector implements TripleSelector {
 
 	private static final String DB_RESOURCE = "http://dbpedia.org/resource/";
 	private static final String DB_ONTOLOGY = "http://dbpedia.org/ontology/";
@@ -45,6 +56,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 	private String endpoint;
 	private DirectedSparseGraph<Node, String> g = new DirectedSparseGraph<Node, String>();
 
+	HashMap<Node, List<Node>> adjNodes = new HashMap<>();
+
 	public AbstractSummarizationSelector(Set<String> targetClasses, String endpoint, String graph) {
 		this.endpoint = endpoint;
 	}
@@ -56,124 +69,114 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 	protected List<Statement> getResources(Set<String> classes, String clazz,int topk) {
 
-		String query = "";
+            //Reading from file part
+            try {
+            	Model m = ModelFactory.createDefaultModel() ;
+                // read into the model.
+                m.read("D:\\Project Data\\persondata_en.ttl\\persondata_en4.ttl") ;
+                System.out.println(m.size());
+                StmtIterator st = m.listStatements();
 
-		switch (clazz) {
-		case "person": query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +  "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
-				+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
-				+ "    ?p                    ?o\n" 
-				+"FILTER  regex(?o, 'http://xmlns.com/foaf/0.1/')."
-				+"} LIMIT 10000";
-			
-			break;
-			
-		case "organisation":	 query = "PREFIX  dbo:  <http://dbpedia.org/ontology/>" 
-				+ "PREFIX  dbr:  <http://dbpedia.org/resource/>"
-				 +"SELECT DISTINCT  * WHERE\n"
-				+ "{ ?s  a dbo:Organisation ;" 
-				+"       ?p   ?o."
-				+"} LIMIT 10000";
-		break;
+                while (st.hasNext()) {
+    				// get the value of the variables in the select clause
+    				try {
+    					Statement et = st.next();
+    					String s = et.getSubject().toString();
+    					String p = et.getPredicate().toString();
+    					String o = et.getObject().toString();
 
-			case "country":  query =  "select distinct ?s ?p ?o\n"
-					+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;"
-					+"?p ?o. "
-					+"FILTER (lang(?o) = 'en')} order by ?o";
-        break;
-		default:
-			break;
-		}
-		
-		//Query for country
+    					Node curr_s = new Node(s, 0, 0, ALGORITHM);
+    					Node curr_o = new Node(o, 0, 1, ALGORITHM);
+    					
+    					if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
+    						g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
 
+    				} catch (Exception e) {
+    					e.printStackTrace();
+    				}
+    			}
+            } catch(Exception ex) {
+                System.out.println("Unable to Parse");
+            }
 
-		//Query for person
-		
-
-
-
-
-		//Query for organisation
-		
-
-
-
-
-
-
-		log.info("Query " + query);
-		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
-
-		QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
-		List<Node> allNodesRanked = new ArrayList<Node>();
-		try {
-			ResultSet results = httpQuery.execSelect();
-			QuerySolution solution;
-			while (results.hasNext()) {
-				solution = results.next();
-				// get the value of the variables in the select clause
-				try {
-					String s = solution.get("s").toString();
-					String p = solution.get("p").toString();
-					String o = solution.get("o").toString();
-
-					Node curr_s = new Node(s, 0, 0, ALGORITHM);
-					Node curr_o = new Node(o, 0, 1, ALGORITHM);
-					if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
-						g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		} finally {
-			httpQuery.close();
-		}
-
-
-
-		// run Page Rank to get the top entities of type 'Person'
-		allNodesRanked = runPageRank(g);
+ 		List<Node> allNodesRanked = new ArrayList<Node>();
+ 		allNodesRanked.addAll(g.getVertices());
 
 		List<Node> highRankNodes = new ArrayList<Node>();
 		for (Node node : allNodesRanked) {
-			if (node.getLevel() == 0) {
+			if (node.getLevel() == 0 && !highRankNodes.contains(node)) {
 				highRankNodes.add(node);
 			}
+		}
 
+		try {
+			HITSAlgorithm ht = new HITSAlgorithm();
+			ht.runHits(g, 10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ArrayList<Node> orderedList = new ArrayList<Node>();
+		orderedList.addAll(g.getVertices());
+		Collections.sort(orderedList, new Comparator<Node>() {
+
+			public int compare(Node o1, Node o2) {
+				// TODO Auto-generated method stub
+				return Double.compare(o1.getAuthorityWeight(), o2.getAuthorityWeight());
+			}
+		});
+		
+		Collections.reverse(orderedList);
+		
+		int p = 0;
+		List<Node> temp = new ArrayList<>();
+		for (Node node_iter : orderedList) {
+
+			if(highRankNodes.contains(node_iter)) {
+				temp.add(node_iter);
+				System.out.println("Weight is "+node_iter+" "+node_iter.getAuthorityWeight());
+				p=p+1;
+			}	
+
+			if(p>10)
+				break;
 
 		}
-		//get 'Top-50' nodes
-		highRankNodes = highRankNodes.subList(0, topk);
-
-		//run BFS
-		DirectedSparseGraph<Node, String> graph = runBFS(highRankNodes);
-
-		//Finally run the Page Rank algorithm to the entities after their BFS expansion
-		List<Node> topNodes = runPageRank(graph);
+		
 		Model model = ModelFactory.createDefaultModel();
 		//form the triples of all the top nodes 
-		for(Node node: topNodes) {
-			if(highRankNodes.contains(node)){
-				Collection<Node> neighbourNodes = graph.getNeighbors(node);
-				for(Node succesorNode : neighbourNodes ) {
 
-					String sub = node.getCandidateURI();
-					String pred = graph.findEdge(node, succesorNode);
-					String object = succesorNode.getCandidateURI();
+		for(Node nodetemp: temp) {
+			Collection<Node> neighbourNodes1 = g.getNeighbors(nodetemp);
+			List<Node> neighbourNodes = new ArrayList<>();
+			neighbourNodes.addAll(neighbourNodes1);
+			Collections.sort(neighbourNodes, new Comparator<Node>() {
 
-					if(pred!= null){
-						Resource subject = model.createResource(sub);
-						Property predicate = model.createProperty(pred.split(";")[1]);
-						model.add(subject, predicate, object);
-					}
+				@Override
+				public int compare(Node o1, Node o2) {
+					// TODO Auto-generated method stub
+					return Double.compare(o1.getHubWeight(), o2.getHubWeight());
+				}
+			});
+			
+			for(Node succesorNode : neighbourNodes ) {
+
+				String sub = nodetemp.getCandidateURI();
+				String pred = g.findEdge(nodetemp, succesorNode);
+				String object = succesorNode.getCandidateURI();
+
+				if(pred!= null){
+					Resource subject = model.createResource(sub);
+					Property predicate = model.createProperty(pred.split(";")[1]);
+					model.add(subject, predicate, object);
 				}
 			}
 		}
 
+		System.out.println("Finished");
 		return sortStatements(model.listStatements());
 	}
-
 
 	private List<Node> runPageRank(DirectedSparseGraph<Node, String> g) {
 		PageRank pr = new PageRank();
@@ -193,8 +196,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		String nodeType = DB_RESOURCE;
 		String edgeLabel = DB_Label;
 		DirectedSparseGraph<Node, String> graph = new DirectedSparseGraph<Node, String>();
-		for (Node node: highRankNodes) {
-			graph.addVertex(node);	
+		for (Node node : highRankNodes) {
+			graph.addVertex(node);
 		}
 		BreadthFirstSearch bfs = null;
 		try {
