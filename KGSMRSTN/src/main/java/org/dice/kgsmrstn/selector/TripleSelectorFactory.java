@@ -34,7 +34,7 @@ public class TripleSelectorFactory {
         case SIMPLE:
 			return new SimpleSelector(sourceClasses, targetClasses, endpoint, graph,clazz,topk);
         case ENTITY:
-        	return new EntityTriplesSelector(endpoint,clazz);
+        	return new EntityTriplesSelector(endpoint,clazz,topk);
 		}
 		return null;
 	}

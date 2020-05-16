@@ -44,8 +44,8 @@ public class Node implements Comparable<Node> {
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("#.####");
 		return candidateURI + ":" + String.valueOf(df.format(activation)) + " H: " + String.valueOf(df.format(hubWeight)
-				+ " A: " + String.valueOf(df.format(authorityWeight) + " PR: " + pageRank)) + "BL: "+backlink
-				+  "LS: " + this.linksumNodeScore;
+				+ " A: " + String.valueOf(df.format(authorityWeight) + " PR: " + pageRank)) + " BL: "+backlink
+				+  " LS: " + this.linksumNodeScore;
 	}
 
 	@Override

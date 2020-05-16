@@ -154,8 +154,10 @@ public class KgsmrstnController {
          return response;*/
     }
     
-    @GetMapping(value = "kgraph/type/{type}/entity/{entity}")
-    public String getSummarizedInfoOfAnEntity(@PathVariable("type") String type,@PathVariable("entity") String entity){
+    @GetMapping(value = "kgraph/type/{type}/entity/{entity}/top/{k}")
+    public String getSummarizedInfoOfAnEntity(@PathVariable("type") String type
+    		,@PathVariable("entity") String entity
+    		,@PathVariable("k") Integer k){
     	
     	log.info("In getSummarizedInfoOfAnEntity...");
     	
@@ -169,7 +171,7 @@ public class KgsmrstnController {
         entity = (entity.contains(" ")?entity.replace(" ", "_"):entity);
         runConfig.setEntity(entity);
         //runConfig.setClazz(clazz);
-        //runConfig.setTopk(topk);
+        runConfig.setTopk(k);
 
         List<Statement> triples;
         /*final Set<String> classes = new HashSet<>();
@@ -181,7 +183,7 @@ public class KgsmrstnController {
 
         tripleSelector = factory.create(selectorType, null,
                          null, runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
-                        runConfig.getSeed(),runConfig.getEntity(),0);
+                        runConfig.getSeed(),runConfig.getEntity(),runConfig.getTopk());
 
         triples = tripleSelector.getNextStatements();
 
