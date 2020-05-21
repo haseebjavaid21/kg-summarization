@@ -146,9 +146,18 @@ public class EntityTriplesSelector implements TripleSelector {
 		// End of Resource Selection
 
 		// Beginning Predicate selection
+		// select predicates by exclusivity
+		//Map<Node, String> relevantAssocToAnEntity = electPredicatesByExclusivity(allAssociationsToAnEntity);
+		
+		// select predicates by exclusivity
+		Map<Node, String> relevantAssocToAnEntity = electPredicatesByDescription(allAssociationsToAnEntity);
+
 		// select predicates by frequency
-		Map<Node, String> relevantAssocToAnEntity = electPredicatesByFrequency(allAssociationsToAnEntity,
-				globalPredicateFrequency);
+		/*
+		 * Map<Node, String> relevantAssocToAnEntity =
+		 * electPredicatesByFrequency(allAssociationsToAnEntity,
+		 * globalPredicateFrequency);
+		 */
 
 		Model model = ModelFactory.createDefaultModel();
 		model = createModel(model, relevantAssocToAnEntity, entity, k);
@@ -224,6 +233,119 @@ public class EntityTriplesSelector implements TripleSelector {
 			relevantAssocToAnEntity.put(subject, relPredicate);
 		});
 		return relevantAssocToAnEntity;
+	}
+
+	private Map<Node, String> electPredicatesByExclusivity(Map<Node, List<String>> allAssociationsToAnEntity) {
+
+		Map<Node, String> relevantAssocToAnEntity = new HashMap<Node, String>();
+		// for all associations,for every subject resource associated to the
+		// target with multiple associations,find the best association by
+		// exclusivity
+		allAssociationsToAnEntity.forEach((subject, predicates) -> {
+
+			if (predicates.size() > 1) {
+				int n = 0;
+				int m = 0;
+				int exclusiveSum = 9999;
+				String relPredicate = "";
+				for (String predicate : predicates) {
+
+					String query = "SELECT (str(COUNT(*))AS ?freqN) ?freqM WHERE { " + "<" + subject.getCandidateURI()
+							+ "> " + " <" + predicate + "> " + " ?object {" + "SELECT (str(COUNT(*))AS ?freqM) WHERE { "
+							+ "?subject " + " <" + predicate + "> " + " <http://dbpedia.org/resource/" + entity + ">"
+							+ "}" + "}" + "} GROUP BY ?freqM ";
+
+					Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
+					QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
+					try {
+						ResultSet results = httpQuery.execSelect();
+						QuerySolution solution = results.next();
+						n = Integer.valueOf(solution.get("freqN").toString());
+						m = Integer.valueOf(solution.get("freqM").toString());
+						relPredicate = (exclusiveSum < (n + m) ? relPredicate : predicate);
+						exclusiveSum = (exclusiveSum < (n + m) ? exclusiveSum : (n + m));
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						httpQuery.close();
+					}
+
+				}
+				relevantAssocToAnEntity.put(subject, relPredicate);
+			} else {
+				// Add the only association from the subject resource to the
+				// target
+				relevantAssocToAnEntity.put(subject, predicates.get(0));
+			}
+		});
+
+		return relevantAssocToAnEntity;
+	}
+
+	private Map<Node, String> electPredicatesByDescription(Map<Node, List<String>> allAssociationsToAnEntity) {
+
+		/*
+		 * SELECT (count(?label) as ?lc) (count(?range) as ?rc) (count(?domain)
+		 * as ?dc) //OR distinct ?label ?range ?domain WHERE {
+		 * 
+		 * # # if you would like to restrict to 1 or more properties # values
+		 * ?property {tto:sex tto:weight} # or # bind (tto:sex as ?property) #
+		 * BIND(dbo:producer as ?property) ?property a rdf:Property. optional
+		 * {?property rdfs:label ?label} optional {?property rdfs:range ?range}
+		 * #kind of resource expected as the object of this prop optional
+		 * {?property rdfs:domain ?domain} #kind of resource expected as the
+		 * subject of this prop
+		 * 
+		 * }
+		 */
+		Map<Node, String> relevantAssocToAnEntity = new HashMap<Node, String>();
+		// for all associations,for every subject resource associated to the
+		// target with multiple associations,find the best association by
+		// the description they have
+		allAssociationsToAnEntity.forEach((subject, predicates) -> {
+
+			if (predicates.size() > 1) {
+				int totalDescriptionAvailable = 0;
+				String relPredicate = "";
+				for (String predicate : predicates) {
+
+					String query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+					+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
+					+ "SELECT (str(count(?label)) as ?lc) (str(count(?range)) as ?rc) (str(count(?domain)) as ?dc) WHERE { \n" 
+					+ "BIND(" + "<" + predicate + ">" + "as ?property) \n"
+					+ "OPTIONAL {?property a rdf:Property.} \n"
+					+ "OPTIONAL {?property rdfs:label ?label.} \n"
+					+ "OPTIONAL {?property rdfs:range ?range.} \n"
+					+ "OPTIONAL {?property rdfs:domain ?domain.} \n }";
+							
+
+					Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
+					QueryEngineHTTP httpQuery = new QueryEngineHTTP("http://dbpedia-live.openlinksw.com/sparql", sparqlQuery);
+					try {
+						ResultSet results = httpQuery.execSelect();
+						QuerySolution solution = results.next();
+						int lc = Integer.valueOf(solution.get("lc").toString());
+						int rc = Integer.valueOf(solution.get("rc").toString());
+						int dc = Integer.valueOf(solution.get("dc").toString());
+						relPredicate = (totalDescriptionAvailable > (lc + rc + dc) ? relPredicate : predicate);
+						totalDescriptionAvailable = (totalDescriptionAvailable > (lc + rc + dc) ? totalDescriptionAvailable : (lc + rc + dc));
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						httpQuery.close();
+					}
+
+				}
+				relevantAssocToAnEntity.put(subject, relPredicate);
+			} else {
+				// Add the only association from the subject resource to the
+				// target
+				relevantAssocToAnEntity.put(subject, predicates.get(0));
+			}
+		});
+
+		return relevantAssocToAnEntity;
+
 	}
 
 	private List<Node> applyLinkSum(List<Node> rankedInitialNodes, List<Node> nodesHavingBacklink) {

@@ -1,340 +1,4 @@
 { 
-  "http://dbpedia.org/resource/The_Lost_City_of_Z_(film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Devil's_Own" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/12_Monkeys" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Meet_Joe_Black" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Tree_of_Life_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Pretty/Handsome" : { 
-    "http://dbpedia.org/ontology/executiveProducer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/List_of_Late_Night_with_Conan_O'Brien_episodes_(season_11)" : { 
-    "http://dbpedia.org/property/guests" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Louis_de_Pointe_du_Lac" : { 
-    "http://dbpedia.org/ontology/portrayer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/A_River_Runs_Through_It_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_One_with_the_Rumor" : { 
-    "http://dbpedia.org/ontology/guest" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Allied_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Troy_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/True_Romance" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Not_on_Our_Watch_(organization)" : { 
-    "http://dbpedia.org/ontology/foundedBy" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Ocean's_Thirteen" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Spy_Game" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Too_Young_to_Die%3F" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Interview_with_the_Vampire_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Happy_Together_(1989_American_film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/By_the_Sea_(2015_film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Dark_Side_of_the_Sun_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Jennifer_Aniston" : { 
-    "http://dbpedia.org/ontology/spouse" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Steve_McQueen_(director)" : { 
-    "http://dbpedia.org/property/source" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Across_the_Tracks" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Mexican" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Ocean's_Eleven" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Curious_Case_of_Benjamin_Button_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Moneyball_(film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Sinbad:_Legend_of_the_Seven_Seas" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Plan_B_Entertainment" : { 
-    "" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Kick-Ass_(film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/List_of_Real_Time_with_Bill_Maher_episodes_(2009)" : { 
-    "http://dbpedia.org/property/rtitle" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/A_Mighty_Heart_(film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Rusty_Ryan" : { 
-    "http://dbpedia.org/ontology/portrayer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Ocean's_Trilogy" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Megamind" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Ocean's_Twelve" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Angelina_Jolie" : { 
-    "http://dbpedia.org/ontology/spouse" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Two-Fisted_Tales_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Cool_World" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Contact_(1992_film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Fury_(2014_film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
   "http://dbpedia.org/resource/Happy_Feet_Two" : { 
     "http://dbpedia.org/ontology/starring" : [ { 
       "type" : "literal" ,
@@ -359,7 +23,7 @@
      ]
   }
    ,
-  "http://dbpedia.org/resource/Seven_(1995_film)" : { 
+  "http://dbpedia.org/resource/The_Curious_Case_of_Benjamin_Button_(film)" : { 
     "http://dbpedia.org/ontology/starring" : [ { 
       "type" : "literal" ,
       "value" : "Brad_Pitt"
@@ -367,7 +31,15 @@
      ]
   }
    ,
-  "http://dbpedia.org/resource/The_Tiger_(upcoming_film)" : { 
+  "http://dbpedia.org/resource/Troy_(film)" : { 
+    "http://dbpedia.org/ontology/starring" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Two-Fisted_Tales_(film)" : { 
     "http://dbpedia.org/ontology/starring" : [ { 
       "type" : "literal" ,
       "value" : "Brad_Pitt"
@@ -376,23 +48,23 @@
   }
    ,
   "http://dbpedia.org/resource/The_Assassination_of_Jesse_James_by_the_Coward_Robert_Ford" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
+    "http://dbpedia.org/ontology/producer" : [ { 
       "type" : "literal" ,
       "value" : "Brad_Pitt"
     }
      ]
   }
    ,
-  "http://dbpedia.org/resource/Snatch_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
+  "http://dbpedia.org/resource/A_Mighty_Heart_(film)" : { 
+    "http://dbpedia.org/ontology/producer" : [ { 
       "type" : "literal" ,
       "value" : "Brad_Pitt"
     }
      ]
   }
    ,
-  "http://dbpedia.org/resource/Sleepers" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
+  "http://dbpedia.org/resource/Louis_de_Pointe_du_Lac" : { 
+    "http://dbpedia.org/ontology/portrayer" : [ { 
       "type" : "literal" ,
       "value" : "Brad_Pitt"
     }
@@ -401,142 +73,6 @@
    ,
   "http://dbpedia.org/resource/Kick-Ass_(film_series)" : { 
     "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Cutting_Class" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Feud_(TV_series)" : { 
-    "http://dbpedia.org/ontology/executiveProducer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Seven_Years_in_Tibet_(1997_film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Voyage_of_Time" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Johnny_Suede" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Legends_of_the_Fall" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Departed" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/World_War_Z_(film)" : { 
-    "" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Narrator_(Fight_Club)" : { 
-    "http://dbpedia.org/ontology/portrayer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Eat_Pray_Love" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Burn_After_Reading" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Make_It_Right_Foundation" : { 
-    "http://dbpedia.org/ontology/foundedBy" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Favor" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Audition_(2015_film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/War_Machine_(film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Kalifornia" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
-    }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Babel_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
       "type" : "literal" ,
       "value" : "Brad_Pitt"
     }
