@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
@@ -142,27 +143,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 		
 		allNodesRanked.addAll(g.getVertices());
 
-		List<Node> highRankNodes = new ArrayList<Node>();
-		for (Node node : allNodesRanked) {
-			if (node.getLevel() == 0 && !highRankNodes.contains(node)) {
-				highRankNodes.add(node);
-			}
-		}
-		
-		int p = 0;
-		for (Node node_iter : this.sortAndReverse(g)) {
-			if (highRankNodes.contains(node_iter)) {
-				NodeIteration.add(node_iter);
-				System.out.println("Weight is " + node_iter + " " + node_iter.getAuthorityWeight());
-				p = p + 1;
-			}
-
-			if (p > 10)
-				break;
-
-		}
-		return NodeIteration;
-		
+		NodeIteration =  this.sortAndReverse(g).parallelStream().filter(node -> node.getLevel() == 1 ).collect(Collectors.toList());
+		return NodeIteration;	
 	}
 	
 	protected void readFromTTL(String ttl_path) {
@@ -178,8 +160,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 				String p = et.getPredicate().toString();
 				String o = et.getObject().toString();
 
-				Node curr_s = new Node(s, 0, 0, ALGORITHM);
-				Node curr_o = new Node(o, 0, 1, ALGORITHM);
+				Node curr_s = new Node(o, 0, 0, ALGORITHM);
+				Node curr_o = new Node(s, 0, 1, ALGORITHM);
 
 				if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
 					g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
@@ -206,10 +188,12 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 				}
 			});
 
+			System.out.println("AW : "+nodetemp.getAuthorityWeight());
+			
 			for (Node succesorNode : neighbourNodes) {
 
 				String sub = nodetemp.getCandidateURI();
-				String pred = g.findEdge(nodetemp, succesorNode);
+				String pred = g.findEdge(succesorNode, nodetemp);
 				String object = succesorNode.getCandidateURI();
 
 				if (pred != null) {
