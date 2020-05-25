@@ -68,6 +68,8 @@ public class KgsmrstnController {
                          new HashSet<>(), runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
                         runConfig.getSeed(),runConfig.getClazz(),runConfig.getTopk());
 
+
+        
         triples = tripleSelector.getNextStatements();
 
         //Possible Solution #1,but written as a JSON file.
@@ -88,7 +90,7 @@ public class KgsmrstnController {
         }
         FileOutputStream oFile = null;
         try {
-            oFile = new FileOutputStream("./src/main/resources/webapp/output_10_withIsum.ttl", false);
+            oFile = new FileOutputStream("./src/main/resources/webapp/output_new.ttl", false);
         } catch (FileNotFoundException e1) {
             return "callback(" +
                     "{" +
