@@ -67,80 +67,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 	protected List<Statement> getResources(Set<String> classes, String clazz,int topk) {
 
-		//		String query = "";
-		//
-		//		switch (clazz) {
-		//		case "person": query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +  "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
-		//				+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
-		//				+ "    ?p                    ?o\n" 
-		//				+"FILTER  regex(?o, 'http://xmlns.com/foaf/0.1/')."
-		//				+"} LIMIT 10000";
-		//			
-		//			break;
-		//			
-		//		case "organisation":	 query = "PREFIX  dbo:  <http://dbpedia.org/ontology/>" 
-		//				+ "PREFIX  dbr:  <http://dbpedia.org/resource/>"
-		//				 +"SELECT DISTINCT  * WHERE\n"
-		//				+ "{ ?s  a dbo:Organisation ;" 
-		//				+"       ?p   ?o."
-		//				+"} LIMIT 10000";
-		//		break;
-		//
-		//			case "country":  query =  "select distinct ?s ?p ?o\n"
-		//					+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;"
-		//					+"?p ?o. "
-		//					+"FILTER (lang(?o) = 'en')} order by ?o";
-		//        break;
-		//		default:
-		//			break;
-		//		}
-		//		
-		//		//Query for country
-		//
-		//
-		//		//Query for person
-		//		
-		//
-		//
-		//
-		//
-		//		//Query for organisation
-		//		
-		//
-		//
-		//
-		//
-		//
-		//
-		//		log.info("Query " + query);
-		//		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
-		//
-		//		QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
-		//		List<Node> allNodesRanked = new ArrayList<Node>();
-		//		try {
-		//			ResultSet results = httpQuery.execSelect();
-		//			QuerySolution solution;
-		//			while (results.hasNext()) {
-		//				solution = results.next();
-		//				// get the value of the variables in the select clause
-		//				try {
-		//					String s = solution.get("s").toString();
-		//					String p = solution.get("p").toString();
-		//					String o = solution.get("o").toString();
-		//
-		//					Node curr_s = new Node(s, 0, 0, ALGORITHM);
-		//					Node curr_o = new Node(o, 0, 1, ALGORITHM);
-		//					if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
-		//						g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
-		//				} catch (Exception e) {
-		//					e.printStackTrace();
-		//				}
-		//
-		//			}
-		//		} finally {
-		//			httpQuery.close();
-		//		}
-
+		
 
 
 		// run Page Rank to get the top entities of type 'Person'
@@ -228,17 +155,29 @@ System.out.println("Components created");
 		List<Node> temp = new ArrayList<>();
 		
 		temp = topNodes.parallelStream().filter(node -> node.getLevel()==1).collect(Collectors.toList());
+		double temp_weight = 0.0;
+//		for(Node node: temp) {
+//			temp_weight = temp_weight + node.getAuthorityWeight();
+//		}
 		
-		if(temp.size()>=1000)
-			temp = temp.subList(0, 1000);
+		//System.out.println("Mean computed traditionally "+temp_weight/temp.size());
+		double total_weight = topNodes.parallelStream().filter(node ->node.getLevel()==1).map(node -> node.getAuthorityWeight()).reduce(0.0, Double::sum);
+		double meanNodes = total_weight/temp.size();
+		System.out.println("Mean of "+temp.size()+" entities is "+meanNodes);
+		
+		List<Node> temp1 = temp.parallelStream().filter(node -> node.getAuthorityWeight() >= (meanNodes/100)).collect(Collectors.toList());
+		
+		System.out.println("final number of entities is "+temp1.size());
+		
+		//temp = temp.subList(0, 1000);
 
 
 		Model model = ModelFactory.createDefaultModel();
 		//form the triples of all the top nodes 
 
-		for(Node node: temp) {
+		for(Node node: temp1) {
 
-
+            //System.out.println("Node "+node+" Aw: "+node.getAuthorityWeight());
 			Collection<Node> neighbourNodes1 = g.getNeighbors(node);
 			List<Node> neighbourNodes = new ArrayList<>();
 			neighbourNodes.addAll(neighbourNodes1);
@@ -271,6 +210,7 @@ System.out.println("Components created");
 
 		}
 
+		System.out.println("final number of entities is "+temp1.size());
 		return sortStatements(model.listStatements());
 	}
 
