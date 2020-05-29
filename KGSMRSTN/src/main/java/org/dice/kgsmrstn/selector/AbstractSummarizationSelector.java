@@ -81,7 +81,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 		}
 
 		List<Node> processedHighRankNodes = this.getHighRankNdes();
-		System.out.println("Finished");
+		System.out.println("Finished :"+ processedHighRankNodes.size());
 		return sortStatements(this.generateList(processedHighRankNodes).listStatements());
 	}
 
@@ -138,13 +138,20 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 	}
 	
 	protected List<Node> getHighRankNdes() {
-		List<Node> allNodesRanked = new ArrayList<Node>();
+		List<Node> reversedNodeList = new ArrayList<Node>();
 		List<Node> NodeIteration = new ArrayList<>();
 		
-		allNodesRanked.addAll(g.getVertices());
-
-		NodeIteration =  this.sortAndReverse(g).parallelStream().filter(node -> node.getLevel() == 1 ).collect(Collectors.toList());
-		return NodeIteration;	
+		reversedNodeList = this.sortAndReverse(g);
+		NodeIteration =  reversedNodeList.parallelStream().filter(node -> node.getLevel() == 1 ).collect(Collectors.toList());
+		double temp_weight = 0.0;
+		double total_weight = reversedNodeList.parallelStream().filter(node ->node.getLevel()==1).map(node -> node.getAuthorityWeight()).reduce(0.0, Double::sum);
+		double meanNodes = total_weight/NodeIteration.size();
+		System.out.println("Mean of "+NodeIteration.size()+" entities is "+meanNodes);
+		
+		List<Node> filteredList = NodeIteration.parallelStream().filter(node -> node.getAuthorityWeight() >= (meanNodes/100)).collect(Collectors.toList());
+		
+		System.out.println("final number of entities is "+filteredList.size());
+		return filteredList;	
 	}
 	
 	protected void readFromTTL(String ttl_path) {
@@ -174,7 +181,6 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 	protected Model generateList(List<Node> temp) {
 		Model model = ModelFactory.createDefaultModel();
 		// form the triples of all the top nodes
-
 		for (Node nodetemp : temp) {
 			Collection<Node> neighbourNodes1 = g.getNeighbors(nodetemp);
 			List<Node> neighbourNodes = new ArrayList<>();
@@ -203,6 +209,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 				}
 			}
 		}
+		System.out.println("Final Size : "+model.size());
 		return model;
 	}
 	
