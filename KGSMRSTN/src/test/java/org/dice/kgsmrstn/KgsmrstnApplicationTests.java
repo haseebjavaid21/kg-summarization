@@ -13,6 +13,8 @@ public class KgsmrstnApplicationTests {
 
         public static void main(String[] args) {
 		KgsmrstnController kc = new KgsmrstnController();
-                kc.getSummarizedInfoOfAnEntity("entity", "Brad Pitt",10);
+                kc.getSummarizedInfoOfAnEntity("entity", "Brad Pitt",10,"FRQ");
+                kc.getSummarizedInfoOfAnEntity("entity", "Brad Pitt",10,"EXC");
+                kc.getSummarizedInfoOfAnEntity("entity", "Brad Pitt",10,"DSC");
 	}
 }

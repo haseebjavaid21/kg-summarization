@@ -49,16 +49,18 @@ public class EntityTriplesSelector implements TripleSelector {
 
 	private Double alpha = 0.5;
 	private Integer k;
+	private String predicateSelectionMode;
 
 	private Map<Node, List<String>> allAssociationsToAnEntity = new HashMap<Node, List<String>>();
 	private Map<String, Long> globalPredicateFrequency = new HashMap<String, Long>();
 
 	private DirectedSparseGraph<Node, String> g = new DirectedSparseGraph<Node, String>();
 
-	public EntityTriplesSelector(String endpoint, String entity, Integer k) {
+	public EntityTriplesSelector(String endpoint, String entity, Integer k, String mode) {
 		this.endpoint = endpoint;
 		this.entity = entity;
 		this.k = k;
+		this.predicateSelectionMode = mode;
 	}
 
 	@Override
@@ -146,18 +148,18 @@ public class EntityTriplesSelector implements TripleSelector {
 		// End of Resource Selection
 
 		// Beginning Predicate selection
+		Map<Node, String> relevantAssocToAnEntity = null;
 		// select predicates by exclusivity
-		//Map<Node, String> relevantAssocToAnEntity = electPredicatesByExclusivity(allAssociationsToAnEntity);
-		
-		// select predicates by exclusivity
-		Map<Node, String> relevantAssocToAnEntity = electPredicatesByDescription(allAssociationsToAnEntity);
+		if (this.predicateSelectionMode.equalsIgnoreCase("EXC"))
+			relevantAssocToAnEntity = electPredicatesByExclusivity(allAssociationsToAnEntity);
+
+		// select predicates by description
+		if (this.predicateSelectionMode.equalsIgnoreCase("DSC"))
+			relevantAssocToAnEntity = electPredicatesByDescription(allAssociationsToAnEntity);
 
 		// select predicates by frequency
-		/*
-		 * Map<Node, String> relevantAssocToAnEntity =
-		 * electPredicatesByFrequency(allAssociationsToAnEntity,
-		 * globalPredicateFrequency);
-		 */
+		if (this.predicateSelectionMode.equalsIgnoreCase("FRQ"))
+			relevantAssocToAnEntity = electPredicatesByFrequency(allAssociationsToAnEntity, globalPredicateFrequency);
 
 		Model model = ModelFactory.createDefaultModel();
 		model = createModel(model, relevantAssocToAnEntity, entity, k);
@@ -310,17 +312,16 @@ public class EntityTriplesSelector implements TripleSelector {
 				for (String predicate : predicates) {
 
 					String query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-					+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
-					+ "SELECT (str(count(?label)) as ?lc) (str(count(?range)) as ?rc) (str(count(?domain)) as ?dc) WHERE { \n" 
-					+ "BIND(" + "<" + predicate + ">" + "as ?property) \n"
-					+ "OPTIONAL {?property a rdf:Property.} \n"
-					+ "OPTIONAL {?property rdfs:label ?label.} \n"
-					+ "OPTIONAL {?property rdfs:range ?range.} \n"
-					+ "OPTIONAL {?property rdfs:domain ?domain.} \n }";
-							
+							+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
+							+ "SELECT (str(count(?label)) as ?lc) (str(count(?range)) as ?rc) (str(count(?domain)) as ?dc) WHERE { \n"
+							+ "BIND(" + "<" + predicate + ">" + "as ?property) \n"
+							+ "OPTIONAL {?property a rdf:Property.} \n" + "OPTIONAL {?property rdfs:label ?label.} \n"
+							+ "OPTIONAL {?property rdfs:range ?range.} \n"
+							+ "OPTIONAL {?property rdfs:domain ?domain.} \n }";
 
 					Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
-					QueryEngineHTTP httpQuery = new QueryEngineHTTP("http://dbpedia-live.openlinksw.com/sparql", sparqlQuery);
+					QueryEngineHTTP httpQuery = new QueryEngineHTTP("http://dbpedia-live.openlinksw.com/sparql",
+							sparqlQuery);
 					try {
 						ResultSet results = httpQuery.execSelect();
 						QuerySolution solution = results.next();
@@ -328,7 +329,8 @@ public class EntityTriplesSelector implements TripleSelector {
 						int rc = Integer.valueOf(solution.get("rc").toString());
 						int dc = Integer.valueOf(solution.get("dc").toString());
 						relPredicate = (totalDescriptionAvailable > (lc + rc + dc) ? relPredicate : predicate);
-						totalDescriptionAvailable = (totalDescriptionAvailable > (lc + rc + dc) ? totalDescriptionAvailable : (lc + rc + dc));
+						totalDescriptionAvailable = (totalDescriptionAvailable > (lc + rc + dc)
+								? totalDescriptionAvailable : (lc + rc + dc));
 					} catch (Exception e) {
 						e.printStackTrace();
 					} finally {
