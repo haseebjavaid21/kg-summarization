@@ -1,0 +1,81 @@
+{ 
+  "http://dbpedia.org/resource/Happy_Feet_Two" : { 
+    "http://dbpedia.org/ontology/starring" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/The_Big_Short_(film)" : { 
+    "http://dbpedia.org/ontology/producer" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/12_Years_a_Slave_(film)" : { 
+    "http://dbpedia.org/ontology/producer" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/The_Curious_Case_of_Benjamin_Button_(film)" : { 
+    "http://dbpedia.org/ontology/starring" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Troy_(film)" : { 
+    "http://dbpedia.org/ontology/starring" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Two-Fisted_Tales_(film)" : { 
+    "http://dbpedia.org/ontology/starring" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/The_Assassination_of_Jesse_James_by_the_Coward_Robert_Ford" : { 
+    "http://dbpedia.org/ontology/producer" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/A_Mighty_Heart_(film)" : { 
+    "http://dbpedia.org/ontology/producer" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Louis_de_Pointe_du_Lac" : { 
+    "http://dbpedia.org/ontology/portrayer" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+   ,
+  "http://dbpedia.org/resource/Kick-Ass_(film_series)" : { 
+    "http://dbpedia.org/ontology/producer" : [ { 
+      "type" : "literal" ,
+      "value" : "Brad_Pitt"
+    }
+     ]
+  }
+}

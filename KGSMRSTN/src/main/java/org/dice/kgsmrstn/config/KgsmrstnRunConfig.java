@@ -17,6 +17,7 @@ public class KgsmrstnRunConfig {
 	private String clazz;
 	private Integer topk;
 	
+	private String predicateSelectionMode;
 	private String entity;
 
 	public long getSeed() {
@@ -59,7 +60,6 @@ public class KgsmrstnRunConfig {
 		this.sqparqlEndPoint = sqparqlEndPoint;
 	}
 	
-
 	public String getClazz() {
 		return clazz;
 	}
@@ -82,6 +82,14 @@ public class KgsmrstnRunConfig {
 
 	public void setEntity(String entity) {
 		this.entity = entity;
+	}
+
+	public String getPredicateSelectionMode() {
+		return predicateSelectionMode;
+	}
+
+	public void setPredicateSelectionMode(String predicateSelectionMode) {
+		this.predicateSelectionMode = predicateSelectionMode;
 	}
 
 	public SelectorType getSelectorTypeEnum() {

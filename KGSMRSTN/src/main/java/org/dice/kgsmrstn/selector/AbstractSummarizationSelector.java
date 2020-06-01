@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Haseeb Javaid
  */
-public abstract class AbstractSummarizationSelector implements TripleSelector{
+public abstract class AbstractSummarizationSelector implements TripleSelector {
 
 	private static final String DB_RESOURCE = "http://dbpedia.org/resource/";
 	private static final String DB_ONTOLOGY = "http://dbpedia.org/ontology/";
@@ -54,52 +54,33 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		this.endpoint = endpoint;
 	}
 
-	protected List<Statement> getResources(Set<String> classes, String clazz,int topk) {
+	protected List<Statement> getResources(Set<String> classes, String clazz, int topk) {
 
 		String query = "";
 
 		switch (clazz) {
-		case "person": query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +  "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
-				+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
-				+ "    ?p                    ?o\n" 
-				+"FILTER  regex(?o, 'http://xmlns.com/foaf/0.1/')."
-				+"} LIMIT 10000";
-			
-			break;
-			
-		case "organisation":	 query = "PREFIX  dbo:  <http://dbpedia.org/ontology/>" 
-				+ "PREFIX  dbr:  <http://dbpedia.org/resource/>"
-				 +"SELECT DISTINCT  * WHERE\n"
-				+ "{ ?s  a dbo:Organisation ;" 
-				+"       ?p   ?o."
-				+"} LIMIT 10000";
-		break;
+		case "person":
+			query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+					+ "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+					+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
+					+ "    ?p                    ?o\n" + "FILTER  regex(?o, 'http://xmlns.com/foaf/0.1/')."
+					+ "} LIMIT 10000";
 
-			case "country":  query =  "select distinct ?s ?p ?o\n"
-					+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;"
-					+"?p ?o. "
-					+"FILTER (lang(?o) = 'en')} order by ?o";
-        break;
+			break;
+
+		case "organisation":
+			query = "PREFIX  dbo:  <http://dbpedia.org/ontology/>" + "PREFIX  dbr:  <http://dbpedia.org/resource/>"
+					+ "SELECT DISTINCT  * WHERE\n" + "{ ?s  a dbo:Organisation ;" + "       ?p   ?o." + "} LIMIT 10000";
+			break;
+
+		case "country":
+			query = "select distinct ?s ?p ?o\n"
+					+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;" + "?p ?o. "
+					+ "FILTER (lang(?o) = 'en')} order by ?o";
+			break;
 		default:
 			break;
 		}
-		
-		//Query for country
-
-
-		//Query for person
-		
-
-
-
-
-		//Query for organisation
-		
-
-
-
-
-
 
 		log.info("Query " + query);
 		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
@@ -130,8 +111,6 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 			httpQuery.close();
 		}
 
-
-
 		// run Page Rank to get the top entities of type 'Person'
 		allNodesRanked = runPageRank(g);
 
@@ -141,28 +120,28 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 				highRankNodes.add(node);
 			}
 
-
 		}
-		//get 'Top-50' nodes
+		// get 'Top-50' nodes
 		highRankNodes = highRankNodes.subList(0, topk);
 
-		//run BFS
+		// run BFS
 		DirectedSparseGraph<Node, String> graph = runBFS(highRankNodes);
 
-		//Finally run the Page Rank algorithm to the entities after their BFS expansion
+		// Finally run the Page Rank algorithm to the entities after their BFS
+		// expansion
 		List<Node> topNodes = runPageRank(graph);
 		Model model = ModelFactory.createDefaultModel();
-		//form the triples of all the top nodes 
-		for(Node node: topNodes) {
-			if(highRankNodes.contains(node)){
+		// form the triples of all the top nodes
+		for (Node node : topNodes) {
+			if (highRankNodes.contains(node)) {
 				Collection<Node> neighbourNodes = graph.getNeighbors(node);
-				for(Node succesorNode : neighbourNodes ) {
+				for (Node succesorNode : neighbourNodes) {
 
 					String sub = node.getCandidateURI();
 					String pred = graph.findEdge(node, succesorNode);
 					String object = succesorNode.getCandidateURI();
 
-					if(pred!= null){
+					if (pred != null) {
 						Resource subject = model.createResource(sub);
 						Property predicate = model.createProperty(pred.split(";")[1]);
 						model.add(subject, predicate, object);
@@ -173,7 +152,6 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 		return sortStatements(model.listStatements());
 	}
-
 
 	private List<Node> runPageRank(DirectedSparseGraph<Node, String> g) {
 		PageRank pr = new PageRank();
@@ -193,8 +171,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		String nodeType = DB_RESOURCE;
 		String edgeLabel = DB_Label;
 		DirectedSparseGraph<Node, String> graph = new DirectedSparseGraph<Node, String>();
-		for (Node node: highRankNodes) {
-			graph.addVertex(node);	
+		for (Node node : highRankNodes) {
+			graph.addVertex(node);
 		}
 		BreadthFirstSearch bfs = null;
 		try {

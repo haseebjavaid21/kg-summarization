@@ -19,7 +19,7 @@ public class TripleSelectorFactory {
 	};
 
 	public TripleSelector create(SelectorType type, Set<String> sourceClasses, Set<String> targetClasses,
-			String endpoint, String graph, int minSize, int maxSize, long seed,String clazz,int topk) {
+			String endpoint, String graph, int minSize, int maxSize, long seed,String clazz,int topk,String mode) {
 		switch (type) {
 		case STAR:
 			return new SimpleSummarySelector(sourceClasses, targetClasses, endpoint, graph, minSize, maxSize, seed,
@@ -34,7 +34,7 @@ public class TripleSelectorFactory {
         case SIMPLE:
 			return new SimpleSelector(sourceClasses, targetClasses, endpoint, graph,clazz,topk);
         case ENTITY:
-        	return new EntityTriplesSelector(endpoint,clazz,topk);
+        	return new EntityTriplesSelector(endpoint,clazz,topk,mode);
 		}
 		return null;
 	}

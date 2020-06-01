@@ -67,7 +67,7 @@ public class KgsmrstnController {
 
         tripleSelector = factory.create(selectorType, classes,
                          new HashSet<>(), runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
-                        runConfig.getSeed(),runConfig.getClazz(),runConfig.getTopk());
+                        runConfig.getSeed(),runConfig.getClazz(),runConfig.getTopk(),null);
 
         triples = tripleSelector.getNextStatements();
 
@@ -154,10 +154,11 @@ public class KgsmrstnController {
          return response;*/
     }
     
-    @GetMapping(value = "kgraph/type/{type}/entity/{entity}/top/{k}")
+    @GetMapping(value = "kgraph/type/{type}/entity/{entity}/top/{k}/predicatemode/{mode}")
     public String getSummarizedInfoOfAnEntity(@PathVariable("type") String type
     		,@PathVariable("entity") String entity
-    		,@PathVariable("k") Integer k){
+    		,@PathVariable("k") Integer k
+    		,@PathVariable("mode") String mode){
     	
     	log.info("In getSummarizedInfoOfAnEntity...");
     	
@@ -167,6 +168,7 @@ public class KgsmrstnController {
         runConfig.setSqparqlEndPoint(DB_ENDPOINT);
         runConfig.setSeed(System.nanoTime());
         runConfig.setSelectorType(type);
+        runConfig.setPredicateSelectionMode(mode);
         
         entity = (entity.contains(" ")?entity.replace(" ", "_"):entity);
         runConfig.setEntity(entity);
@@ -183,7 +185,7 @@ public class KgsmrstnController {
 
         tripleSelector = factory.create(selectorType, null,
                          null, runConfig.getSqparqlEndPoint(), null, runConfig.getMinSentence(), runConfig.getMaxSentence(),
-                        runConfig.getSeed(),runConfig.getEntity(),runConfig.getTopk());
+                        runConfig.getSeed(),runConfig.getEntity(),runConfig.getTopk(),runConfig.getPredicateSelectionMode());
 
         triples = tripleSelector.getNextStatements();
 
@@ -205,7 +207,7 @@ public class KgsmrstnController {
         }
         FileOutputStream oFile = null;
         try {
-            oFile = new FileOutputStream("./src/main/resources/webapp/output.json", false);
+            oFile = new FileOutputStream("./src/main/resources/webapp/output_"+mode.toLowerCase()+".json", false);
         } catch (FileNotFoundException e1) {
             return "callback(" +
                     "{" +
