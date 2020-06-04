@@ -74,7 +74,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		//allNodesRanked = runPageRank(g);
 
 		Model m = ModelFactory.createDefaultModel();
-		m.read("persondata_en (1).ttl");
+		m.read("mappingbased_objects_en.ttl");
 
 		Iterator<Statement> st = m.listStatements();
 
@@ -165,7 +165,7 @@ System.out.println("Components created");
 		double meanNodes = total_weight/temp.size();
 		System.out.println("Mean of "+temp.size()+" entities is "+meanNodes);
 		
-		List<Node> temp1 = temp.parallelStream().filter(node -> node.getAuthorityWeight() >= (meanNodes/100)).collect(Collectors.toList());
+		List<Node> temp1 = temp.parallelStream().filter(node -> node.getAuthorityWeight() >= (meanNodes)).collect(Collectors.toList());
 		
 		System.out.println("final number of entities is "+temp1.size());
 		

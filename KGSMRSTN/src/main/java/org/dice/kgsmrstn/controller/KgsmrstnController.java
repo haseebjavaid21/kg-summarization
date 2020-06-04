@@ -88,7 +88,7 @@ public class KgsmrstnController {
         }
         FileOutputStream oFile = null;
         try {
-            oFile = new FileOutputStream("./src/main/resources/webapp/output_new_mean.ttl", false);
+            oFile = new FileOutputStream("./src/main/resources/webapp/output_new_mean_Mapping_Objects.ttl", false);
         } catch (FileNotFoundException e1) {
             return "callback(" +
                     "{" +
