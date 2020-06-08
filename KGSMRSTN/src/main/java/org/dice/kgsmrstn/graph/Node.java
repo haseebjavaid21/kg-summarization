@@ -20,6 +20,15 @@ public class Node implements Comparable<Node> {
 	private double authorityWeight;
 	private double pageRank;
 	private double pageRankNew;
+	private boolean visit = false;
+
+	public boolean isVisit() {
+		return visit;
+	}
+
+	public void setVisit(boolean visit) {
+		this.visit = visit;
+	}
 
 	private HashSet<Node> predecessors;
 	private HashSet<Node> successors;

@@ -24,20 +24,26 @@ public class ComponentId {
 	
 	public HashMap<Integer, List<Node>> findComponets(HashMap<Node, List<Node>> Adjlist, Graph<Node, String> g) {
 		
-		for (Object	 o : g.getVertices()) {
-			
-			Node node = (Node) o;
-			visited.put(node, false);
-			//System.out.println("Node visitied "+node+ " its value is "+visited.get(node));
-			
-			}
+//		for (Object	 o : g.getVertices()) {
+//			
+//			Node node = (Node) o;
+//			visited.put(node, false);
+//			
+//			//System.out.println("Node visitied "+node+ " its value is "+visited.get(node));
+//			
+//			}
 		
 		for (Object	 o : Adjlist.keySet()) {
 			Node node = (Node) o;
-			if(!visited.get(node)) {
+			if(!node.isVisit()) {
 				DFSUtil(node, Adjlist);
 				compCount++;
 			}
+				
+//			if(!visited.get(node)) {
+//				DFSUtil(node, Adjlist);
+//				compCount++;
+//			}
 			
 		}
 		     
@@ -48,10 +54,10 @@ public class ComponentId {
 	
 	void DFSUtil(Node v, HashMap<Node, List<Node>> adjNodes ) { 
         // Mark the current node as visited and print it 
-    //    visited[v] = true; 
-		visited.put(v, true);
-       // System.out.print(v+" "); 
-        //components.get(comp_count).add(v);
+ 
+		//visited.put(v, true);
+		v.setVisit(true);
+  
        if(components.containsKey(compCount)) {
     	   
     	   components.get(compCount).add(v);
@@ -63,21 +69,14 @@ public class ComponentId {
     	   
        }
         
-        // Recur for all the vertices 
-        // adjacent to this vertex 
-//        for (int x : adjListArray[v]) { 
-//            if(!visited[x]) DFSUtil(x,visited); 
-//        } 
-        
-//        for(Integer a : g.get(key)) {
-//        	 if(!visited[a]) DFSUtil(a,visited); 
-//        }
+
        
        if(adjNodes.containsKey(v)) {
     	   
     	   for (Node a : adjNodes.get(v)) {
     			
-        	   if(!visited.get(a)) DFSUtil(a, adjNodes);
+    		   if(!a.isVisit()) DFSUtil(a, adjNodes);
+        	  // if(!visited.get(a)) DFSUtil(a, adjNodes);
     	}
     	   
        }
