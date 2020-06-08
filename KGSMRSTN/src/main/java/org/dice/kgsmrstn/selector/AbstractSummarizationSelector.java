@@ -145,7 +145,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 
 
-		component = comp.findComponets(adjNodes, g);
+		component = comp.findComponets1(adjNodes, g);
 
 
 
