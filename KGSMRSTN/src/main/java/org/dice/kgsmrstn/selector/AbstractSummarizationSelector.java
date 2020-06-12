@@ -71,7 +71,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 		
 		Model m = ModelFactory.createDefaultModel();
-		m.read("persondata_en4.ttl");
+		m.read("instance_types_en.ttl");
 		double total_weight;
 
 		Iterator<Statement> st = m.listStatements();
@@ -120,40 +120,30 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		allNodesRanked.addAll(g.getVertices());
 
 
-		List<Node> highRankNodes = new ArrayList<Node>();
+		
 
 			
 		
 		
-			highRankNodes = allNodesRanked.parallelStream().filter(node -> node.getLevel() == 1).collect(Collectors.toList());
-
-
-	
+		
 
 		ComponentId comp = new ComponentId();
 
-        int topP = 0;
-//		for (Node node : adjNodes.keySet()) {
-//			
-//        	topP = topP + adjNodes.get(node).size();
-//		}
-		
-		
-		
-		topP = g.getEdgeCount()/adjNodes.size();
-		
-		System.out.println("Average relations is "+topP);
+       
 
 
 
 		component = comp.findComponets1(adjNodes, g);
-
+        adjNodes.clear();
 
 
 		//Finally run the Page Rank algorithm to the entities after their BFS expansion
 		List<Node> topNodes = runSalsa(g, component);
+		component.clear();
+		System.gc();
+		
 		Collections.reverse(topNodes);
-		int p = 0;
+		
 		List<Node> temp = new ArrayList<>();
 		
 		
@@ -175,6 +165,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 	
 	List<Statement> tempstats = new ArrayList<>();
       System.out.println("number of final entities"+temp1.size());
+      
+     // temp1 = temp1.subList(0, ((int) (temp1.size()*(0.75))));
 
 		Model model = ModelFactory.createDefaultModel();
 		//form the triples of all the top nodes 
@@ -182,17 +174,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		for(Node node: temp1) {
 
             
-			Collection<Node> neighbourNodes1 = g.getNeighbors(node);
-			List<Node> neighbourNodes = new ArrayList<>();
-			neighbourNodes.addAll(neighbourNodes1);
-			Collections.sort(neighbourNodes, new Comparator<Node>() {
-
-				@Override
-				public int compare(Node o1, Node o2) {
-					// TODO Auto-generated method stub
-					return Double.compare(o1.getHubWeight(), o2.getHubWeight());
-				}
-			});
+			Collection<Node> neighbourNodes = g.getNeighbors(node);
+			
 			
 			//neighbourNodes.subList(0, topP);
 			for(Node succesorNode : neighbourNodes ) {
@@ -201,13 +184,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 				String pred = g.findEdge(succesorNode, node);
 				String object = succesorNode.getCandidateURI();
 				
-				NodeURI sub1 = new NodeURI(sub);
-				NodeURI pred1 = new NodeURI(pred);
-				NodeURI obj1 = new NodeURI(object);
 				
-				
-				
-				Triple t = new Triple(sub1,pred1,obj1);
 				
 				
                
@@ -218,7 +195,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 					
 					
 					model.add(subject, predicate, object);
-				   tempstats.add(model.asStatement(t));
+								   //System.out.println("Statements added");
 					
 					
 				}
@@ -230,7 +207,9 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 		}
 		
+		System.out.println("Model is written");
 		
+		tempstats = model.listStatements().toList();
 		
 		Collections.sort(tempstats, new StatementComparator());
 		
