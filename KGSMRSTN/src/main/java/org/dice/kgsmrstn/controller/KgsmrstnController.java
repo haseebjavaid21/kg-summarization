@@ -90,7 +90,7 @@ public class KgsmrstnController {
         }
         FileOutputStream oFile = null;
         try {
-            oFile = new FileOutputStream("./src/main/resources/webapp/output_new.ttl", false);
+            oFile = new FileOutputStream("./src/main/resources/webapp/output_test2.ttl", false);
         } catch (FileNotFoundException e1) {
             return "callback(" +
                     "{" +

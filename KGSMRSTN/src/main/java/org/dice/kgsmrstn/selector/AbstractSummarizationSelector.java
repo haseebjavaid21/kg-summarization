@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import javax.security.auth.message.callback.PrivateKeyCallback.IssuerSerialNumRequest;
 
 import org.apache.http.util.TextUtils;
+import org.apache.jena.graph.Triple;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
@@ -70,7 +71,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 		
 		Model m = ModelFactory.createDefaultModel();
-		m.read("persondata_en50K.ttl");
+		m.read("persondata_en4.ttl");
 		double total_weight;
 
 		Iterator<Statement> st = m.listStatements();
@@ -158,19 +159,6 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		
 	temp = topNodes.parallelStream().filter(node -> node.getLevel() == 1).collect(Collectors.toList());
 		
-//		for (Node node : topNodes) {
-//
-//			if(highRankNodes.contains(node)) {
-//				temp.add(node);
-//				System.out.println("Weight is "+node+" "+node.getAuthorityWeight());
-//				p=p+1;
-//			}	
-//
-//			if(p>500)
-//				break;
-//
-//		}
-	
 	
 	 total_weight = topNodes.parallelStream().filter(node -> node.getLevel() == 1).map(node -> node.getAuthorityWeight()).reduce(0.0, Double::sum);
 	 
@@ -185,7 +173,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 	
 	List<Node> temp1 = temp.parallelStream().filter(node-> node.getAuthorityWeight() >= mean1).collect(Collectors.toList());
 	
-	
+	List<Statement> tempstats = new ArrayList<>();
       System.out.println("number of final entities"+temp1.size());
 
 		Model model = ModelFactory.createDefaultModel();
@@ -212,23 +200,42 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 				String sub = node.getCandidateURI();
 				String pred = g.findEdge(succesorNode, node);
 				String object = succesorNode.getCandidateURI();
-
+				
+				NodeURI sub1 = new NodeURI(sub);
+				NodeURI pred1 = new NodeURI(pred);
+				NodeURI obj1 = new NodeURI(object);
+				
+				
+				
+				Triple t = new Triple(sub1,pred1,obj1);
+				
+				
+               
 				if(pred!= null){
 					Resource subject = model.createResource(sub);
 					Property predicate = model.createProperty(pred.split(";")[1]);
+					
+					
+					
 					model.add(subject, predicate, object);
+				   tempstats.add(model.asStatement(t));
+					
+					
 				}
 			}
 
-
+        
 
 
 
 		}
 		
 		
+		
+		Collections.sort(tempstats, new StatementComparator());
+		
 
-		return sortStatements(model.listStatements());
+		return tempstats;
 	}
 
 
@@ -261,47 +268,13 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 
 	}
 
-//	private DirectedSparseGraph<Node, String> runBFS(List<Node> highRankNodes) {
-//		Integer maxDepth = 2;
-//		String edgeType = DB_ONTOLOGY;
-//		String nodeType = DB_RESOURCE;
-//		String edgeLabel = DB_Label;
-//		DirectedSparseGraph<Node, String> graph = new DirectedSparseGraph<Node, String>();
-//		for (Node node: highRankNodes) {
-//			graph.addVertex(node);	
-//		}
-//		BreadthFirstSearch bfs = null;
-//		try {
-//			bfs = new BreadthFirstSearch(new TripleIndex(), ALGORITHM);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		try {
-//			graph = bfs.run(maxDepth, graph, edgeType, nodeType, edgeLabel);
-//		} catch (UnsupportedEncodingException e) {
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return graph;
-//	}
-
-//	private List<Node> runPageRank(DirectedSparseGraph<Node, String> g) {
-//		PageRank pr = new PageRank();
-//		pr.runPr(g, 100, 0.001);
-//
-//		ArrayList<Node> orderedList = new ArrayList<Node>();
-//		orderedList.addAll(g.getVertices());
-//		Collections.sort(orderedList);
-//
-//		return orderedList;
-//
-//	}
-
+//	
 
 
 	protected List<Statement> sortStatements(StmtIterator stmtIterator) {
 		List<Statement> result = new ArrayList<Statement>();
+//		List<Statement> s = stmtIterator.toList();
+//		System.out.println(s);
 		while (stmtIterator.hasNext()) {
 			result.add(stmtIterator.next());
 		}
