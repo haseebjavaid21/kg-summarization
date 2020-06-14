@@ -33,8 +33,8 @@ public class TripleSelectorFactory {
 			return new HybridTripleSelector(sourceClasses, targetClasses, endpoint, graph, minSize, maxSize, seed);
         case SIMPLE:
 			return new SimpleSelector(sourceClasses, targetClasses, endpoint, graph,clazz,topk);
-        case ENTITY:
-        	return new EntityTriplesSelector(endpoint,clazz,topk,mode);
+        /*case ENTITY:
+        	return new EntityTriplesSelector(endpoint,clazz,topk,mode);*/
 		}
 		return null;
 	}

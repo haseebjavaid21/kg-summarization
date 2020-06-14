@@ -9,12 +9,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import org.apache.jena.graph.NodeFactory;
+import org.apache.jena.graph.Triple;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
@@ -30,12 +33,14 @@ import org.dice.kgsmrstn.controller.KgsmrstnController;
 import org.dice.kgsmrstn.graph.BreadthFirstSearch;
 import org.dice.kgsmrstn.graph.Node;
 import org.dice.kgsmrstn.graph.PageRank;
+//import org.dice.kgsmrstn.util.Triple;
 import org.dice.kgsmrstn.util.TripleIndex;
 import org.slf4j.LoggerFactory;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
-public class EntityTriplesSelector implements TripleSelector {
+public class EntityTriplesSelector {
 
 	private static final String DB_RESOURCE = "http://dbpedia.org/resource/";
 	private static final String DB_ONTOLOGY = "http://dbpedia.org/ontology/";
@@ -55,6 +60,7 @@ public class EntityTriplesSelector implements TripleSelector {
 	private Map<String, Long> globalPredicateFrequency = new HashMap<String, Long>();
 
 	private DirectedSparseGraph<Node, String> g = new DirectedSparseGraph<Node, String>();
+	private Model model = ModelFactory.createDefaultModel();
 
 	public EntityTriplesSelector(String endpoint, String entity, Integer k, String mode) {
 		this.endpoint = endpoint;
@@ -63,17 +69,59 @@ public class EntityTriplesSelector implements TripleSelector {
 		this.predicateSelectionMode = mode;
 	}
 
-	@Override
+	/*@Override
 	public List<Statement> getNextStatements() {
+		//return getAllTriples();
+		return null;
+	}
+	*/
+	public LinkedList<Triple> getTriples(){
 		return getAllTriples();
 	}
+	
+	public Model getModel(){
+		return model;
+	}
+	
+	private LinkedList<Triple> getAllTriples() {
 
-	private List<Statement> getAllTriples() {
+		List<String> nodesReversed = new ArrayList<>();
 		String resource = "<http://dbpedia.org/resource/" + entity + ">";
-		String query = "SELECT ?s ?p  WHERE {" + "?s ?p ?o ." + "FILTER (?o =" + resource + ")"
+		log.info("Current resource..."+resource);
+		
+		//original query
+		/*String query = "SELECT ?s ?p  WHERE {" + "?s ?p ?o ." + "FILTER (?o =" + resource + ")"
 				+ "FILTER (!regex(?p,'wikiPageWikiLink'))" + "FILTER (!regex(?p,'wikiPageRedirects'))"
 				+ "FILTER (!regex(?p,'wikiPageDisambiguates'))" + "FILTER (!regex(?p,'primaryTopic'))"
-				+ "} GROUP BY ?s ?p ORDER BY asc(?s)";
+				+ "} GROUP BY ?s ?p ORDER BY asc(?s)";*/
+		
+		String query = "PREFIX dbo: <http://dbpedia.org/ontology/>"
+				+"SELECT ?o ?p  ?x WHERE { {" 
+				+ "values ?x {" + resource +"}"
+				+ "OPTIONAL {?x dbo:wikiPageRedirects ?s ."
+				+ "?s ?p ?o .}" 
+				+ "OPTIONAL {?x ?p ?o .}"
+				+ "}" + "FILTER (!regex(?p,'wikiPageWikiLink'))"
+				+ "FILTER (!regex(?p,'wikiPageRedirects'))" + "FILTER (!regex(?p,'wikiPageDisambiguates'))"
+				+ "FILTER (!regex(?p,'isprimaryTopicOf'))"
+				//+ "FILTER (!regex(?p,'rdf-syntax-ns#type'))"
+				//+ "FILTER (!regex(?p,'wikiPageExternalLink'))"
+				//+ "FILTER (!regex(?p,'wikiPageEditLink'))"
+				//+ "FILTER (!regex(?p,'wikiPageExtracted'))"
+				//+ "FILTER (!regex(?p,'wikiPageRevisionLink'))"
+				//+ "FILTER (!regex(?p,'wikiPageRevisionID'))"
+				//+ "FILTER (!regex(?p,'wikiPageUsesTemplate'))"
+				//+ "FILTER (!regex(?p,'wikiPageID'))"
+				//+ "FILTER (!regex(?p,'wikiPageLength'))"
+				//+ "FILTER (!regex(?p,'wikiPageModified'))"
+				//+ "FILTER (!regex(?p,'wikiPageOutDegree'))"
+				//+ "FILTER (!regex(?p,'wikiPageHistoryLink'))"
+				//+ "FILTER (!regex(?p,'isPrimaryTopicOf'))"
+				//+ "FILTER (!regex(?p,'owl#sameAs'))"
+				//+ "FILTER (!regex(?p,'owl#sameAs'))"
+				//+ "FILTER (!regex(?p,'foaf/0.1/depiction'))"
+				//+ "FILTER (!regex(?p,'dbpedia.org/ontology/thumbnail'))"
+				+ "}";
 
 		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
 
@@ -87,11 +135,17 @@ public class EntityTriplesSelector implements TripleSelector {
 				solution = results.next();
 
 				try {
-					String s = solution.get("s").toString();
+					String s = solution.get("o").toString();
 					String p = solution.get("p").toString();
-
+					/*if (s.equalsIgnoreCase(resource.replace("<", "").replace(">", ""))) {
+						s = solution.get("o").toString();
+						nodesReversed.add(s);
+					}*/
+					
+					/*System.out.println("Nodes Reversed...");
+					nodesReversed.stream().forEach(node -> System.out.println(node));*/
 					Node subject = new Node(s, 0, 0, ALGORITHM);
-					Node object = new Node(entity, 0, 1, ALGORITHM);
+					Node object = new Node(resource.replace("<", "").replace(">", ""), 0, 1, ALGORITHM);
 
 					List<String> associations;
 					if (!allAssociationsToAnEntity.containsKey(subject)) {
@@ -147,8 +201,8 @@ public class EntityTriplesSelector implements TripleSelector {
 				node.getCandidateURI() + " : " + " PR: " + node.getPageRank() + " , LS: " + node.getLinksumScore()));
 		// End of Resource Selection
 
-		// Beginning Predicate selection
 		Map<Node, String> relevantAssocToAnEntity = null;
+		// Beginning Predicate selection
 		// select predicates by exclusivity
 		if (this.predicateSelectionMode.equalsIgnoreCase("EXC"))
 			relevantAssocToAnEntity = electPredicatesByExclusivity(allAssociationsToAnEntity);
@@ -161,13 +215,14 @@ public class EntityTriplesSelector implements TripleSelector {
 		if (this.predicateSelectionMode.equalsIgnoreCase("FRQ"))
 			relevantAssocToAnEntity = electPredicatesByFrequency(allAssociationsToAnEntity, globalPredicateFrequency);
 
-		Model model = ModelFactory.createDefaultModel();
-		model = createModel(model, relevantAssocToAnEntity, entity, k);
-		return model.listStatements().toList();
+		/*model = createModel(model, relevantAssocToAnEntity, nodesReversed, resource, k);
+		return model.listStatements().toList();*/
+		return createModel(model, relevantAssocToAnEntity, nodesReversed, resource, k);
 	}
 
-	private Model createModel(Model model, Map<Node, String> relevantAssocToAnEntity, String entity, Integer topk) {
-
+	private LinkedList<Triple> createModel(Model model, Map<Node, String> relevantAssocToAnEntity, List<String> nodesReversed, String resource, Integer topk) {
+		
+		LinkedList<Triple> triplesRanked = new LinkedList<Triple>();
 		Comparator<Entry<Node, String>> valueComparator = new Comparator<Entry<Node, String>>() {
 			@Override
 			public int compare(Entry<Node, String> e1, Entry<Node, String> e2) {
@@ -180,20 +235,39 @@ public class EntityTriplesSelector implements TripleSelector {
 		List<Entry<Node, String>> listOfEntries = new ArrayList<Entry<Node, String>>(
 				relevantAssocToAnEntity.entrySet());
 		Collections.sort(listOfEntries, valueComparator);
-
+		
+		
 		LinkedHashMap<Node, String> entityWithRelevantPredicateRanked = new LinkedHashMap<Node, String>();
-		for (int index = 0; index < topk; index++) {
+		int top = (listOfEntries.size()<topk)?listOfEntries.size():topk;
+		for (int index = 0; index < top; index++) {
 			entityWithRelevantPredicateRanked.put(listOfEntries.get(index).getKey(),
 					listOfEntries.get(index).getValue());
 		}
-
+		
+		
 		entityWithRelevantPredicateRanked.forEach((subject, predicate) -> {
-			Resource sub = model.createResource(subject.getCandidateURI());
+			Triple triple;
 			Property pred = model.createProperty(predicate);
-			model.add(sub, pred, entity);
+			//if(nodesReversed.contains(subject)){
+				Resource sub = model.createResource(resource.replace("<", "").replace(">", ""));
+				String obj = subject.getCandidateURI();
+				model.add(sub, pred, model.createResource(obj));
+				
+				triple = new Triple(NodeFactory.createURI(resource.replace("<", "").replace(">", "")),NodeFactory.createURI(predicate),NodeFactory.createURI(subject.getCandidateURI()));
+			//}
+			/*else{
+				Resource sub = model.createResource(subject.getCandidateURI());
+				model.add(sub, pred, model.createResource(resource));
+				
+				//triple = new Triple(NodeFactory.createURI(subject.getCandidateURI()),NodeFactory.createURI(predicate),NodeFactory.createURI(resource.replace("<", "").replace(">", "")));
+				triple = new Triple(NodeFactory.createURI(resource.replace("<", "").replace(">", "")),NodeFactory.createURI(predicate),NodeFactory.createURI(subject.getCandidateURI()));
+			}*/
+			
+			triplesRanked.add(triple);
 		});
-
-		return model;
+		
+		return triplesRanked;
+		//return model;
 	}
 
 	private Map<Node, String> electPredicatesByFrequency(Map<Node, List<String>> allAssociationsToAnEntity,
@@ -229,7 +303,7 @@ public class EntityTriplesSelector implements TripleSelector {
 			for (String predicate : predicates) {
 				Long globalFreqVal = globalPredicateFrequency.get(predicate);
 				val = (val > globalFreqVal) ? val : globalFreqVal;
-				relPredicate = (val > globalFreqVal) ? "" : predicate;
+				relPredicate = (val > globalFreqVal) ? relPredicate : predicate;
 			}
 
 			relevantAssocToAnEntity.put(subject, relPredicate);
@@ -251,6 +325,9 @@ public class EntityTriplesSelector implements TripleSelector {
 				int exclusiveSum = 9999;
 				String relPredicate = "";
 				for (String predicate : predicates) {
+
+					if (!(subject.getCandidateURI().contains("http")) || (subject.getCandidateURI().contains("^^http")))
+						continue;
 
 					String query = "SELECT (str(COUNT(*))AS ?freqN) ?freqM WHERE { " + "<" + subject.getCandidateURI()
 							+ "> " + " <" + predicate + "> " + " ?object {" + "SELECT (str(COUNT(*))AS ?freqM) WHERE { "
@@ -311,6 +388,9 @@ public class EntityTriplesSelector implements TripleSelector {
 				String relPredicate = "";
 				for (String predicate : predicates) {
 
+					if (!(subject.getCandidateURI().contains("http")) || (subject.getCandidateURI().contains("^^http")))
+						continue;
+
 					String query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
 							+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
 							+ "SELECT (str(count(?label)) as ?lc) (str(count(?range)) as ?rc) (str(count(?domain)) as ?dc) WHERE { \n"
@@ -367,6 +447,8 @@ public class EntityTriplesSelector implements TripleSelector {
 		// check for the presence of backlink between the resources and the
 		// target and set accordingly the boolean status
 		for (Node node : rankedNodes) {
+			if (!(node.getCandidateURI().contains("http")) || (node.getCandidateURI().contains("^^http")))
+				continue;
 			String query = "PREFIX dbo: <http://dbpedia.org/ontology/> \n" + "ASK "
 					+ "FROM <http://dbpedia.org/page_links>"
 					+ "{ source dbo:wikiPageWikiLink|^dbo:wikiPageWikiLink target" + "}";
