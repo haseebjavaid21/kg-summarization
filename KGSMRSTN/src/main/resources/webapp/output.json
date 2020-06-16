@@ -1,80 +1,50 @@
 { 
-  "http://dbpedia.org/resource/Happy_Feet_Two" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+  "http://dbpedia.org/resource/3WAY_FM" : { 
+    "http://dbpedia.org/ontology/broadcastArea" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Warrnambool"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Big_Short_(film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Victoria_(Australia)"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/12_Years_a_Slave_(film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+     ] ,
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/ontology/Organisation"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Curious_Case_of_Benjamin_Button_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+     ] ,
+    "http://dbpedia.org/ontology/programmeFormat" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Community_radio"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Troy_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+     ] ,
+    "http://purl.org/dc/terms/subject" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Category:Radio_stations_established_in_1990"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Two-Fisted_Tales_(film)" : { 
-    "http://dbpedia.org/ontology/starring" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Category:Community_radio_stations_in_Australia"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/The_Assassination_of_Jesse_James_by_the_Coward_Robert_Ford" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Category:Radio_stations_in_Victoria"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/A_Mighty_Heart_(film)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+     ] ,
+    "http://www.w3.org/2002/07/owl#sameAs" : [ { 
+      "type" : "uri" ,
+      "value" : "http://rdf.freebase.com/ns/m.01371cmq"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Louis_de_Pointe_du_Lac" : { 
-    "http://dbpedia.org/ontology/portrayer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+     ] ,
+    "http://dbpedia.org/ontology/wikiPageRevisionID" : [ { 
+      "type" : "uri" ,
+      "value" : "684114064^^http://www.w3.org/2001/XMLSchema#integer"
     }
-     ]
-  }
-   ,
-  "http://dbpedia.org/resource/Kick-Ass_(film_series)" : { 
-    "http://dbpedia.org/ontology/producer" : [ { 
-      "type" : "literal" ,
-      "value" : "Brad_Pitt"
+     ] ,
+    "http://purl.org/voc/vrank#hasRank" : [ { 
+      "type" : "uri" ,
+      "value" : "fa95eebd6e70c58f6b8d58c865a3d00f"
     }
      ]
   }

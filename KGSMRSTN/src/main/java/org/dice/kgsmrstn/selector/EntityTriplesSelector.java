@@ -94,8 +94,8 @@ public class EntityTriplesSelector {
 				+ "FILTER (!regex(?p,'wikiPageWikiLink'))" + "FILTER (!regex(?p,'wikiPageRedirects'))"
 				+ "FILTER (!regex(?p,'wikiPageDisambiguates'))" + "FILTER (!regex(?p,'primaryTopic'))"
 				+ "} GROUP BY ?s ?p ORDER BY asc(?s)";*/
-		
-		String query = "PREFIX dbo: <http://dbpedia.org/ontology/>"
+		//with Redirection, bad res 
+		/*String query = "PREFIX dbo: <http://dbpedia.org/ontology/>"
 				+"SELECT ?o ?p  ?x WHERE { {" 
 				+ "values ?x {" + resource +"}"
 				+ "OPTIONAL {?x dbo:wikiPageRedirects ?s ."
@@ -121,7 +121,30 @@ public class EntityTriplesSelector {
 				//+ "FILTER (!regex(?p,'owl#sameAs'))"
 				//+ "FILTER (!regex(?p,'foaf/0.1/depiction'))"
 				//+ "FILTER (!regex(?p,'dbpedia.org/ontology/thumbnail'))"
-				+ "}";
+				+ "}";*/
+		
+		String query = "SELECT ?s ?p  ?o WHERE { {" + "?s ?p ?o ." + "FILTER (?o =" + resource + ") }" + "UNION {"
+				+ "?s ?p ?o. " + "FILTER (?s =" + resource + ") }" + "FILTER (!regex(?p,'wikiPageWikiLink'))"
+				+ "FILTER (!regex(?p,'wikiPageRedirects'))" + "FILTER (!regex(?p,'wikiPageDisambiguates'))"
+				+ "FILTER (!regex(?p,'primaryTopic'))"
+				/*+ "FILTER (!regex(?p,'rdf-syntax-ns#type'))"
+				+ "FILTER (!regex(?p,'wikiPageExternalLink'))"
+				+ "FILTER (!regex(?p,'wikiPageEditLink'))"
+				+ "FILTER (!regex(?p,'wikiPageExtracted'))"
+				+ "FILTER (!regex(?p,'wikiPageRevisionLink'))"
+				+ "FILTER (!regex(?p,'wikiPageRevisionID'))"
+				+ "FILTER (!regex(?p,'wikiPageUsesTemplate'))"
+				+ "FILTER (!regex(?p,'wikiPageID'))"
+				+ "FILTER (!regex(?p,'wikiPageLength'))"
+				+ "FILTER (!regex(?p,'wikiPageModified'))"
+				+ "FILTER (!regex(?p,'wikiPageOutDegree'))"
+				+ "FILTER (!regex(?p,'wikiPageHistoryLink'))"
+				+ "FILTER (!regex(?p,'isPrimaryTopicOf'))"
+				+ "FILTER (!regex(?p,'owl#sameAs'))"
+				+ "FILTER (!regex(?p,'owl#sameAs'))"
+				+ "FILTER (!regex(?p,'foaf/0.1/depiction'))"
+				+ "FILTER (!regex(?p,'dbpedia.org/ontology/thumbnail'))"*/
+				+ "} GROUP BY ?s ?p ?o ORDER BY asc(?s)";
 
 		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
 
