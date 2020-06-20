@@ -44,33 +44,22 @@ import org.apache.jena.riot.RDFLanguages;
  *
  * @author Haseeb Javaid
  */
-public abstract class AbstractSummarizationSelector implements TripleSelector {
-
-	private static final String DB_RESOURCE = "http://dbpedia.org/resource/";
-	private static final String DB_ONTOLOGY = "http://dbpedia.org/ontology/";
-	private static final String DB_Label = "http://www.w3.org/2000/01/rdf-schema#label";
-
+public class AbstractSummarizationSelectorHits  {
 	private static final String ALGORITHM = "pagerank";
-
-	private org.slf4j.Logger log = LoggerFactory.getLogger(AbstractSummarizationSelector.class);
+	private org.slf4j.Logger log = LoggerFactory.getLogger(AbstractSummarizationSelectorHits.class);
 
 	private String endpoint;
 	private DirectedSparseGraph<Node, String> g = new DirectedSparseGraph<Node, String>();
 
 	HashMap<Node, List<Node>> adjNodes = new HashMap<>();
 
-	public AbstractSummarizationSelector(Set<String> targetClasses, String endpoint, String graph) {
+	public AbstractSummarizationSelectorHits(String endpoint, String graph) {
 		this.endpoint = endpoint;
 	}
 
-	public AbstractSummarizationSelector(Set<String> targetClasses, String endpoint, String graph,
-			boolean useSymmetricCbd) {
-		this.endpoint = endpoint;
-	}
+	public List<Statement> getResources() {
 
-	protected List<Statement> getResources(Set<String> classes, String clazz, int topk) {
-
-		this.readFromTTL("D:\\Project Data\\persondata_en.ttl\\persondata_en4.ttl");
+		this.readFromTTL("D:\\Project Data\\persondata_en4.ttl");
 		
 		try {
 			HITSAlgorithm ht = new HITSAlgorithm();
@@ -83,43 +72,6 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 		List<Node> processedHighRankNodes = this.getHighRankNdes();
 		System.out.println("Finished :"+ processedHighRankNodes.size());
 		return sortStatements(this.generateList(processedHighRankNodes).listStatements());
-	}
-
-	private List<Node> runPageRank(DirectedSparseGraph<Node, String> g) {
-		PageRank pr = new PageRank();
-		pr.runPr(g, 100, 0.001);
-
-		ArrayList<Node> orderedList = new ArrayList<Node>();
-		orderedList.addAll(g.getVertices());
-		Collections.sort(orderedList);
-
-		return orderedList;
-
-	}
-
-	private DirectedSparseGraph<Node, String> runBFS(List<Node> highRankNodes) {
-		Integer maxDepth = 2;
-		String edgeType = DB_ONTOLOGY;
-		String nodeType = DB_RESOURCE;
-		String edgeLabel = DB_Label;
-		DirectedSparseGraph<Node, String> graph = new DirectedSparseGraph<Node, String>();
-		for (Node node : highRankNodes) {
-			graph.addVertex(node);
-		}
-		BreadthFirstSearch bfs = null;
-		try {
-			bfs = new BreadthFirstSearch(new TripleIndex(), ALGORITHM);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			graph = bfs.run(maxDepth, graph, edgeType, nodeType, edgeLabel);
-		} catch (UnsupportedEncodingException e) {
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return graph;
 	}
 
 	protected List<Statement> sortStatements(StmtIterator stmtIterator) {
@@ -148,7 +100,7 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 		double meanNodes = total_weight/NodeIteration.size();
 		System.out.println("Mean of "+NodeIteration.size()+" entities is "+meanNodes);
 		
-		List<Node> filteredList = NodeIteration.parallelStream().filter(node -> node.getAuthorityWeight() >= (meanNodes/100)).collect(Collectors.toList());
+		List<Node> filteredList = NodeIteration.parallelStream().filter(node -> node.getAuthorityWeight() >= (meanNodes)).collect(Collectors.toList());
 		
 		System.out.println("final number of entities is "+filteredList.size());
 		return filteredList;	
@@ -193,8 +145,6 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 					return Double.compare(o1.getHubWeight(), o2.getHubWeight());
 				}
 			});
-
-			System.out.println("AW : "+nodetemp.getAuthorityWeight());
 			
 			for (Node succesorNode : neighbourNodes) {
 
