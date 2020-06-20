@@ -69,82 +69,107 @@ public class EntityTriplesSelector {
 		this.predicateSelectionMode = mode;
 	}
 
-	/*@Override
-	public List<Statement> getNextStatements() {
-		//return getAllTriples();
-		return null;
-	}
-	*/
-	public LinkedList<Triple> getTriples(){
+	public LinkedList<Triple> getTriples() {
 		return getAllTriples();
 	}
-	
-	public Model getModel(){
+
+	public Model getModel() {
 		return model;
 	}
-	
+
 	private LinkedList<Triple> getAllTriples() {
 
 		List<String> nodesReversed = new ArrayList<>();
 		String resource = "<http://dbpedia.org/resource/" + entity + ">";
-		log.info("Current resource..."+resource);
+		log.info("Current resource..." + resource);
 		
-		//original query
-		/*String query = "SELECT ?s ?p  WHERE {" + "?s ?p ?o ." + "FILTER (?o =" + resource + ")"
-				+ "FILTER (!regex(?p,'wikiPageWikiLink'))" + "FILTER (!regex(?p,'wikiPageRedirects'))"
-				+ "FILTER (!regex(?p,'wikiPageDisambiguates'))" + "FILTER (!regex(?p,'primaryTopic'))"
-				+ "} GROUP BY ?s ?p ORDER BY asc(?s)";*/
-		//with Redirection, bad res 
-		/*String query = "PREFIX dbo: <http://dbpedia.org/ontology/>"
-				+"SELECT ?o ?p  ?x WHERE { {" 
-				+ "values ?x {" + resource +"}"
-				+ "OPTIONAL {?x dbo:wikiPageRedirects ?s ."
-				+ "?s ?p ?o .}" 
-				+ "OPTIONAL {?x ?p ?o .}"
-				+ "}" + "FILTER (!regex(?p,'wikiPageWikiLink'))"
-				+ "FILTER (!regex(?p,'wikiPageRedirects'))" + "FILTER (!regex(?p,'wikiPageDisambiguates'))"
-				+ "FILTER (!regex(?p,'isprimaryTopicOf'))"
-				//+ "FILTER (!regex(?p,'rdf-syntax-ns#type'))"
-				//+ "FILTER (!regex(?p,'wikiPageExternalLink'))"
-				//+ "FILTER (!regex(?p,'wikiPageEditLink'))"
-				//+ "FILTER (!regex(?p,'wikiPageExtracted'))"
-				//+ "FILTER (!regex(?p,'wikiPageRevisionLink'))"
-				//+ "FILTER (!regex(?p,'wikiPageRevisionID'))"
-				//+ "FILTER (!regex(?p,'wikiPageUsesTemplate'))"
-				//+ "FILTER (!regex(?p,'wikiPageID'))"
-				//+ "FILTER (!regex(?p,'wikiPageLength'))"
-				//+ "FILTER (!regex(?p,'wikiPageModified'))"
-				//+ "FILTER (!regex(?p,'wikiPageOutDegree'))"
-				//+ "FILTER (!regex(?p,'wikiPageHistoryLink'))"
-				//+ "FILTER (!regex(?p,'isPrimaryTopicOf'))"
-				//+ "FILTER (!regex(?p,'owl#sameAs'))"
-				//+ "FILTER (!regex(?p,'owl#sameAs'))"
-				//+ "FILTER (!regex(?p,'foaf/0.1/depiction'))"
-				//+ "FILTER (!regex(?p,'dbpedia.org/ontology/thumbnail'))"
-				+ "}";*/
-		
+		//check for redirection of any entity
+		/*String redirectionChecker = "PREFIX dbr:<http://dbpedia.org/resource/> \n"
+				+ "PREFIX dbo:<http://dbpedia.org/ontology/> \n" + "select ?resource where {" + "dbr:" + entity
+				+ " dbo:wikiPageRedirects ?resource" + "}";
+		Query sparqlQuery = QueryFactory.create(redirectionChecker, Syntax.syntaxARQ);
+
+		QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
+		try {
+			ResultSet resultset = httpQuery.execSelect();
+			QuerySolution solution;
+
+			while (resultset.hasNext()) {
+				solution = resultset.next();
+				String result = solution.get("resource").toString();
+				resource = "<" + result + ">";
+				String entity_old = entity;
+				entity = result;
+				entity_redirects.put(resource, "http://dbpedia.org/resource/" + entity);
+				log.info("resource changed to..." + resource);
+
+			}
+
+		} catch (Exception e) {
+			// do nothing
+		}*/
+
+		// original query
+		/*
+		 * String query = "SELECT ?s ?p  WHERE {" + "?s ?p ?o ." +
+		 * "FILTER (?o =" + resource + ")" +
+		 * "FILTER (!regex(?p,'wikiPageWikiLink'))" +
+		 * "FILTER (!regex(?p,'wikiPageRedirects'))" +
+		 * "FILTER (!regex(?p,'wikiPageDisambiguates'))" +
+		 * "FILTER (!regex(?p,'primaryTopic'))" +
+		 * "} GROUP BY ?s ?p ORDER BY asc(?s)";
+		 */
+		// with Redirection, bad res
+		/*
+		 * String query = "PREFIX dbo: <http://dbpedia.org/ontology/>"
+		 * +"SELECT ?o ?p  ?x WHERE { {" + "values ?x {" + resource +"}" +
+		 * "OPTIONAL {?x dbo:wikiPageRedirects ?s ." + "?s ?p ?o .}" +
+		 * "OPTIONAL {?x ?p ?o .}" + "}" +
+		 * "FILTER (!regex(?p,'wikiPageWikiLink'))" +
+		 * "FILTER (!regex(?p,'wikiPageRedirects'))" +
+		 * "FILTER (!regex(?p,'wikiPageDisambiguates'))" +
+		 * "FILTER (!regex(?p,'isprimaryTopicOf'))" //+
+		 * "FILTER (!regex(?p,'rdf-syntax-ns#type'))" //+
+		 * "FILTER (!regex(?p,'wikiPageExternalLink'))" //+
+		 * "FILTER (!regex(?p,'wikiPageEditLink'))" //+
+		 * "FILTER (!regex(?p,'wikiPageExtracted'))" //+
+		 * "FILTER (!regex(?p,'wikiPageRevisionLink'))" //+
+		 * "FILTER (!regex(?p,'wikiPageRevisionID'))" //+
+		 * "FILTER (!regex(?p,'wikiPageUsesTemplate'))" //+
+		 * "FILTER (!regex(?p,'wikiPageID'))" //+
+		 * "FILTER (!regex(?p,'wikiPageLength'))" //+
+		 * "FILTER (!regex(?p,'wikiPageModified'))" //+
+		 * "FILTER (!regex(?p,'wikiPageOutDegree'))" //+
+		 * "FILTER (!regex(?p,'wikiPageHistoryLink'))" //+
+		 * "FILTER (!regex(?p,'isPrimaryTopicOf'))" //+
+		 * "FILTER (!regex(?p,'owl#sameAs'))" //+
+		 * "FILTER (!regex(?p,'owl#sameAs'))" //+
+		 * "FILTER (!regex(?p,'foaf/0.1/depiction'))" //+
+		 * "FILTER (!regex(?p,'dbpedia.org/ontology/thumbnail'))" + "}";
+		 */
+
 		String query = "SELECT ?s ?p  ?o WHERE { {" + "?s ?p ?o ." + "FILTER (?o =" + resource + ") }" + "UNION {"
 				+ "?s ?p ?o. " + "FILTER (?s =" + resource + ") }" + "FILTER (!regex(?p,'wikiPageWikiLink'))"
 				+ "FILTER (!regex(?p,'wikiPageRedirects'))" + "FILTER (!regex(?p,'wikiPageDisambiguates'))"
 				+ "FILTER (!regex(?p,'primaryTopic'))"
-				/*+ "FILTER (!regex(?p,'rdf-syntax-ns#type'))"
-				+ "FILTER (!regex(?p,'wikiPageExternalLink'))"
-				+ "FILTER (!regex(?p,'wikiPageEditLink'))"
-				+ "FILTER (!regex(?p,'wikiPageExtracted'))"
-				+ "FILTER (!regex(?p,'wikiPageRevisionLink'))"
-				+ "FILTER (!regex(?p,'wikiPageRevisionID'))"
-				+ "FILTER (!regex(?p,'wikiPageUsesTemplate'))"
-				+ "FILTER (!regex(?p,'wikiPageID'))"
-				+ "FILTER (!regex(?p,'wikiPageLength'))"
-				+ "FILTER (!regex(?p,'wikiPageModified'))"
-				+ "FILTER (!regex(?p,'wikiPageOutDegree'))"
-				+ "FILTER (!regex(?p,'wikiPageHistoryLink'))"
-				+ "FILTER (!regex(?p,'isPrimaryTopicOf'))"
-				+ "FILTER (!regex(?p,'owl#sameAs'))"
-				+ "FILTER (!regex(?p,'owl#sameAs'))"
-				+ "FILTER (!regex(?p,'foaf/0.1/depiction'))"
-				+ "FILTER (!regex(?p,'dbpedia.org/ontology/thumbnail'))"*/
+				+"FILTER (!regex(?p,'wikiPageExternalLink'))" +
+				"FILTER (!regex(?p,'wikiPageEditLink'))" +
+				"FILTER (!regex(?p,'wikiPageExtracted'))" +
+				"FILTER (!regex(?p,'wikiPageRevisionLink'))" +
+				"FILTER (!regex(?p,'wikiPageRevisionID'))" +
+				"FILTER (!regex(?p,'wikiPageUsesTemplate'))" +
+				"FILTER (!regex(?p,'wikiPageID'))" +
+				"FILTER (!regex(?p,'wikiPageLength'))" +
+				"FILTER (!regex(?p,'wikiPageModified'))" +
+				"FILTER (!regex(?p,'wikiPageOutDegree'))" +
+				"FILTER (!regex(?p,'wikiPageHistoryLink'))" +
+				"FILTER (!regex(?p,'isPrimaryTopicOf'))" +
+				"FILTER (!regex(?p,'owl#sameAs'))" +
+				"FILTER (!regex(?p,'foaf/0.1/depiction'))" +
+				"FILTER (!regex(?p,'dbpedia.org/ontology/thumbnail'))"
 				+ "} GROUP BY ?s ?p ?o ORDER BY asc(?s)";
+			 // + "FILTER (!regex(?p,'rdf-syntax-ns#type'))" +
+				
 
 		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
 
@@ -160,13 +185,17 @@ public class EntityTriplesSelector {
 				try {
 					String s = solution.get("o").toString();
 					String p = solution.get("p").toString();
-					/*if (s.equalsIgnoreCase(resource.replace("<", "").replace(">", ""))) {
-						s = solution.get("o").toString();
-						nodesReversed.add(s);
-					}*/
-					
-					/*System.out.println("Nodes Reversed...");
-					nodesReversed.stream().forEach(node -> System.out.println(node));*/
+					/*
+					 * if (s.equalsIgnoreCase(resource.replace("<",
+					 * "").replace(">", ""))) { s =
+					 * solution.get("o").toString(); nodesReversed.add(s); }
+					 */
+
+					/*
+					 * System.out.println("Nodes Reversed...");
+					 * nodesReversed.stream().forEach(node ->
+					 * System.out.println(node));
+					 */
 					Node subject = new Node(s, 0, 0, ALGORITHM);
 					Node object = new Node(resource.replace("<", "").replace(">", ""), 0, 1, ALGORITHM);
 
@@ -238,13 +267,16 @@ public class EntityTriplesSelector {
 		if (this.predicateSelectionMode.equalsIgnoreCase("FRQ"))
 			relevantAssocToAnEntity = electPredicatesByFrequency(allAssociationsToAnEntity, globalPredicateFrequency);
 
-		/*model = createModel(model, relevantAssocToAnEntity, nodesReversed, resource, k);
-		return model.listStatements().toList();*/
+		/*
+		 * model = createModel(model, relevantAssocToAnEntity, nodesReversed,
+		 * resource, k); return model.listStatements().toList();
+		 */
 		return createModel(model, relevantAssocToAnEntity, nodesReversed, resource, k);
 	}
 
-	private LinkedList<Triple> createModel(Model model, Map<Node, String> relevantAssocToAnEntity, List<String> nodesReversed, String resource, Integer topk) {
-		
+	private LinkedList<Triple> createModel(Model model, Map<Node, String> relevantAssocToAnEntity,
+			List<String> nodesReversed, String resource, Integer topk) {
+
 		LinkedList<Triple> triplesRanked = new LinkedList<Triple>();
 		Comparator<Entry<Node, String>> valueComparator = new Comparator<Entry<Node, String>>() {
 			@Override
@@ -258,39 +290,45 @@ public class EntityTriplesSelector {
 		List<Entry<Node, String>> listOfEntries = new ArrayList<Entry<Node, String>>(
 				relevantAssocToAnEntity.entrySet());
 		Collections.sort(listOfEntries, valueComparator);
-		
-		
+
 		LinkedHashMap<Node, String> entityWithRelevantPredicateRanked = new LinkedHashMap<Node, String>();
-		int top = (listOfEntries.size()<topk)?listOfEntries.size():topk;
+		int top = (listOfEntries.size() < topk) ? listOfEntries.size() : topk;
 		for (int index = 0; index < top; index++) {
 			entityWithRelevantPredicateRanked.put(listOfEntries.get(index).getKey(),
 					listOfEntries.get(index).getValue());
 		}
-		
-		
+
 		entityWithRelevantPredicateRanked.forEach((subject, predicate) -> {
 			Triple triple;
 			Property pred = model.createProperty(predicate);
-			//if(nodesReversed.contains(subject)){
-				Resource sub = model.createResource(resource.replace("<", "").replace(">", ""));
-				String obj = subject.getCandidateURI();
-				model.add(sub, pred, model.createResource(obj));
-				
-				triple = new Triple(NodeFactory.createURI(resource.replace("<", "").replace(">", "")),NodeFactory.createURI(predicate),NodeFactory.createURI(subject.getCandidateURI()));
-			//}
-			/*else{
-				Resource sub = model.createResource(subject.getCandidateURI());
-				model.add(sub, pred, model.createResource(resource));
-				
-				//triple = new Triple(NodeFactory.createURI(subject.getCandidateURI()),NodeFactory.createURI(predicate),NodeFactory.createURI(resource.replace("<", "").replace(">", "")));
-				triple = new Triple(NodeFactory.createURI(resource.replace("<", "").replace(">", "")),NodeFactory.createURI(predicate),NodeFactory.createURI(subject.getCandidateURI()));
-			}*/
-			
+			// if(nodesReversed.contains(subject)){
+			Resource sub = model.createResource(resource.replace("<", "").replace(">", ""));
+			String obj = subject.getCandidateURI();
+			model.add(sub, pred, model.createResource(obj));
+
+			triple = new Triple(NodeFactory.createURI(resource.replace("<", "").replace(">", "")),
+					NodeFactory.createURI(predicate), NodeFactory.createURI(subject.getCandidateURI()));
+			// }
+			/*
+			 * else{ Resource sub =
+			 * model.createResource(subject.getCandidateURI()); model.add(sub,
+			 * pred, model.createResource(resource));
+			 * 
+			 * //triple = new
+			 * Triple(NodeFactory.createURI(subject.getCandidateURI()),
+			 * NodeFactory.createURI(predicate),NodeFactory.createURI(resource.
+			 * replace("<", "").replace(">", ""))); triple = new
+			 * Triple(NodeFactory.createURI(resource.replace("<",
+			 * "").replace(">",
+			 * "")),NodeFactory.createURI(predicate),NodeFactory.createURI(
+			 * subject.getCandidateURI())); }
+			 */
+
 			triplesRanked.add(triple);
 		});
-		
+
 		return triplesRanked;
-		//return model;
+		// return model;
 	}
 
 	private Map<Node, String> electPredicatesByFrequency(Map<Node, List<String>> allAssociationsToAnEntity,

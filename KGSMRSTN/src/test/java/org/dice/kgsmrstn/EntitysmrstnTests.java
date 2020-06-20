@@ -8,7 +8,7 @@ import java.io.File;
 import org.dice.kgsmrstn.controller.KgsmrstnController;
 
 @SpringBootTest
-public class KgsmrstnApplicationTests {
+public class EntitysmrstnTests {
 
 	@Test
 	public void contextLoads() {
@@ -20,9 +20,6 @@ public class KgsmrstnApplicationTests {
 		File file = new File(directoryPath);
 		Boolean directoryCreated = file.mkdir();
 		
-		/*KgsmrstnController kc = new KgsmrstnController();
-		kc.getSummarizedInfoOfAnEntity("entity", "You Better Run", 10, "DSC");*/
-		//kc.forEvaluation("entity", "Lucy Ward (musician)", 10, "DSC");
 		if(directoryCreated){
 			KgsmrstnController kc = new KgsmrstnController();
 			kc.generateTriplesforEvaluation("entity", "3WAY FM", 10, "DSC");
@@ -156,8 +153,5 @@ public class KgsmrstnApplicationTests {
 			kc.generateTriplesforEvaluation("entity", "The Honolulu Advertiser", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "You Better Run", 10, "DSC");
 		}
-		
-		// kc.forEvaluation("entity", "Brad Pitt",10,"DSC");
-		// kc.forEvaluation("entity", "Brad Pitt",10,"DSC");
 	}
 }

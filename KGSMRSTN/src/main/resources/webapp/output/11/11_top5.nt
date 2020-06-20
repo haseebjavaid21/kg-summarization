@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Swiss_Cup> <http://dbpedia.org/property/currentChampions> <http://dbpedia.org/resource/FC_Sion> .
+<http://dbpedia.org/resource/Swiss_Cup> <http://dbpedia.org/property/mostSuccessfulClub> <http://dbpedia.org/resource/Grasshopper_Club_Zürich> .
+<http://dbpedia.org/resource/Swiss_Cup> <http://dbpedia.org/property/region> <http://dbpedia.org/resource/Switzerland> .
+<http://dbpedia.org/resource/Swiss_Cup> <http://dbpedia.org/property/confedCup> <http://dbpedia.org/resource/UEFA_Europa_League> .
+<http://dbpedia.org/resource/Swiss_Cup> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:1920s_establishments_in_Switzerland> .

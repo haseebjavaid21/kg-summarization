@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/North_Haledon,_New_Jersey> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Passaic_County,_New_Jersey> .
+<http://dbpedia.org/resource/North_Haledon,_New_Jersey> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/New_Jersey> .
+<http://dbpedia.org/resource/North_Haledon,_New_Jersey> <http://dbpedia.org/ontology/leaderName> <http://dbpedia.org/resource/Republican_Party_(United_States)> .
+<http://dbpedia.org/resource/North_Haledon,_New_Jersey> <http://dbpedia.org/ontology/timeZone> <http://dbpedia.org/resource/Eastern_Daylight_Time> .
+<http://dbpedia.org/resource/North_Haledon,_New_Jersey> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/U.S._state> .
