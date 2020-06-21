@@ -240,24 +240,31 @@ public class EntityTriplesSelector {
 		entityWithRelevantPredicateRanked.forEach((subject, predicate) -> {
 			Triple triple;
 			Property pred = model.createProperty(predicate);
-			if (nodesReversed.contains(subject)) {
-				Resource sub = model.createResource(resource.replace("<", "").replace(">", ""));
-				String obj = subject.getCandidateURI();
-				model.add(sub, pred, model.createResource(obj));
-
-				triple = new Triple(NodeFactory.createURI(resource.replace("<", "").replace(">", "")),
-						NodeFactory.createURI(predicate), NodeFactory.createURI(subject.getCandidateURI()));
-			}
-
-			else {
-				Resource sub = model.createResource(subject.getCandidateURI());
-				model.add(sub, pred, model.createResource(resource));
-
-				triple = new Triple(NodeFactory.createURI(subject.getCandidateURI()), NodeFactory.createURI(predicate),
-						NodeFactory.createURI(resource.replace("<", "").replace(">", "")));
-				triple = new Triple(NodeFactory.createURI(resource.replace("<", "").replace(">", "")),
-						NodeFactory.createURI(predicate), NodeFactory.createURI(subject.getCandidateURI()));
-			}
+			/*
+			 * if (nodesReversed.contains(subject)) { Resource sub =
+			 * model.createResource(resource.replace("<", "").replace(">", ""));
+			 * String obj = subject.getCandidateURI(); model.add(sub, pred,
+			 * model.createResource(obj));
+			 * 
+			 * triple = new Triple(NodeFactory.createURI(resource.replace("<",
+			 * "").replace(">", "")), NodeFactory.createURI(predicate),
+			 * NodeFactory.createURI(subject.getCandidateURI())); }
+			 * 
+			 * else { Resource sub =
+			 * model.createResource(subject.getCandidateURI()); model.add(sub,
+			 * pred, model.createResource(resource));
+			 * 
+			 * triple = new
+			 * Triple(NodeFactory.createURI(subject.getCandidateURI()),
+			 * NodeFactory.createURI(predicate),
+			 * NodeFactory.createURI(resource.replace("<", "").replace(">",
+			 * ""))); }
+			 */
+			Resource sub = model.createResource(resource.replace("<", "").replace(">", ""));
+			String obj = subject.getCandidateURI();
+			model.add(sub, pred, model.createResource(obj));
+			triple = new Triple(NodeFactory.createURI(resource.replace("<", "").replace(">", "")),
+					NodeFactory.createURI(predicate), NodeFactory.createURI(subject.getCandidateURI()));
 			triplesRanked.add(triple);
 		});
 
