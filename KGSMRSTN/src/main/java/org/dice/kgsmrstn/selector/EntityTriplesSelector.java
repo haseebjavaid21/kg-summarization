@@ -107,8 +107,7 @@ public class EntityTriplesSelector {
 				+ "FILTER (!regex(?p,'wikiPageOutDegree'))" + "FILTER (!regex(?p,'wikiPageHistoryLink'))"
 				+ "FILTER (!regex(?p,'isPrimaryTopicOf'))" + "FILTER (!regex(?p,'owl#sameAs'))"
 				+ "FILTER (!regex(?p,'foaf/0.1/depiction'))" + "FILTER (!regex(?p,'dbpedia.org/ontology/thumbnail'))"
-				// + "FILTER (!regex(?p,'purl.org/dc/terms/subject'))"
-				+ "} GROUP BY ?s ?p ?o ORDER BY asc(?s) LIMIT 100";
+				+ "FILTER (!regex(?p,'dbpedia.org/property/'))" + "} GROUP BY ?s ?p ?o ORDER BY asc(?s) LIMIT 100";
 
 		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
 
