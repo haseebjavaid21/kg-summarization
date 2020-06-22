@@ -1,50 +1,70 @@
 { 
-  "http://dbpedia.org/resource/3WAY_FM" : { 
-    "http://dbpedia.org/ontology/broadcastArea" : [ { 
+  "http://dbpedia.org/resource/Microsoft" : { 
+    "http://dbpedia.org/ontology/knownFor" : [ { 
       "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Warrnambool"
+      "value" : "http://dbpedia.org/resource/Don_Mattrick"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/employer" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Anders_Hejlsberg"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/operatingSystem" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Chef_(software)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/publisher" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Age_of_Empires_II"
     }
     , { 
       "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Victoria_(Australia)"
+      "value" : "http://dbpedia.org/resource/Asheron's_Call"
     }
      ] ,
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ { 
+    "http://dbpedia.org/ontology/owner" : [ { 
       "type" : "uri" ,
-      "value" : "http://dbpedia.org/ontology/Organisation"
-    }
-     ] ,
-    "http://dbpedia.org/ontology/programmeFormat" : [ { 
-      "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Community_radio"
-    }
-     ] ,
-    "http://purl.org/dc/terms/subject" : [ { 
-      "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Category:Radio_stations_established_in_1990"
+      "value" : "http://dbpedia.org/resource/Ciao_(website)"
     }
     , { 
       "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Category:Community_radio_stations_in_Australia"
+      "value" : "http://dbpedia.org/resource/BigPark"
     }
     , { 
       "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Category:Radio_stations_in_Victoria"
+      "value" : "http://dbpedia.org/resource/343_Industries"
     }
      ] ,
-    "http://www.w3.org/2002/07/owl#sameAs" : [ { 
+    "http://dbpedia.org/ontology/developer" : [ { 
       "type" : "uri" ,
-      "value" : "http://rdf.freebase.com/ns/m.01371cmq"
+      "value" : "http://dbpedia.org/resource/C_Sharp_(programming_language)"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Cortana_(software)"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Aegis_Wing"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/ASP.NET_MVC"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Debug_(command)"
     }
      ] ,
-    "http://dbpedia.org/ontology/wikiPageRevisionID" : [ { 
+    "http://dbpedia.org/ontology/board" : [ { 
       "type" : "uri" ,
-      "value" : "684114064^^http://www.w3.org/2001/XMLSchema#integer"
+      "value" : "http://dbpedia.org/resource/Bill_Gates"
     }
-     ] ,
-    "http://purl.org/voc/vrank#hasRank" : [ { 
+    , { 
       "type" : "uri" ,
-      "value" : "fa95eebd6e70c58f6b8d58c865a3d00f"
+      "value" : "http://dbpedia.org/resource/Dina_Dublon"
     }
      ]
   }

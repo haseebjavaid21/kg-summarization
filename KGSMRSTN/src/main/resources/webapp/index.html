@@ -35,18 +35,23 @@
 						Summarization
 					</span>
 
+					<div class="wrap-input100 validate-input" data-validate="Entity is required">
+						<span class="label-input100">Entity</span>
+						<input class="input100" type="text" name="search_entity" id="search_entity" required placeholder="">
+					</div>
+
 					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-						<span class="label-input100">Choose A Class</span>						
-						<select style="border:none;" class="input100" name="domain_class" id="domain_class" required>
-							<option value="person">Person</option>
-							<option value="country">Country</option>
-							<option value="organisation">Organization</option>
+						<span class="label-input100">Predicate Mode</span>						
+						<select style="border:none;" class="input100" name="predicate_mode" id="predicate_mode" required>
+							<option value="DSC">DSC</option>
+							<option value="EXC">EXC</option>
+							<option value="FRQ ">FRQ</option>
 						  </select>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
+					<div class="wrap-input100 validate-input" data-validate="It is required">
 						<span class="label-input100">Max Enteries</span>
-						<input class="input100" type="number" name="max_enteries" id="max_enteries" required  min="0" step="1" placeholder="">
+						<input class="input100" type="number" value="5" name="max_enteries" id="max_enteries" required  min="1" step="1" placeholder="">
 					</div>
 
 					<div style="display: none;visibility:hidden;" class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
@@ -78,17 +83,20 @@
 			});
 			$( "#search_form" ).submit(function( event ) {
   				event.preventDefault();
-				var domainClass = $("#domain_class").val();
+				var entitySearch = $("#search_entity").val();
+				var predicateMode = $("#predicate_mode").val();
 				var maxEnteries = $("#max_enteries").val();
 				// var type = $("#type").val();
-				var type = "simple";
+				var type = "entity";
 				var url =
 					"http://localhost:8082/kg/kgraph/type/" +
 					type +
-					"/class/" +
-					domainClass +
+					"/name/" +
+					entitySearch  +
 					"/top/" +
-					maxEnteries;
+					maxEnteries  +
+					"/predicatemode/" +
+					predicateMode;
 
 				$.ajax({
 					url: url,
