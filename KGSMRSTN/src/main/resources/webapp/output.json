@@ -21,6 +21,10 @@
     }
     , { 
       "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Crimson_Skies_(video_game)"
+    }
+    , { 
+      "type" : "uri" ,
       "value" : "http://dbpedia.org/resource/Asheron's_Call"
     }
      ] ,
@@ -37,6 +41,21 @@
       "value" : "http://dbpedia.org/resource/343_Industries"
     }
      ] ,
+    "http://dbpedia.org/ontology/type" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Apple_Productivity_Experience_Group"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/nonFictionSubject" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Barbarians_Led_by_Bill_Gates"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/parentCompany" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Avanade"
+    }
+     ] ,
     "http://dbpedia.org/ontology/developer" : [ { 
       "type" : "uri" ,
       "value" : "http://dbpedia.org/resource/C_Sharp_(programming_language)"
@@ -44,6 +63,10 @@
     , { 
       "type" : "uri" ,
       "value" : "http://dbpedia.org/resource/Cortana_(software)"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/COMMAND.COM"
     }
     , { 
       "type" : "uri" ,
