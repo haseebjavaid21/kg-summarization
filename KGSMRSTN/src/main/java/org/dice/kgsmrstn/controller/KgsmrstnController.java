@@ -6,14 +6,11 @@ import java.io.FileOutputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Optional;
 import java.util.Set;
 
 import org.apache.jena.atlas.io.AWriter;
 import org.apache.jena.atlas.io.IndentedWriter;
 import org.apache.jena.atlas.lib.CharSpace;
-import org.apache.jena.graph.Node;
-import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -27,10 +24,8 @@ import org.dice.kgsmrstn.selector.TripleSelector;
 import org.dice.kgsmrstn.selector.TripleSelectorFactory;
 import org.dice.kgsmrstn.selector.TripleSelectorFactory.SelectorType;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -118,24 +113,27 @@ public class KgsmrstnController {
 
 		FileOutputStream oFile = null;
 		try {
-				oFile = new FileOutputStream("src/main/resources/webapp/output.json", false);
-				RDFDataMgr.write(oFile, model, Lang.RDFJSON) ;
+			oFile = new FileOutputStream("src/main/resources/webapp/output.json", false);
+			RDFDataMgr.write(oFile, model, Lang.RDFJSON);
 
-				oFile = new FileOutputStream("src/main/resources/webapp/output.nt", false);
-				//RDFDataMgr.write(oFile, model, Lang.NTRIPLES) ;
-				AWriter write = new IndentedWriter(oFile);
-				WriterStreamRDFPlain writer = new WriterStreamRDFPlain(write, CharSpace.UTF8);
+			oFile = new FileOutputStream("src/main/resources/webapp/output.nt", false);
+			// RDFDataMgr.write(oFile, model, Lang.NTRIPLES) ;
+			AWriter write = new IndentedWriter(oFile);
+			WriterStreamRDFPlain writer = new WriterStreamRDFPlain(write, CharSpace.UTF8);
 
-				ListIterator<Triple> tripleIterator = triples.listIterator();
-				while (tripleIterator.hasNext()) {
-					Triple triad = tripleIterator.next();
-					writer.triple(triad);
-				}
-				write.flush();
-				write.close();
+			ListIterator<Triple> tripleIterator = triples.listIterator();
+			while (tripleIterator.hasNext()) {
+				Triple triad = tripleIterator.next();
+				writer.triple(triad);
+			}
+			write.flush();
+			write.close();
 
-				/*oFile = new FileOutputStream("src/main/resources/webapp/output.ttl", false);
-				RDFDataMgr.write(oFile, model, Lang.TTL) ;*/
+			/*
+			 * oFile = new
+			 * FileOutputStream("src/main/resources/webapp/output.ttl", false);
+			 * RDFDataMgr.write(oFile, model, Lang.TTL) ;
+			 */
 
 		} catch (FileNotFoundException e1) {
 			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e1.getMessage() + "\"" + "}" + ")";
@@ -144,7 +142,7 @@ public class KgsmrstnController {
 
 	}
 
-	public void generateTriplesforEvaluation(String type, String entity, Integer k, String mode, String... format) {
+	public void generateTriplesforEvaluation(String type, String entity, Integer k, String mode) {
 
 		log.info("In forEvaluation...");
 		log.info("Current entity..." + entity);

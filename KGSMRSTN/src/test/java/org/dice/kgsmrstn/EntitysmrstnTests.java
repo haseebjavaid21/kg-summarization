@@ -1,11 +1,10 @@
 package org.dice.kgsmrstn;
 
-import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import java.io.File;
 
 import org.dice.kgsmrstn.controller.KgsmrstnController;
+import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class EntitysmrstnTests {
@@ -15,13 +14,17 @@ public class EntitysmrstnTests {
 	}
 
 	public static void main(String[] args) {
-		
+
 		String directoryPath = "./src/main/resources/webapp/output/";
 		File file = new File(directoryPath);
 		Boolean directoryCreated = file.mkdir();
-		
-		if(directoryCreated){
+
+		if (directoryCreated) {
 			KgsmrstnController kc = new KgsmrstnController();
+			// use method getSummarizedInfoOfAnEntity with your entity to get
+			// the summarization of it.
+			// the following are used to generate summarization for entities for
+			// evaluation
 			kc.generateTriplesforEvaluation("entity", "3WAY FM", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Adrian Griffin", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Andrew Kippis", 10, "DSC");
@@ -52,7 +55,7 @@ public class EntitysmrstnTests {
 			kc.generateTriplesforEvaluation("entity", "Wehlaberg", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Wernshausen", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Yayoidai Station", 10, "DSC");
-			
+
 			kc.generateTriplesforEvaluation("entity", "African grey hornbill", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Bornean mountain ground squirrel", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Eastern Sumatran rhinoceros", 10, "DSC");
@@ -83,7 +86,7 @@ public class EntitysmrstnTests {
 			kc.generateTriplesforEvaluation("entity", "Storme Warren", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Svyatoslav Tanasov", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "William Anthony Hughes", 10, "DSC");
-			
+
 			kc.generateTriplesforEvaluation("entity", "1960 Glover Trophy", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "1967 Italian Grand Prix", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "2008 Copa América – FIFA Futsal", 10, "DSC");
@@ -114,7 +117,7 @@ public class EntitysmrstnTests {
 			kc.generateTriplesforEvaluation("entity", "Stemonoporus laevifolius", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Thaia saprophytica", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Trichoscypha cavalliensis", 10, "DSC");
-			
+
 			kc.generateTriplesforEvaluation("entity", "392 (album)", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Drama City", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "If (Glasvegas song)", 10, "DSC");
@@ -125,7 +128,7 @@ public class EntitysmrstnTests {
 			kc.generateTriplesforEvaluation("entity", "Terrorist Threats", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Time (Dave Clark album)", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Wide Awake Drunk", 10, "DSC");
-			
+
 			kc.generateTriplesforEvaluation("entity", "A. Scott Sloan", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Juhan Muks", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Lucy Ward (musician)", 10, "DSC");
@@ -146,7 +149,7 @@ public class EntitysmrstnTests {
 			kc.generateTriplesforEvaluation("entity", "Lineatriton orchimelas", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Nemapogon nigralbella", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Schistura jarutanini", 10, "DSC");
-			
+
 			kc.generateTriplesforEvaluation("entity", "Can U Get wit It", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Kaalpurush", 10, "DSC");
 			kc.generateTriplesforEvaluation("entity", "Silence Is Easy (song)", 10, "DSC");

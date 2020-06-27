@@ -67,10 +67,6 @@ public class EntityTriplesSelector {
 		this.predicateSelectionMode = mode;
 	}
 
-	/*
-	 * @Override public List<Statement> getNextStatements() { //return
-	 * getAllTriples(); return null; }
-	 */
 	public LinkedList<Triple> getTriples() {
 		return getAllTriples();
 	}
