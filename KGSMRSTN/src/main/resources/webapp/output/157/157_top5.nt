@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Gonyosoma_hodgsoni> <http://dbpedia.org/ontology/binomialAuthority> <http://dbpedia.org/resource/Albert_Günther> .
+<http://dbpedia.org/resource/Gonyosoma_hodgsoni> <http://dbpedia.org/ontology/genus> <http://dbpedia.org/resource/Gonyosoma> .
+<http://dbpedia.org/resource/Gonyosoma_hodgsoni> <http://dbpedia.org/ontology/family> <http://dbpedia.org/resource/Colubridae> .
+<http://dbpedia.org/resource/Gonyosoma_hodgsoni> <http://dbpedia.org/ontology/family> <http://dbpedia.org/resource/Colubrinae> .
+<http://dbpedia.org/resource/Gonyosoma_hodgsoni> <http://dbpedia.org/ontology/class> <http://dbpedia.org/resource/Reptilia> .

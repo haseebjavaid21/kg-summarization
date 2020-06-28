@@ -1,0 +1,12 @@
+<http://dbpedia.org/resource/Wehlaberg> <http://dbpedia.org/ontology/locatedInArea> <http://dbpedia.org/resource/Brandenburg> .
+<http://dbpedia.org/resource/Wehlaberg> <http://dbpedia.org/ontology/locatedInArea> <http://dbpedia.org/resource/Germany> .
+<http://dbpedia.org/resource/Wehlaberg> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Hills_of_Brandenburg> .
+<http://dbpedia.org/resource/Wehlaberg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/WikicatMountainsUnder1000Metres> .
+<http://dbpedia.org/resource/Wehlaberg> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Hill> .
+<http://dbpedia.org/resource/Wehlaberg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/NaturalElevation109366317> .
+<http://dbpedia.org/resource/Wehlaberg> <http://purl.org/voc/vrank#hasRank> <99b423c89a08c6a01729676f33b9fbed> .
+<http://dbpedia.org/resource/Wehlaberg> <> <Wehlaberg is a hill in Brandenburg, Germany.@en> .
+<http://dbpedia.org/resource/Wehlaberg> <http://dbpedia.org/ontology/abstract> <Der Wehlaberg ist mit einer Höhe von 144,1 m ü. NHN die höchste Erhebung der Krausnicker Berge in Brandenburg. Der Berg liegt im Biosphärenreservat Spreewald, südlich führt der Gurken-Radweg vorbei. Im Norden liegt das Dorf Köthen am Köthener See, südlich das Dorf Krausnick. Auf dem Gipfel steht ein im Jahr 2003 errichteter hölzerner Aussichtsturm. Von dem 28 Meter hohen Turm hat man einen weiten Blick über die Krausnicker Berge hinweg und die sich nördlich erstreckenden Heideseen. Westlich ist die Halle des Tropical Islands zu sehen. Bei guten Sichtbedingungen ist im Norden der Berliner Fernsehturm zu erkennen. 
+* Sichthinweis auf dem Turm 
+* Blick über die Heideseen bei Köthen@de> .
+<http://dbpedia.org/resource/Wehlaberg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Thing> .

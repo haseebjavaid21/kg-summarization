@@ -7,6 +7,10 @@ public class Triple implements Comparable<Triple> {
 		this.predicate = predicate;
 		this.object = object;
 	}
+	
+	public Triple(){
+		
+	}
 
 	String subject;
 	String predicate;

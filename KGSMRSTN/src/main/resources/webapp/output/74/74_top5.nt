@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Kotumachagi> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/India> .
+<http://dbpedia.org/resource/Kotumachagi> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Karnataka> .
+<http://dbpedia.org/resource/Kotumachagi> <http://dbpedia.org/property/demographics1Info> <http://dbpedia.org/resource/Kannada> .
+<http://dbpedia.org/resource/Kotumachagi> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/States_and_territories_of_India> .
+<http://dbpedia.org/resource/Kotumachagi> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/List_of_districts_of_India> .

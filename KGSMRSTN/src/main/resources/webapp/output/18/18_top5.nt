@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Burgery_ambush> <http://dbpedia.org/ontology/isPartOfMilitaryConflict> <http://dbpedia.org/resource/Irish_War_of_Independence> .
+<http://dbpedia.org/resource/Burgery_ambush> <http://dbpedia.org/ontology/place> <http://dbpedia.org/resource/County_Waterford> .
+<http://dbpedia.org/resource/Burgery_ambush> <http://dbpedia.org/ontology/place> <http://dbpedia.org/resource/Dungarvan> .
+<http://dbpedia.org/resource/Burgery_ambush> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Ambush> .
+<http://dbpedia.org/resource/Burgery_ambush> <http://dbpedia.org/ontology/commander> <http://dbpedia.org/resource/George_Oliver_Plunkett> .

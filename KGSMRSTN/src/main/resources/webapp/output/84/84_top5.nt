@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Hilarographa_excellens> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Moth> .
+<http://dbpedia.org/resource/Hilarographa_excellens> <http://dbpedia.org/ontology/genus> <http://dbpedia.org/resource/Hilarographa> .
+<http://dbpedia.org/resource/Hilarographa_excellens> <http://dbpedia.org/ontology/phylum> <http://dbpedia.org/resource/Arthropod> .
+<http://dbpedia.org/resource/Hilarographa_excellens> <http://dbpedia.org/ontology/family> <http://dbpedia.org/resource/Tortricidae> .
+<http://dbpedia.org/resource/Hilarographa_excellens> <http://dbpedia.org/ontology/class> <http://dbpedia.org/resource/Insect> .

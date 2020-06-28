@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Sauxillanges> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/France> .
+<http://dbpedia.org/resource/Sauxillanges> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Communes_of_Puy-de-Dôme> .
+<http://dbpedia.org/resource/Sauxillanges> <> <Sauxillanges ist eine französische Gemeinde mit 1210 Einwohnern (Stand 1. Januar 2013) im Département Puy-de-Dôme in der Region Auvergne-Rhône-Alpes. Sie gehört zum Arrondissement Issoire im Kanton Brassac-les-Mines.@de> .
+<http://dbpedia.org/resource/Sauxillanges> <> <Sauxillanges  is a commune in the Puy-de-Dôme department in Auvergne in central France.@en> .
+<http://dbpedia.org/resource/Sauxillanges> <http://dbpedia.org/ontology/populationTotal> <1151^^http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
