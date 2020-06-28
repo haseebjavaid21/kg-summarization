@@ -6,6 +6,10 @@ Knowledge Graph Summarization
 ## Description
 Knowledge graphs (KG) are graphs/structures consisting of facts in the form of triples. Triples are a combination of subjects, objects and predicates. In general, knowledge graphs are huge in size and may contain redundant information. Knowledge Graphs’ humongous size makes it difficult to process and represent them. The goal of this project group is to obtain a pruned KG. This consists of selecting a sub knowledge graph based on endpoints and summarizing those subgraphs by considering facts based on ranks. 
 
+##Algorithms Implemented
+SALSA
+HITS
+LinkSUM
 
 ## Installation / Project Setup
 Clone the repository from https://github.com/haseebjavaid21/kg-summarization.git  
@@ -14,7 +18,7 @@ Place the .ttl files containing KG which needs to be summarized in KGSMRSTN fold
 Run maven install.  
 Run maven clean.  
 Run maven build.  
-Run Project as KgsmrstnApplication.java file.  
+Run Project as Java Application with KgsmrstnApplication.java.
 
 ## Prerequisites
 Java environment ( JDK ) should be setup on the machine.  
@@ -25,12 +29,12 @@ Source : https://apache.lauf-forum.at/maven/maven-3/3.6.3/binaries/apache-maven-
 How to : https://maven.apache.org/install.html  
 
 ## Built With
-Java -  Promgrammaing Technology  
+Java  
 Maven - Dependency Management  
 Apache Jena  
 
 ## Authors
-Pavan Kumar Sheshanarayan  
+Pavan Kumar Sheshanarayana 
 Shreyas Kottur Shivananda  
 Usman Ashraf  
 Muhammad Haseeb Javaid  
