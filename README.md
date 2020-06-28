@@ -6,7 +6,7 @@ Knowledge Graph Summarization
 ## Description
 Knowledge graphs (KG) are graphs/structures consisting of facts in the form of triples. Triples are a combination of subjects, objects and predicates. In general, knowledge graphs are huge in size and may contain redundant information. Knowledge Graphs’ humongous size makes it difficult to process and represent them. The goal of this project group is to obtain a pruned KG. This consists of selecting a sub knowledge graph based on endpoints and summarizing those subgraphs by considering facts based on ranks. 
 
-##Algorithms Implemented
+## Algorithms Implemented
 SALSA
 HITS
 LinkSUM
@@ -34,7 +34,7 @@ Maven - Dependency Management
 Apache Jena  
 
 ## Authors
-Pavan Kumar Sheshanarayana 
+Pavan Kumar Sheshanarayana
 Shreyas Kottur Shivananda  
 Usman Ashraf  
 Muhammad Haseeb Javaid  
