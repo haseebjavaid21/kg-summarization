@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Ayrovo> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Bulgaria> .
+<http://dbpedia.org/resource/Ayrovo> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Kardzhali_Municipality> .
+<http://dbpedia.org/resource/Ayrovo> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Countries_of_the_world> .
+<http://dbpedia.org/resource/Ayrovo> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Provinces_of_Bulgaria> .
+<http://dbpedia.org/resource/Ayrovo> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Kardzhali_Province> .

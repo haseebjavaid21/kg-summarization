@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Amphisbaena_ridleyi> <http://dbpedia.org/ontology/binomialAuthority> <http://dbpedia.org/resource/George_Albert_Boulenger> .
+<http://dbpedia.org/resource/Amphisbaena_ridleyi> <http://dbpedia.org/ontology/genus> <http://dbpedia.org/resource/Amphisbaena_(genus)> .
+<http://dbpedia.org/resource/Amphisbaena_ridleyi> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Amphisbaenian> .
+<http://dbpedia.org/resource/Amphisbaena_ridleyi> <http://dbpedia.org/ontology/phylum> <http://dbpedia.org/resource/Vertebrate> .
+<http://dbpedia.org/resource/Amphisbaena_ridleyi> <http://dbpedia.org/ontology/class> <http://dbpedia.org/resource/Reptile> .

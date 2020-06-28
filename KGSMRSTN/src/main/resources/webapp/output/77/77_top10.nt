@@ -1,0 +1,10 @@
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/France> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Communes_of_Var_(department)> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <> <Saint-Raphaël (in occitano Sant Rafèu) è un comune francese di 34.867 abitanti situato nel dipartimento del Varo della regione della Provenza-Alpi-Costa Azzurra.@it> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/Municipality108626283> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <> <Saint-Raphaël ist eine französische Hafenstadt mit 34.005 Einwohnern (Stand 1. Januar 2013) an der Côte d’Azur im Département Var. Administrativ ist sie Sitz des gleichnamigen Kantons im Arrondissement Draguignan.@de> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <http://www.w3.org/2003/01/geo/wgs84_pos#geometry> <POINT(6.7684001922607 43.425201416016)^^http://www.openlinksw.com/schemas/virtrdf#Geometry> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <http://dbpedia.org/ontology/minimumElevation> <0.0^^http://www.w3.org/2001/XMLSchema#double> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Settlement> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Thing> .
+<http://dbpedia.org/resource/Saint-Raphaël,_Var> <http://dbpedia.org/ontology/inseeCode> <83118> .
