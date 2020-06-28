@@ -1,14 +1,18 @@
 package org.dice.kgsmrstn.selector;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import edu.uci.ics.jung.graph.Graph;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
@@ -23,10 +27,18 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.dice.kgsmrstn.graph.BreadthFirstSearch;
+import org.dice.kgsmrstn.graph.HITSAlgorithm;
 import org.dice.kgsmrstn.graph.Node;
 import org.dice.kgsmrstn.graph.PageRank;
 import org.dice.kgsmrstn.util.TripleIndex;
 import org.slf4j.LoggerFactory;
+
+import com.github.andrewoma.dexx.collection.HashMap;
+
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFLanguages;
 
 /**
  *
@@ -45,6 +57,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 	private String endpoint;
 	private DirectedSparseGraph<Node, String> g = new DirectedSparseGraph<Node, String>();
 
+	HashMap<Node, List<Node>> adjNodes = new HashMap<>();
+
 	public AbstractSummarizationSelector(Set<String> targetClasses, String endpoint, String graph) {
 		this.endpoint = endpoint;
 	}
@@ -56,101 +70,19 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 
 	protected List<Statement> getResources(Set<String> classes, String clazz, int topk) {
 
-		String query = "";
-
-		switch (clazz) {
-		case "person":
-			query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-					+ "PREFIX dbr: <http://dbpedia.org/resource/>\n" + "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
-					+ "SELECT DISTINCT  * WHERE {\n" + "?s  rdf:type    foaf:Person ;\n"
-					+ "    ?p                    ?o\n" + "FILTER  regex(?o, 'http://xmlns.com/foaf/0.1/')."
-					+ "} LIMIT 10000";
-
-			break;
-
-		case "organisation":
-			query = "PREFIX  dbo:  <http://dbpedia.org/ontology/>" + "PREFIX  dbr:  <http://dbpedia.org/resource/>"
-					+ "SELECT DISTINCT  * WHERE\n" + "{ ?s  a dbo:Organisation ;" + "       ?p   ?o." + "} LIMIT 10000";
-			break;
-
-		case "country":
-			query = "select distinct ?s ?p ?o\n"
-					+ "where { ?s a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>;" + "?p ?o. "
-					+ "FILTER (lang(?o) = 'en')} order by ?o";
-			break;
-		default:
-			break;
-		}
-
-		log.info("Query " + query);
-		Query sparqlQuery = QueryFactory.create(query, Syntax.syntaxARQ);
-
-		QueryEngineHTTP httpQuery = new QueryEngineHTTP(endpoint, sparqlQuery);
-		List<Node> allNodesRanked = new ArrayList<Node>();
+		this.readFromTTL("D:\\Project Data\\persondata_en.ttl\\persondata_en4.ttl");
+		
 		try {
-			ResultSet results = httpQuery.execSelect();
-			QuerySolution solution;
-			while (results.hasNext()) {
-				solution = results.next();
-				// get the value of the variables in the select clause
-				try {
-					String s = solution.get("s").toString();
-					String p = solution.get("p").toString();
-					String o = solution.get("o").toString();
-
-					Node curr_s = new Node(s, 0, 0, ALGORITHM);
-					Node curr_o = new Node(o, 0, 1, ALGORITHM);
-					if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
-						g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		} finally {
-			httpQuery.close();
+			HITSAlgorithm ht = new HITSAlgorithm();
+			ht.runHits(g, 10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-		// run Page Rank to get the top entities of type 'Person'
-		allNodesRanked = runPageRank(g);
-
-		List<Node> highRankNodes = new ArrayList<Node>();
-		for (Node node : allNodesRanked) {
-			if (node.getLevel() == 0) {
-				highRankNodes.add(node);
-			}
-
-		}
-		// get 'Top-50' nodes
-		highRankNodes = highRankNodes.subList(0, topk);
-
-		// run BFS
-		DirectedSparseGraph<Node, String> graph = runBFS(highRankNodes);
-
-		// Finally run the Page Rank algorithm to the entities after their BFS
-		// expansion
-		List<Node> topNodes = runPageRank(graph);
-		Model model = ModelFactory.createDefaultModel();
-		// form the triples of all the top nodes
-		for (Node node : topNodes) {
-			if (highRankNodes.contains(node)) {
-				Collection<Node> neighbourNodes = graph.getNeighbors(node);
-				for (Node succesorNode : neighbourNodes) {
-
-					String sub = node.getCandidateURI();
-					String pred = graph.findEdge(node, succesorNode);
-					String object = succesorNode.getCandidateURI();
-
-					if (pred != null) {
-						Resource subject = model.createResource(sub);
-						Property predicate = model.createProperty(pred.split(";")[1]);
-						model.add(subject, predicate, object);
-					}
-				}
-			}
-		}
-
-		return sortStatements(model.listStatements());
+		List<Node> processedHighRankNodes = this.getHighRankNdes();
+		System.out.println("Finished :"+ processedHighRankNodes.size());
+		return sortStatements(this.generateList(processedHighRankNodes).listStatements());
 	}
 
 	private List<Node> runPageRank(DirectedSparseGraph<Node, String> g) {
@@ -203,5 +135,97 @@ public abstract class AbstractSummarizationSelector implements TripleSelector {
 		List<Statement> result = new ArrayList<Statement>(statements);
 		Collections.sort(result, new StatementComparator());
 		return result;
+	}
+	
+	protected List<Node> getHighRankNdes() {
+		List<Node> reversedNodeList = new ArrayList<Node>();
+		List<Node> NodeIteration = new ArrayList<>();
+		
+		reversedNodeList = this.sortAndReverse(g);
+		NodeIteration =  reversedNodeList.parallelStream().filter(node -> node.getLevel() == 1 ).collect(Collectors.toList());
+		double temp_weight = 0.0;
+		double total_weight = reversedNodeList.parallelStream().filter(node ->node.getLevel()==1).map(node -> node.getAuthorityWeight()).reduce(0.0, Double::sum);
+		double meanNodes = total_weight/NodeIteration.size();
+		System.out.println("Mean of "+NodeIteration.size()+" entities is "+meanNodes);
+		
+		List<Node> filteredList = NodeIteration.parallelStream().filter(node -> node.getAuthorityWeight() >= (meanNodes/100)).collect(Collectors.toList());
+		
+		System.out.println("final number of entities is "+filteredList.size());
+		return filteredList;	
+	}
+	
+	protected void readFromTTL(String ttl_path) {
+		Model m = ModelFactory.createDefaultModel();
+		// read into the model.
+		m.read(ttl_path);
+		StmtIterator st = m.listStatements();
+		while (st.hasNext()) {
+			// get the value of the variables in the select clause
+			try {
+				Statement et = st.next();
+				String s = et.getSubject().toString();
+				String p = et.getPredicate().toString();
+				String o = et.getObject().toString();
+
+				Node curr_s = new Node(o, 0, 0, ALGORITHM);
+				Node curr_o = new Node(s, 0, 1, ALGORITHM);
+
+				if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
+					g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	protected Model generateList(List<Node> temp) {
+		Model model = ModelFactory.createDefaultModel();
+		// form the triples of all the top nodes
+		for (Node nodetemp : temp) {
+			Collection<Node> neighbourNodes1 = g.getNeighbors(nodetemp);
+			List<Node> neighbourNodes = new ArrayList<>();
+			neighbourNodes.addAll(neighbourNodes1);
+			Collections.sort(neighbourNodes, new Comparator<Node>() {
+
+				@Override
+				public int compare(Node o1, Node o2) {
+					// TODO Auto-generated method stub
+					return Double.compare(o1.getHubWeight(), o2.getHubWeight());
+				}
+			});
+
+			System.out.println("AW : "+nodetemp.getAuthorityWeight());
+			
+			for (Node succesorNode : neighbourNodes) {
+
+				String sub = nodetemp.getCandidateURI();
+				String pred = g.findEdge(succesorNode, nodetemp);
+				String object = succesorNode.getCandidateURI();
+
+				if (pred != null) {
+					Resource subject = model.createResource(sub);
+					Property predicate = model.createProperty(pred.split(";")[1]);
+					model.add(subject, predicate, object);
+				}
+			}
+		}
+		System.out.println("Final Size : "+model.size());
+		return model;
+	}
+	
+	protected ArrayList<Node> sortAndReverse(DirectedSparseGraph<Node, String>  g) {
+		ArrayList<Node> orderedList = new ArrayList<Node>();
+		orderedList.addAll(g.getVertices());
+		Collections.sort(orderedList, new Comparator<Node>() {
+
+			public int compare(Node o1, Node o2) {
+				// TODO Auto-generated method stub
+				return Double.compare(o1.getAuthorityWeight(), o2.getAuthorityWeight());
+			}
+		});
+
+		Collections.reverse(orderedList);
+		return orderedList;
+		
 	}
 }
