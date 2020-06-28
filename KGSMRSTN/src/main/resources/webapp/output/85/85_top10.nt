@@ -7,4 +7,4 @@
 <http://dbpedia.org/resource/Inverted_repeat-lacking_clade> <http://dbpedia.org/ontology/class> <http://dbpedia.org/resource/Eudicots> .
 <http://dbpedia.org/resource/Inverted_repeat-lacking_clade> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Clade> .
 <http://dbpedia.org/resource/Inverted_repeat-lacking_clade> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Faboideae> .
-<http://dbpedia.org/resource/Inverted_repeat-lacking_clade> <http://dbpedia.org/property/unrankedTribus> <http://dbpedia.org/resource/Hologalegina> .
+<http://dbpedia.org/resource/Inverted_repeat-lacking_clade> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Plant> .

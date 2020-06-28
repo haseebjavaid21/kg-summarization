@@ -1,5 +1,5 @@
+<http://dbpedia.org/resource/Eastern_Sumatran_rhinoceros> <http://purl.org/voc/vrank#hasRank> <8f81d3d98877936cfc8b57e7c64461ef> .
 <http://dbpedia.org/resource/Eastern_Sumatran_rhinoceros> <http://www.w3.org/ns/prov#wasDerivedFrom> <http://en.wikipedia.org/wiki/Eastern_Sumatran_rhinoceros?oldid=717919794> .
 <http://dbpedia.org/resource/Eastern_Sumatran_rhinoceros> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Animal> .
 <http://dbpedia.org/resource/Eastern_Sumatran_rhinoceros> <http://www.w3.org/2000/01/rdf-schema#label> <Eastern Sumatran rhinoceros@en> .
 <http://dbpedia.org/resource/Eastern_Sumatran_rhinoceros> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Subspecies> .
-<http://dbpedia.org/resource/Eastern_Sumatran_rhinoceros> <http://purl.org/voc/vrank#hasRank> <334a71930e74caf815207a886a067c71> .

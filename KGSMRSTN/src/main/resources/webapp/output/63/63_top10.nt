@@ -2,9 +2,9 @@
 <http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:International_association_football_competitions_hosted_by_Uruguay> .
 <http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:2008_in_futsal> .
 <http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Copa_América_de_Futsal> .
-<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <> <1^^http://www.w3.org/2001/XMLSchema#integer> .
-<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://dbpedia.org/property/score> <2^^http://www.w3.org/2001/XMLSchema#integer> .
+<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://purl.org/voc/vrank#hasRank> <7f9f689d4a1f6be6146b8dd0f7a78947> .
 <http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Tournament> .
-<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://dbpedia.org/property/score> <3^^http://www.w3.org/2001/XMLSchema#integer> .
-<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://dbpedia.org/property/score> <5^^http://www.w3.org/2001/XMLSchema#integer> .
-<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://dbpedia.org/property/score> <6^^http://www.w3.org/2001/XMLSchema#integer> .
+<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://www.w3.org/2000/01/rdf-schema#label> <Copa América de Futsal de 2008@pt> .
+<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/WikicatInternationalFootball(soccer)CompetitionsHostedByUruguay> .
+<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Event> .
+<http://dbpedia.org/resource/2008_Copa_América_–_FIFA_Futsal> <http://dbpedia.org/ontology/time> <20:10> .

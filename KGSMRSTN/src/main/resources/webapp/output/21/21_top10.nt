@@ -1,10 +1,10 @@
 <http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/India> .
 <http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Karnataka> .
-<http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/property/blank1InfoSec> <http://dbpedia.org/resource/Bijapur,_Karnataka> .
-<http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/property/demographics1Info> <http://dbpedia.org/resource/Kannada> .
 <http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Bijapur_district,_Karnataka> .
-<http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/States_and_territories_of_India> .
-<http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/List_of_districts_of_India> .
 <http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/ontology/timeZone> <http://dbpedia.org/resource/Indian_Standard_Time> .
 <http://dbpedia.org/resource/Akalwadi> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Villages_in_Bijapur_district> .
-<http://dbpedia.org/resource/Akalwadi> <http://dbpedia.org/property/populationDensityKm> <auto^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString> .
+<http://dbpedia.org/resource/Akalwadi> <http://www.w3.org/2000/01/rdf-schema#comment> <Akalwadi  is a village in the southern state of Karnataka, India. It is located in the Basavana Bagevadi taluk of Bijapur district in Karnataka.@en> .
+<http://dbpedia.org/resource/Akalwadi> <http://purl.org/voc/vrank#hasRank> <dd980387fd592a7970847ddf9f6921b9> .
+<http://dbpedia.org/resource/Akalwadi> <http://www.w3.org/2000/01/rdf-schema#label> <Akalwadi@en> .
+<http://dbpedia.org/resource/Akalwadi> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Settlement> .
+<http://dbpedia.org/resource/Akalwadi> <http://xmlns.com/foaf/0.1/homepage> <http://karnataka.gov.in> .

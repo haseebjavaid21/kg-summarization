@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import org.apache.jena.rdf.model.Resource;
+
 import org.apache.jena.rdf.model.Statement;
 
 /**
@@ -53,7 +53,7 @@ public class SimpleSelector extends AbstractSummarizationSelector {
 		}
 		this.maxSize = maxSize;
 		this.r = new Random(seed);
-		
+
 	}
 
 	/**
@@ -68,7 +68,8 @@ public class SimpleSelector extends AbstractSummarizationSelector {
 	 * @param graph
 	 *            Graph to query (null if none)
 	 */
-	public SimpleSelector(Set<String> sourceClasses, Set<String> targetClasses, String endpoint, String graph,String clazz,int topk) {
+	public SimpleSelector(Set<String> sourceClasses, Set<String> targetClasses, String endpoint, String graph,
+			String clazz, int topk) {
 		super(targetClasses, endpoint, graph);
 		this.sourceClasses = sourceClasses;
 		resources = null;
@@ -81,31 +82,21 @@ public class SimpleSelector extends AbstractSummarizationSelector {
 	 * 
 	 * @return Set of statements
 	 */
-	@Override
 	public List<Statement> getNextStatements() {
-            if (resources == null) {
-            	String Keyword="";
-                resources = getResources(sourceClasses,clazz,topk);
-            }
-            Set<Statement> result = new HashSet<>();
-            // int size = minSize + r.nextInt(maxSize - minSize + 1);
-            int counter = 0;
-            // check for size, if size > statements simply take statements
-            while (counter < resources.size()) {
-                    result.add(resources.get(counter));
-                    counter++;
-            }
-            //System.out.println(result);
-            return sortStatements(result);
+		if (resources == null) {
+			String Keyword = "";
+			resources = getResources(sourceClasses, clazz, topk);
+		}
+		Set<Statement> result = new HashSet<>();
+		// int size = minSize + r.nextInt(maxSize - minSize + 1);
+		int counter = 0;
+		// check for size, if size > statements simply take statements
+		while (counter < resources.size()) {
+			result.add(resources.get(counter));
+			counter++;
+		}
+		// System.out.println(result);
+		return sortStatements(result);
 	}
 
-	public static void main(String args[]) {
-		Set<String> classes = new HashSet<>();
-		classes.add("<http://dbpedia.org/ontology/Person>");
-		classes.add("<http://dbpedia.org/ontology/Place>");
-		classes.add("<http://dbpedia.org/ontology/Organisation>");
-		SimpleSummarySelector sss = new SimpleSummarySelector(classes, classes, "http://dbpedia.org/sparql", null);
-		sss.getNextStatements();
-		sss.getNextStatements();
-	}
 }

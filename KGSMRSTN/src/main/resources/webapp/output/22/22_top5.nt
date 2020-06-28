@@ -1,5 +1,5 @@
 <http://dbpedia.org/resource/Chitita> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Chile> .
 <http://dbpedia.org/resource/Chitita> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Arica_and_Parinacota_Region> .
-<http://dbpedia.org/resource/Chitita> <http://dbpedia.org/ontology/type> <http://dbpedia.org/resource/Village> .
+<http://dbpedia.org/resource/Chitita> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Village> .
 <http://dbpedia.org/resource/Chitita> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Populated_places_in_Arica_Province> .
-<http://dbpedia.org/resource/Chitita> <http://dbpedia.org/property/longew> <W^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString> .
+<http://dbpedia.org/resource/Chitita> <http://www.w3.org/ns/prov#wasDerivedFrom> <http://en.wikipedia.org/wiki/Chitita?oldid=539405513> .

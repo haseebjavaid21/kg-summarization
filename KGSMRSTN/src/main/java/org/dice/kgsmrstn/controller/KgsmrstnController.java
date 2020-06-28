@@ -19,17 +19,15 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.writer.WriterStreamRDFPlain;
 import org.dice.kgsmrstn.config.KgsmrstnRunConfig;
+import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorHits;
+import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorSalsa;
 import org.dice.kgsmrstn.selector.EntityTriplesSelector;
-import org.dice.kgsmrstn.selector.TripleSelector;
-import org.dice.kgsmrstn.selector.TripleSelectorFactory;
-import org.dice.kgsmrstn.selector.TripleSelectorFactory.SelectorType;
+import org.dice.kgsmrstn.selector.SimpleSelector;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorHits;
-import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorSalsa;
-import org.springframework.http.MediaType;
 
 @RestController
 public class KgsmrstnController {
@@ -50,15 +48,12 @@ public class KgsmrstnController {
 
 		log.info("In getKGraph");
 
-		final TripleSelectorFactory factory = new TripleSelectorFactory();
-		TripleSelector tripleSelector = null;
 		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
 		runConfig.setSqparqlEndPoint(DB_ENDPOINT);
 		runConfig.setSeed(System.nanoTime());
 		runConfig.setSelectorType(type);
 		runConfig.setClazz(clazz);
 		runConfig.setTopk(topk);
-		// runConfig.setSelectorType("simple");
 
 		List<Statement> triples;
 		final Set<String> classes = new HashSet<>();
@@ -66,15 +61,11 @@ public class KgsmrstnController {
 		classes.add(DB_ONTOLOGY_PLACE);
 		classes.add(DB_ONTOLOGY_ORGANISATION);
 
-		SelectorType selectorType = runConfig.getSelectorTypeEnum();
+		SimpleSelector simpleSelector = new SimpleSelector(classes, new HashSet<>(), runConfig.getSqparqlEndPoint(),
+				null, runConfig.getClazz(), runConfig.getTopk());
 
-		tripleSelector = factory.create(selectorType, classes, new HashSet<>(), runConfig.getSqparqlEndPoint(), null,
-				runConfig.getMinSentence(), runConfig.getMaxSentence(), runConfig.getSeed(), runConfig.getClazz(),
-				runConfig.getTopk(), null);
+		triples = simpleSelector.getNextStatements();
 
-		triples = tripleSelector.getNextStatements();
-
-		// Possible Solution #1,but written as a JSON file.
 		Model m = ModelFactory.createDefaultModel();
 		ListIterator<Statement> StmtIterator = triples.listIterator();
 		try {
@@ -210,25 +201,21 @@ public class KgsmrstnController {
 		counter++;
 
 	}
-  
-  @GetMapping(value = "/kgraphsalsa", produces = MediaType.APPLICATION_JSON_VALUE) // , produces = "text/plain"
+
+	@GetMapping(value = "/kgraphsalsa", produces = MediaType.APPLICATION_JSON_VALUE) // produces="text/json"
 	public String getKGraphSalsa() {
 
-		log.info("In getKGraph");
+		log.info("In getKGraphSalsa");
 
 		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
-
-		// runConfig.setSelectorType("simple");
 
 		List<Statement> triples;
 
 		AbstractSummarizationSelectorSalsa ass = new AbstractSummarizationSelectorSalsa(runConfig.getSqparqlEndPoint(),
 				null);
 
-		// triples = getResources(classes,clazz,topk);
 		triples = ass.getResources();
 
-		// Possible Solution #1,but written as a JSON file.
 		Model m = ModelFactory.createDefaultModel();
 		ListIterator<Statement> StmtIterator = triples.listIterator();
 		try {
@@ -254,18 +241,18 @@ public class KgsmrstnController {
 
 	}
 
-  @GetMapping(value = "/kgraphHits", produces = MediaType.APPLICATION_JSON_VALUE) // , produces = "text/plain"
+	@GetMapping(value = "/kgraphHits", produces = MediaType.APPLICATION_JSON_VALUE) // produces="text/json"
 	public String getKGraphHITS() {
 
-		log.info("In getKGraph");
+		log.info("In getKGraphHITS");
 
 		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
 
 		List<Statement> triples;
-        AbstractSummarizationSelectorHits Ash = new AbstractSummarizationSelectorHits(runConfig.getSqparqlEndPoint(), null);
-        triples = Ash.getResources();
+		AbstractSummarizationSelectorHits Ash = new AbstractSummarizationSelectorHits(runConfig.getSqparqlEndPoint(),
+				null);
+		triples = Ash.getResources();
 
-		// Possible Solution #1,but written as a JSON file.
 		Model m = ModelFactory.createDefaultModel();
 		ListIterator<Statement> StmtIterator = triples.listIterator();
 		try {

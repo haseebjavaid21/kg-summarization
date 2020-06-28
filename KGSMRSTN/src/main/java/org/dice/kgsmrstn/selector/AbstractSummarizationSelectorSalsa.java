@@ -1,9 +1,6 @@
 package org.dice.kgsmrstn.selector;
 
-import edu.uci.ics.jung.graph.DirectedSparseGraph;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,33 +9,23 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.IssuerSerialNumRequest;
-
-import org.apache.http.util.TextUtils;
 import org.apache.jena.graph.Triple;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.Syntax;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-import org.dice.kgsmrstn.graph.BreadthFirstSearch;
+import org.dice.kgsmrstn.graph.ComponentId;
 import org.dice.kgsmrstn.graph.Node;
-import org.dice.kgsmrstn.graph.PageRank;
-import org.dice.kgsmrstn.util.TripleIndex;
+import org.dice.kgsmrstn.graph.NodeURI;
+import org.dice.kgsmrstn.graph.SALSA;
+import org.dice.kgsmrstn.util.StatementComparator;
 import org.slf4j.LoggerFactory;
-import org.dice.kgsmrstn.graph.*;
+
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
 /**
  *
@@ -46,7 +33,6 @@ import org.dice.kgsmrstn.graph.*;
  */
 public class AbstractSummarizationSelectorSalsa {
 
-	
 	private static final String ALGORITHM = "pagerank";
 
 	private org.slf4j.Logger log = LoggerFactory.getLogger(AbstractSummarizationSelectorSalsa.class);
@@ -111,7 +97,8 @@ public class AbstractSummarizationSelectorSalsa {
 
 		adjNodes.clear();
 
-		// Finally run the Page Rank algorithm to the entities after their BFS expansion
+		// Finally run the Page Rank algorithm to the entities after their BFS
+		// expansion
 		List<Node> topNodes = runSalsa(g, component);
 		component.clear();
 		Collections.reverse(topNodes);

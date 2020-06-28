@@ -2,4 +2,4 @@
 <http://dbpedia.org/resource/Tchonoro> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Kachin_State> .
 <http://dbpedia.org/resource/Tchonoro> <http://dbpedia.org/ontology/timeZone> <http://dbpedia.org/resource/UTC> .
 <http://dbpedia.org/resource/Tchonoro> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Assoli> .
-<http://dbpedia.org/resource/Tchonoro> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Prefectures_of_Togo> .
+<http://dbpedia.org/resource/Tchonoro> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Populated_places_in_Kara_Region> .

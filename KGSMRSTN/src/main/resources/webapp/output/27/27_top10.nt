@@ -3,8 +3,8 @@
 <http://dbpedia.org/resource/Uelsby> <http://dbpedia.org/ontology/district> <http://dbpedia.org/resource/Schleswig-Flensburg> .
 <http://dbpedia.org/resource/Uelsby> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Municipalities_in_Schleswig-Holstein> .
 <http://dbpedia.org/resource/Uelsby> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Schleswig-Flensburg> .
-<http://dbpedia.org/resource/Uelsby> <> <Uelsby (duń. Ølsby) - miejscowość i gmina w Niemczech w kraju związkowym Szlezwik-Holsztyn, w powiecie Schleswig-Flensburg, wchodzi w skład urzędu Südangeln.@pl> .
+<http://dbpedia.org/resource/Uelsby> <http://www.w3.org/2000/01/rdf-schema#comment> <Uelsby (duń. Ølsby) - miejscowość i gmina w Niemczech w kraju związkowym Szlezwik-Holsztyn, w powiecie Schleswig-Flensburg, wchodzi w skład urzędu Südangeln.@pl> .
 <http://dbpedia.org/resource/Uelsby> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/Municipality108626283> .
-<http://dbpedia.org/resource/Uelsby> <http://dbpedia.org/property/lonDeg> <9^^http://www.w3.org/2001/XMLSchema#integer> .
 <http://dbpedia.org/resource/Uelsby> <http://dbpedia.org/ontology/PopulatedPlace/areaTotal> <10.6^^http://dbpedia.org/datatype/squareKilometre> .
+<http://dbpedia.org/resource/Uelsby> <http://dbpedia.org/ontology/birthPlace> <http://dbpedia.org/resource/Hans_Weymar> .
 <http://dbpedia.org/resource/Uelsby> <http://www.georss.org/georss/point> <54.6 9.566666666666666> .

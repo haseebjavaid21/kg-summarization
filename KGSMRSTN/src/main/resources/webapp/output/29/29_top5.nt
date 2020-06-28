@@ -2,4 +2,4 @@
 <http://dbpedia.org/resource/Wernshausen> <http://dbpedia.org/ontology/city> <http://dbpedia.org/resource/Schmalkalden> .
 <http://dbpedia.org/resource/Wernshausen> <http://dbpedia.org/ontology/district> <http://dbpedia.org/resource/Schmalkalden-Meiningen> .
 <http://dbpedia.org/resource/Wernshausen> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Geography_of_Thuringia> .
-<http://dbpedia.org/resource/Wernshausen> <> <0^^http://www.w3.org/2001/XMLSchema#integer> .
+<http://dbpedia.org/resource/Wernshausen> <http://www.w3.org/2000/01/rdf-schema#comment> <Wernshausen is een plaats en voormalige gemeente in de Duitse deelstaat Thüringen, en maakt deel uit van de gemeente Schmalkalden in het district Schmalkalden-Meiningen.@nl> .

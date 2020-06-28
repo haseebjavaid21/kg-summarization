@@ -7,4 +7,4 @@
 <http://dbpedia.org/resource/Andrew_Kippis> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Burials_at_Bunhill_Fields> .
 <http://dbpedia.org/resource/Andrew_Kippis> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:1725_births> .
 <http://dbpedia.org/resource/Andrew_Kippis> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Fellows_of_the_Royal_Society> .
-<http://dbpedia.org/resource/Andrew_Kippis> <http://dbpedia.org/property/id> <Kippis,+Andrew^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString> .
+<http://dbpedia.org/resource/Andrew_Kippis> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/Professional110480253> .

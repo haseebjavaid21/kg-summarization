@@ -7,4 +7,4 @@
 <http://dbpedia.org/resource/Juhan_Muks> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/Painter110391653> .
 <http://dbpedia.org/resource/Juhan_Muks> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/Creator109614315> .
 <http://dbpedia.org/resource/Juhan_Muks> <http://xmlns.com/foaf/0.1/surname> <Muks@en> .
-<http://dbpedia.org/resource/Juhan_Muks> <http://purl.org/voc/vrank#hasRank> <63ac6b73c5709e20ef3702575e0822a0> .
+<http://dbpedia.org/resource/Juhan_Muks> <http://www.w3.org/ns/prov#wasDerivedFrom> <http://en.wikipedia.org/wiki/Juhan_Muks?oldid=707042124> .

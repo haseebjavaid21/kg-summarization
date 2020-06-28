@@ -1,14 +1,12 @@
 package org.dice.kgsmrstn.config;
 
-import org.dice.kgsmrstn.selector.TripleSelectorFactory.SelectorType;
-
 public class KgsmrstnRunConfig {
-	
+
 	public static final long DEF_SEED = System.currentTimeMillis();
 	public static final int DEF_MIN_SENTENCE = 3;
 	public static final int DEF_MAX_SENTENCE = 10;
 	public static final String DEF_SPARQL_EP = "http://dbpedia.org/sparql";
-	
+
 	private long seed = DEF_SEED;
 	private int minSentence = DEF_MIN_SENTENCE;
 	private int maxSentence = DEF_MAX_SENTENCE;
@@ -16,7 +14,7 @@ public class KgsmrstnRunConfig {
 	private String selectorType;
 	private String clazz;
 	private Integer topk;
-	
+
 	private String predicateSelectionMode;
 	private String entity;
 
@@ -51,7 +49,7 @@ public class KgsmrstnRunConfig {
 	public void setSelectorType(String selectorType) {
 		this.selectorType = selectorType;
 	}
-	
+
 	public String getSqparqlEndPoint() {
 		return sqparqlEndPoint;
 	}
@@ -59,7 +57,7 @@ public class KgsmrstnRunConfig {
 	public void setSqparqlEndPoint(String sqparqlEndPoint) {
 		this.sqparqlEndPoint = sqparqlEndPoint;
 	}
-	
+
 	public String getClazz() {
 		return clazz;
 	}
@@ -75,7 +73,7 @@ public class KgsmrstnRunConfig {
 	public void setTopk(Integer topk) {
 		this.topk = topk;
 	}
-	
+
 	public String getEntity() {
 		return entity;
 	}
@@ -92,24 +90,6 @@ public class KgsmrstnRunConfig {
 		this.predicateSelectionMode = predicateSelectionMode;
 	}
 
-	public SelectorType getSelectorTypeEnum() {
-		SelectorType res = null;
-		if (selectorType.matches("star")) {
-			res = SelectorType.STAR;
-		} else if (selectorType.matches("hybrid")) {
-			res = SelectorType.HYBRID;
-		} else if (selectorType.matches("path")) {
-			res = SelectorType.PATH;
-		} else if (selectorType.matches("sym")) {
-			res = SelectorType.SIM_STAR;
-		} else if (selectorType.matches("simple")) {
-			res = SelectorType.SIMPLE;
-		} else if (selectorType.matches("entity")) {
-			res = SelectorType.ENTITY;
-		}
-		return res;
-	}
-
 	@Override
 	public String toString() {
 		return "KgsmrstnRunConfig [seed=" + seed + ", minSentence=" + minSentence + ", maxSentence=" + maxSentence
@@ -117,6 +97,4 @@ public class KgsmrstnRunConfig {
 				+ ", topk=" + topk + ", entity=" + entity + "]";
 	}
 
-	
-	
 }

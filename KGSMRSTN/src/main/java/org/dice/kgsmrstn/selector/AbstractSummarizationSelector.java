@@ -1,7 +1,5 @@
 package org.dice.kgsmrstn.selector;
 
-import edu.uci.ics.jung.graph.DirectedSparseGraph;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -25,14 +23,17 @@ import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.dice.kgsmrstn.graph.BreadthFirstSearch;
 import org.dice.kgsmrstn.graph.Node;
 import org.dice.kgsmrstn.graph.PageRank;
+import org.dice.kgsmrstn.util.StatementComparator;
 import org.dice.kgsmrstn.util.TripleIndex;
 import org.slf4j.LoggerFactory;
+
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
 /**
  *
  * @author Haseeb Javaid
  */
-public abstract class AbstractSummarizationSelector implements TripleSelector {
+public abstract class AbstractSummarizationSelector {
 
 	private static final String DB_RESOURCE = "http://dbpedia.org/resource/";
 	private static final String DB_ONTOLOGY = "http://dbpedia.org/ontology/";

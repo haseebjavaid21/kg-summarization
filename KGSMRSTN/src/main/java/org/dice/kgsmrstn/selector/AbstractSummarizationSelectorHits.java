@@ -1,49 +1,33 @@
 package org.dice.kgsmrstn.selector;
 
-import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import edu.uci.ics.jung.graph.Graph;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.Syntax;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-import org.dice.kgsmrstn.graph.BreadthFirstSearch;
+import org.dice.kgsmrstn.graph.HITSAlgorithm;
 import org.dice.kgsmrstn.graph.Node;
-import org.dice.kgsmrstn.graph.PageRank;
-import org.dice.kgsmrstn.util.TripleIndex;
+import org.dice.kgsmrstn.util.StatementComparator;
 import org.slf4j.LoggerFactory;
 
 import com.github.andrewoma.dexx.collection.HashMap;
 
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.riot.RDFLanguages;
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
 /**
  *
  * @author Haseeb Javaid
  */
-public class AbstractSummarizationSelectorHits  {
+public class AbstractSummarizationSelectorHits {
 	private static final String ALGORITHM = "pagerank";
 	private org.slf4j.Logger log = LoggerFactory.getLogger(AbstractSummarizationSelectorHits.class);
 
@@ -59,7 +43,7 @@ public class AbstractSummarizationSelectorHits  {
 	public List<Statement> getResources() {
 
 		this.readFromTTL("D:\\Project Data\\persondata_en4.ttl");
-		
+
 		try {
 			HITSAlgorithm ht = new HITSAlgorithm();
 			ht.runHits(g, 10);
@@ -69,7 +53,7 @@ public class AbstractSummarizationSelectorHits  {
 		}
 
 		List<Node> processedHighRankNodes = this.getHighRankNdes();
-		System.out.println("Finished :"+ processedHighRankNodes.size());
+		System.out.println("Finished :" + processedHighRankNodes.size());
 		return sortStatements(this.generateList(processedHighRankNodes).listStatements());
 	}
 
@@ -87,24 +71,27 @@ public class AbstractSummarizationSelectorHits  {
 		Collections.sort(result, new StatementComparator());
 		return result;
 	}
-	
+
 	protected List<Node> getHighRankNdes() {
 		List<Node> reversedNodeList = new ArrayList<Node>();
 		List<Node> NodeIteration = new ArrayList<>();
-		
+
 		reversedNodeList = this.sortAndReverse(g);
-		NodeIteration =  reversedNodeList.parallelStream().filter(node -> node.getLevel() == 1 ).collect(Collectors.toList());
+		NodeIteration = reversedNodeList.parallelStream().filter(node -> node.getLevel() == 1)
+				.collect(Collectors.toList());
 		double temp_weight = 0.0;
-		double total_weight = reversedNodeList.parallelStream().filter(node ->node.getLevel()==1).map(node -> node.getAuthorityWeight()).reduce(0.0, Double::sum);
-		double meanNodes = total_weight/NodeIteration.size();
-		System.out.println("Mean of "+NodeIteration.size()+" entities is "+meanNodes);
-		
-		List<Node> filteredList = NodeIteration.parallelStream().filter(node -> node.getAuthorityWeight() >= (meanNodes)).collect(Collectors.toList());
-		
-		System.out.println("final number of entities is "+filteredList.size());
-		return filteredList;	
+		double total_weight = reversedNodeList.parallelStream().filter(node -> node.getLevel() == 1)
+				.map(node -> node.getAuthorityWeight()).reduce(0.0, Double::sum);
+		double meanNodes = total_weight / NodeIteration.size();
+		System.out.println("Mean of " + NodeIteration.size() + " entities is " + meanNodes);
+
+		List<Node> filteredList = NodeIteration.parallelStream()
+				.filter(node -> node.getAuthorityWeight() >= (meanNodes)).collect(Collectors.toList());
+
+		System.out.println("final number of entities is " + filteredList.size());
+		return filteredList;
 	}
-	
+
 	protected void readFromTTL(String ttl_path) {
 		Model m = ModelFactory.createDefaultModel();
 		// read into the model.
@@ -129,6 +116,7 @@ public class AbstractSummarizationSelectorHits  {
 			}
 		}
 	}
+
 	protected Model generateList(List<Node> temp) {
 		Model model = ModelFactory.createDefaultModel();
 		// form the triples of all the top nodes
@@ -144,7 +132,7 @@ public class AbstractSummarizationSelectorHits  {
 					return Double.compare(o1.getHubWeight(), o2.getHubWeight());
 				}
 			});
-			
+
 			for (Node succesorNode : neighbourNodes) {
 
 				String sub = nodetemp.getCandidateURI();
@@ -158,11 +146,11 @@ public class AbstractSummarizationSelectorHits  {
 				}
 			}
 		}
-		System.out.println("Final Size : "+model.size());
+		System.out.println("Final Size : " + model.size());
 		return model;
 	}
-	
-	protected ArrayList<Node> sortAndReverse(DirectedSparseGraph<Node, String>  g) {
+
+	protected ArrayList<Node> sortAndReverse(DirectedSparseGraph<Node, String> g) {
 		ArrayList<Node> orderedList = new ArrayList<Node>();
 		orderedList.addAll(g.getVertices());
 		Collections.sort(orderedList, new Comparator<Node>() {
@@ -175,6 +163,6 @@ public class AbstractSummarizationSelectorHits  {
 
 		Collections.reverse(orderedList);
 		return orderedList;
-		
+
 	}
 }
