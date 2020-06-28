@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.dice.kgsmrstn.controller.KgsmrstnController;
 
 @SpringBootTest
-class KgsmrstnApplicationTests {
+class KgsmrstnApplicationTestsSalSa {
 
 	@Test
 	void contextLoads() {
@@ -16,7 +16,7 @@ class KgsmrstnApplicationTests {
         	
         	try {
 		KgsmrstnController kc = new KgsmrstnController();
-                kc.getKGraph("simple", "country" , 2);
+                kc.getKGraphSalsa();
                 
         	}
         	
