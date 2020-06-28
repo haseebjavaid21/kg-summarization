@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Jalalia,_Khyber_Pakhtunkhwa> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Pakistan> .
+<http://dbpedia.org/resource/Jalalia,_Khyber_Pakhtunkhwa> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Khyber_Pakhtunkhwa> .
+<http://dbpedia.org/resource/Jalalia,_Khyber_Pakhtunkhwa> <http://dbpedia.org/property/areaCodeType> <http://dbpedia.org/resource/List_of_dialling_codes_of_Pakistan> .
+<http://dbpedia.org/resource/Jalalia,_Khyber_Pakhtunkhwa> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Subdivisions_of_Pakistan> .
+<http://dbpedia.org/resource/Jalalia,_Khyber_Pakhtunkhwa> <http://dbpedia.org/ontology/timeZone> <http://dbpedia.org/resource/Pakistan_Standard_Time> .

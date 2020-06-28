@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/You_Better_Run> <http://dbpedia.org/ontology/subsequentWork> <http://dbpedia.org/resource/Hit_Me_with_Your_Best_Shot> .
+<http://dbpedia.org/resource/You_Better_Run> <http://dbpedia.org/ontology/genre> <http://dbpedia.org/resource/Rock_music> .
+<http://dbpedia.org/resource/You_Better_Run> <http://dbpedia.org/ontology/producer> <http://dbpedia.org/resource/Keith_Olsen> .
+<http://dbpedia.org/resource/You_Better_Run> <http://dbpedia.org/ontology/album> <http://dbpedia.org/resource/Crimes_of_Passion_(Pat_Benatar_album)> .
+<http://dbpedia.org/resource/You_Better_Run> <http://dbpedia.org/ontology/producer> <http://dbpedia.org/resource/The_Rascals> .
