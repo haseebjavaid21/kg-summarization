@@ -15,7 +15,7 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 public class BreadthFirstSearch {
 	private TripleIndex index;
 	private String algo;
-	
+
 	private org.slf4j.Logger log = LoggerFactory.getLogger(BreadthFirstSearch.class);
 
 	public BreadthFirstSearch(TripleIndex index, String algo) {
@@ -23,9 +23,8 @@ public class BreadthFirstSearch {
 		this.algo = algo;
 	}
 
-
-	public DirectedSparseGraph<Node, String> run(int maxDepth, DirectedSparseGraph<Node, String> graph, String edgeType, String nodeType, String edgeLabel)
-			throws UnsupportedEncodingException, IOException {
+	public DirectedSparseGraph<Node, String> run(int maxDepth, DirectedSparseGraph<Node, String> graph, String edgeType,
+			String nodeType, String edgeLabel) throws UnsupportedEncodingException, IOException {
 		Queue<Node> q = new LinkedList<Node>();
 		for (Node node : graph.getVertices()) {
 			q.add(node);
@@ -43,28 +42,24 @@ public class BreadthFirstSearch {
 					if (targetNode.getPredicate() == null && targetNode.getObject() == null) {
 						continue;
 					}
-					if ((targetNode.getPredicate().startsWith(edgeType)  ) && targetNode.getObject().startsWith(nodeType)) {
+					if ((targetNode.getPredicate().startsWith(edgeType))
+							&& targetNode.getObject().startsWith(nodeType)) {
 						int levelNow = level + 1;
 						Node Node = new Node(targetNode.getObject(), 0, levelNow, algo);
 						q.add(Node);
-						graph.addEdge(graph.getEdgeCount() + ";" + targetNode.getPredicate(), currentNode, Node);
-					
+						graph.addEdge(graph.getEdgeCount() + ";" + targetNode.getPredicate(), Node, currentNode);
 					}
-					
-					if(targetNode.getPredicate().contains("label")) {
+
+					if (targetNode.getPredicate().contains("label")) {
 						int level1 = level + 1;
 						Node Node = new Node(targetNode.getObject(), 0, level1, algo);
-						graph.addEdge(graph.getEdgeCount() + ";" + targetNode.getPredicate(), currentNode, Node);
-						
-						
-						
-						
+						graph.addEdge(graph.getEdgeCount() + ";" + targetNode.getPredicate(), Node, currentNode);
+
 					}
-					
+
 				}
 			}
 		}
-		
 		log.info("graph is obtained..");
 		return graph;
 	}

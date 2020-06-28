@@ -120,7 +120,10 @@ public class TripleIndex {
 					bq.add(q, BooleanClause.Occur.MUST);
 				}
 			}
-
+			
+			//Remove the predicate 'occupation'
+			Query tq2 = new TermQuery(new Term(FIELD_NAME_PREDICATE,"http://dbpedia.org/ontology/occupation"));
+			bq.add(tq2, BooleanClause.Occur.MUST_NOT);
 			// use the cache
 			triples = getFromIndex(maxNumberOfResults, bq);
 			cache.put(bq, triples);
