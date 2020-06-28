@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorHits;
 import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorSalsa;
 import org.springframework.http.MediaType;
 
@@ -253,5 +254,41 @@ public class KgsmrstnController {
 
 	}
 
+  @GetMapping(value = "/kgraphHits", produces = MediaType.APPLICATION_JSON_VALUE) // , produces = "text/plain"
+	public String getKGraphHITS() {
+
+		log.info("In getKGraph");
+
+		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
+
+		List<Statement> triples;
+        AbstractSummarizationSelectorHits Ash = new AbstractSummarizationSelectorHits(runConfig.getSqparqlEndPoint(), null);
+        triples = Ash.getResources();
+
+		// Possible Solution #1,but written as a JSON file.
+		Model m = ModelFactory.createDefaultModel();
+		ListIterator<Statement> StmtIterator = triples.listIterator();
+		try {
+			while (StmtIterator.hasNext()) {
+				Statement stmt = (Statement) StmtIterator.next();
+				m.add(stmt);
+			}
+		} catch (Exception e) {
+			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e.getMessage() + "\"" + "}" + ")";
+		}
+		FileOutputStream oFile = null;
+		try {
+			oFile = new FileOutputStream("./src/main/resources/webapp/output_hits.ttl", false);
+		} catch (FileNotFoundException e1) {
+			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e1.getMessage() + "\"" + "}" + ")";
+		}
+		m = m.write(oFile, "Turtle");
+		if (!(m.isEmpty())) {
+			return "callback(" + "{" + "'status':" + true + "}" + ")";
+		} else {
+			return "callback(" + "{" + "'status':" + false + ",'msg' :\"\"" + "}" + ")";
+		}
+
+	}
 
 }
