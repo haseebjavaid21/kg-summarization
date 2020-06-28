@@ -79,6 +79,8 @@ public abstract class AbstractSummarizationSelector implements TripleSelector{
 		System.out.println("model obtained");
 
 		int count = 0;
+		
+		//just checking
 
 		while(st.hasNext()) {
 			Statement s = st.next();
