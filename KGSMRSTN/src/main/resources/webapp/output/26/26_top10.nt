@@ -4,7 +4,7 @@
 <http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Transportation_in_Richmond,_Virginia> .
 <http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Transportation_in_Petersburg,_Virginia> .
 <http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Interstate_85> .
-<http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/Expressway103306610> .
-<http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://www.w3.org/2000/01/rdf-schema#comment> <The Richmond–Petersburg Turnpike was a toll road located in the Richmond-Petersburg region of central Virginia, United States. After World War II, major traffic congestion occurred in the area around Richmond and Petersburg along U.S. Route 1 and U.S. Route 301. This was particularly true where these two major routes shared the same roadway for much of the distance between the two cities, as well as bridges across the James River and Appomattox River.@en> .
-<http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://dbpedia.org/ontology/routeTypeAbbreviation> <I> .
-<http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Thing> .
+<http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://dbpedia.org/property/old> <2^^http://www.w3.org/2001/XMLSchema#integer> .
+<http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://dbpedia.org/property/road> <Chippenham Parkway to^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString> .
+<http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://dbpedia.org/property/road> <Bank Street^^http://www.w3.org/1999/02/22-rdf-syntax-ns#langString> .
+<http://dbpedia.org/resource/Richmond–Petersburg_Turnpike> <http://dbpedia.org/property/old> <6^^http://www.w3.org/2001/XMLSchema#integer> .

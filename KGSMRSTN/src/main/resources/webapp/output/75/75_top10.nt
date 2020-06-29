@@ -2,9 +2,9 @@
 <http://dbpedia.org/resource/Muławki> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Kętrzyn_County> .
 <http://dbpedia.org/resource/Muławki> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Poland> .
 <http://dbpedia.org/resource/Muławki> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Gmina_Kętrzyn> .
-<http://dbpedia.org/resource/Muławki> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Village> .
+<http://dbpedia.org/resource/Muławki> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Countries_of_the_world> .
+<http://dbpedia.org/resource/Muławki> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Voivodeships_of_Poland> .
+<http://dbpedia.org/resource/Muławki> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Powiat> .
+<http://dbpedia.org/resource/Muławki> <http://dbpedia.org/ontology/type> <http://dbpedia.org/resource/Village> .
+<http://dbpedia.org/resource/Muławki> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Gmina> .
 <http://dbpedia.org/resource/Muławki> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Villages_in_Kętrzyn_County> .
-<http://dbpedia.org/resource/Muławki> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/Municipality108626283> .
-<http://dbpedia.org/resource/Muławki> <http://www.w3.org/2000/01/rdf-schema#comment> <Muławki (deutsch Muhlack) ist ein Dorf in Polen in der Wojewodschaft Ermland-Masuren. Das Dorf gehört zum Powiat Kętrzyński in der Landgemeinde Kętrzyn (Rastenburg). Das Dorf bildet ein Schulzenamt (sołectwo) zu welchem die Ortschaften Grabno (Weitzdorf) und Wymiary (Georgenfelde) gehören.@de> .
-<http://dbpedia.org/resource/Muławki> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/class/yago/WikicatVillagesInKętrzynCounty> .
-<http://dbpedia.org/resource/Muławki> <http://www.w3.org/2000/01/rdf-schema#label> <Muławki@de> .

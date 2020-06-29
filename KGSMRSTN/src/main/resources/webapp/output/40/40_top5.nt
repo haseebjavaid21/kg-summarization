@@ -1,5 +1,5 @@
 <http://dbpedia.org/resource/Trachelipus_dimorphus> <http://dbpedia.org/ontology/genus> <http://dbpedia.org/resource/Trachelipus> .
 <http://dbpedia.org/resource/Trachelipus_dimorphus> <http://dbpedia.org/ontology/order> <http://dbpedia.org/resource/Isopoda> .
 <http://dbpedia.org/resource/Trachelipus_dimorphus> <http://dbpedia.org/ontology/phylum> <http://dbpedia.org/resource/Arthropod> .
-<http://dbpedia.org/resource/Trachelipus_dimorphus> <http://dbpedia.org/ontology/family> <http://dbpedia.org/resource/Trachelipodidae> .
 <http://dbpedia.org/resource/Trachelipus_dimorphus> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Woodlouse> .
+<http://dbpedia.org/resource/Trachelipus_dimorphus> <http://dbpedia.org/ontology/family> <http://dbpedia.org/resource/Trachelipodidae> .

@@ -1,10 +1,10 @@
 <http://dbpedia.org/resource/Zarudcze> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Sandomierz_County> .
 <http://dbpedia.org/resource/Zarudcze> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Świętokrzyskie_Voivodeship> .
 <http://dbpedia.org/resource/Zarudcze> <http://dbpedia.org/ontology/isPartOf> <http://dbpedia.org/resource/Gmina_Koprzywnica> .
-<http://dbpedia.org/resource/Zarudcze> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Village> .
+<http://dbpedia.org/resource/Zarudcze> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Countries_of_the_world> .
+<http://dbpedia.org/resource/Zarudcze> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Voivodeships_of_Poland> .
+<http://dbpedia.org/resource/Zarudcze> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Powiat> .
+<http://dbpedia.org/resource/Zarudcze> <http://dbpedia.org/ontology/type> <http://dbpedia.org/resource/Village> .
+<http://dbpedia.org/resource/Zarudcze> <http://dbpedia.org/property/subdivisionType> <http://dbpedia.org/resource/Gmina> .
 <http://dbpedia.org/resource/Zarudcze> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Villages_in_Sandomierz_County> .
 <http://dbpedia.org/resource/Zarudcze> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Settlement> .
-<http://dbpedia.org/resource/Zarudcze> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Thing> .
-<http://dbpedia.org/resource/Zarudcze> <http://www.w3.org/2003/01/geo/wgs84_pos#geometry> <POINT(21.616666793823 50.566665649414)^^http://www.openlinksw.com/schemas/virtrdf#Geometry> .
-<http://dbpedia.org/resource/Zarudcze> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/Q532> .
-<http://dbpedia.org/resource/Zarudcze> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Village> .

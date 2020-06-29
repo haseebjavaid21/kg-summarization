@@ -1,5 +1,5 @@
 <http://dbpedia.org/resource/Simon_(2004_film)> <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Netherlands> .
 <http://dbpedia.org/resource/Simon_(2004_film)> <http://dbpedia.org/ontology/language> <http://dbpedia.org/resource/Dutch_language> .
 <http://dbpedia.org/resource/Simon_(2004_film)> <http://dbpedia.org/ontology/starring> <http://dbpedia.org/resource/Marcel_Hensema> .
-<http://dbpedia.org/resource/Simon_(2004_film)> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Film> .
+<http://dbpedia.org/resource/Simon_(2004_film)> <http://dbpedia.org/property/title> <http://dbpedia.org/resource/Golden_Calf_for_Best_long_feature_film> .
 <http://dbpedia.org/resource/Simon_(2004_film)> <http://dbpedia.org/ontology/starring> <http://dbpedia.org/resource/Cees_Geel> .

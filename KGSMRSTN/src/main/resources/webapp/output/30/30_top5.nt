@@ -1,5 +1,5 @@
 <http://dbpedia.org/resource/Yayoidai_Station> <http://dbpedia.org/ontology/servingRailwayLine> <http://dbpedia.org/resource/Sagami_Railway_Izumino_Line> .
-<http://dbpedia.org/resource/Yayoidai_Station> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Railway_stations_opened_in_1976> .
+<http://dbpedia.org/resource/Yayoidai_Station> <http://dbpedia.org/property/operator> <http://dbpedia.org/resource/Sagami_Railway> .
 <http://dbpedia.org/resource/Yayoidai_Station> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Railway_stations_in_Kanagawa_Prefecture> .
+<http://dbpedia.org/resource/Yayoidai_Station> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Railway_stations_opened_in_1976> .
 <http://dbpedia.org/resource/Yayoidai_Station> <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Railway_stations_in_Yokohama> .
-<http://dbpedia.org/resource/Yayoidai_Station> <http://www.w3.org/2003/01/geo/wgs84_pos#long> <139.506^^http://www.w3.org/2001/XMLSchema#float> .

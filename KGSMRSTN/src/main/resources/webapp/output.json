@@ -1,18 +1,74 @@
 { 
-  "http://dbpedia.org/resource/Microsoft" : { 
+  "http://dbpedia.org/resource/Google" : { 
     "http://dbpedia.org/ontology/knownFor" : [ { 
       "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Don_Mattrick"
+      "value" : "http://dbpedia.org/resource/Bill_Maris"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/subsidiary" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Alphabet_Inc."
     }
      ] ,
     "http://dbpedia.org/ontology/employer" : [ { 
       "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Anders_Hejlsberg"
+      "value" : "http://dbpedia.org/resource/Ellen_Spertus"
     }
      ] ,
-    "http://dbpedia.org/ontology/operatingSystem" : [ { 
+    "http://dbpedia.org/ontology/tenant" : [ { 
       "type" : "uri" ,
-      "value" : "http://dbpedia.org/resource/Chef_(software)"
+      "value" : "http://dbpedia.org/resource/Central_Saint_Giles"
     }
      ] ,
-
+    "http://dbpedia.org/ontology/owner" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/BebaPay"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Dodgeball_(service)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/parentCompany" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/GV_(company)"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/developer" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Dart_(programming_language)"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Gizmo5"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Blink_(web_engine)"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Go_(programming_language)"
+    }
+    , { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Android_software_development"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/author" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Ganeti"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/occupation" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Diane_Greene"
+    }
+     ] ,
+    "http://dbpedia.org/ontology/board" : [ { 
+      "type" : "uri" ,
+      "value" : "http://dbpedia.org/resource/Ann_Mather"
+    }
+     ]
+  }
+}

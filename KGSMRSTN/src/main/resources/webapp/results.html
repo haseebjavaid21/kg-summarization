@@ -21,457 +21,19 @@
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="-l" />
 
-    <script type="text/javascript" src="https://mbostock.github.com/d3/d3.js?2.4.5"></script>
-    <script src="includes/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script src="includes/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+    <!-- <script src="includes/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="includes/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
+  <script type="text/javascript" src="includes/js/drawGraph.js"></script>
 
-      d3.select(self.frameElement).style("height", "1800px");
-      d3.select(self.frameElement).style("width", "1200px");
-
-
-
-      function drawCluster( drawingName, focalNode, nodeSet, linkSet, typeLongHash, nodesRank, selectString, colors ) {
-
-        // drawingName => A unique drawing identifier that has no spaces, no "." and no "#" characters.
-        // focalNode => Primary Node of Context.
-        // nodeSet => Set of nodes and their relevant data.
-        // linkSet => Set of links and their relevant data.
-        // selectString => String that allows you to pass in
-        //           a D3 select string.
-        // colors => String to set color scale.  Values can be...
-        //           => "colorScale10"
-        //           => "colorScale20"
-        //           => "colorScale20b"
-        //           => "colorScale20c"
-        // margin => Integer margin offset value.
-        // outerRadius => Integer outer radius value.
-        // innerRadius => Integer inner radius value.
-        // sortArcs => Controls sorting of Arcs by value.
-        //              0 = No Sort.  Maintain original order.
-        //              1 = Sort by arc value size.
-
-        // Color Scale Handling...
-        var colorScale = d3.scale.category20c();
-        switch (colors)
-        {
-          case "colorScale10":
-            colorScale = d3.scale.category10();
-            break;
-          case "colorScale20":
-            colorScale = d3.scale.category20();
-            break;
-          case "colorScale20b":
-            colorScale = d3.scale.category20b();
-            break;
-          case "colorScale20c":
-            colorScale = d3.scale.category20c();
-            break;
-          default:
-            colorScale = d3.scale.category20c();
-        };
-  
-        var width = window.innerWidth;
-        var height = window.innerHeight;
-        var centerNodeSize = 50;
-        var nodeSize = 10;
-        var color_hash = [];
-
-        var typeMouseOver = function() {
-        
-          var thisObject = d3.select(this);
-          var typeValue = thisObject.attr("type_value");
-          var strippedTypeValue = typeValue.replace(/ /g, "_");
-
-          var legendBulletSelector = "." + "legendBullet-" + strippedTypeValue;
-          var selectedBullet = d3.selectAll(legendBulletSelector);
-          //document.writeln(legendBulletSelector);
-          selectedBullet.style("fill", "Maroon");
-	  selectedBullet.attr("r", 1.2*6);
-
-          var legendTextSelector = "." + "legendText-" + strippedTypeValue;
-          var selectedLegendText = d3.selectAll(legendTextSelector);
-          //document.writeln(legendBulletSelector);
-          selectedLegendText.style("font", "bold 14px Arial")
-          selectedLegendText.style("fill", "Maroon");
-
-          var nodeTextSelector = "." + "nodeText-" + strippedTypeValue;
-          var selectedNodeText = d3.selectAll(nodeTextSelector);
-          //document.writeln(pie3SliceSelector);
-          selectedNodeText.style("font", "bold 16px Arial")
-          selectedNodeText.style("fill", "Maroon");
-
-          var nodeCircleSelector = "." + "nodeCircle-" + strippedTypeValue;
-          var selectedCircle = d3.selectAll(nodeCircleSelector);
-          //document.writeln(nodeCircleSelector);
-          selectedCircle.style("fill", "Maroon");
-          selectedCircle.style("stroke", "Maroon");
-	  selectedCircle.attr("r", 1.2*nodeSize);
-
-          var focalNodeCircleSelector = "." + "focalNodeCircle";
-          var selectedFocalNodeCircle = d3.selectAll(focalNodeCircleSelector);
-          //document.writeln(focalNodeCircleSelector);
-          var focalNodeType = selectedFocalNodeCircle.attr("type_value");
-          if (typeValue == focalNodeType){
-            selectedFocalNodeCircle.style("stroke", "Maroon");
-            selectedFocalNodeCircle.style("fill", "White");
-          };
-
-          var focalNodeTextSelector = "." + "focalNodeText";
-          var selectedFocalNodeText = d3.selectAll(focalNodeTextSelector);
-          var focalNodeTextType = selectedFocalNodeText.attr("type_value");
-          //document.writeln(pie3SliceSelector);
-          if (typeValue == focalNodeTextType) {
-            selectedFocalNodeText.style("fill", "Maroon");
-            selectedFocalNodeText.style("font", "bold 16px Arial")
-          };
-
-        };
-
-        var typeMouseOut = function() {
-
-          var thisObject = d3.select(this);
-          var typeValue = thisObject.attr("type_value");
-          var colorValue = thisObject.attr("color_value");
-          var strippedTypeValue = typeValue.replace(/ /g, "_");
-
-          var legendBulletSelector = "." + "legendBullet-" + strippedTypeValue;
-          var selectedBullet = d3.selectAll(legendBulletSelector);
-          //document.writeln(legendBulletSelector);
-          selectedBullet.style("fill", colorValue);
-	  selectedBullet.attr("r", 6);
-
-          var legendTextSelector = "." + "legendText-" + strippedTypeValue;
-          var selectedLegendText = d3.selectAll(legendTextSelector);
-          //document.writeln(legendBulletSelector);
-          selectedLegendText.style("font", "normal 14px Arial")
-          selectedLegendText.style("fill", "Black");
-
-          var nodeTextSelector = "." + "nodeText-" + strippedTypeValue;
-          var selectedNodeText = d3.selectAll(nodeTextSelector);
-          //document.writeln(pie3SliceSelector);
-          selectedNodeText.style("font", "normal 16px Arial")
-          selectedNodeText.style("fill", "Blue");
-
-          var nodeCircleSelector = "." + "nodeCircle-" + strippedTypeValue;
-          var selectedCircle = d3.selectAll(nodeCircleSelector);
-          //document.writeln(nodeCircleSelector);
-          selectedCircle.style("fill", "White");
-          selectedCircle.style("stroke", colorValue);
-	  selectedCircle.attr("r", nodeSize);
-
-          var focalNodeCircleSelector = "." + "focalNodeCircle";
-          var selectedFocalNodeCircle = d3.selectAll(focalNodeCircleSelector);
-          //document.writeln(focalNodeCircleSelector);
-          var focalNodeType = selectedFocalNodeCircle.attr("type_value");
-          if (typeValue == focalNodeType){
-            selectedFocalNodeCircle.style("stroke", colorValue);
-            selectedFocalNodeCircle.style("fill", "White");
-          };
-
-          var focalNodeTextSelector = "." + "focalNodeText";
-          var selectedFocalNodeText = d3.selectAll(focalNodeTextSelector);
-          //document.writeln(pie3SliceSelector);
-          selectedFocalNodeText.style("fill", "Blue");
-          selectedFocalNodeText.style("font", "normal 14px Arial")
-
-        };
-
-        var nodeMouseOver = function() {
-          var thisObject = d3.select(this);
-          var typeValue = thisObject.attr("type_value");
-          var colorValue = thisObject.attr("color_value");
-          var strippedTypeValue = typeValue.replace(/ /g, "_");
-
-          d3.select(this).select("circle").transition()
-              .duration(250)
-	      .attr("r", function(d,i) { if(d.id==focalNodeID) {return 65;} else {return 15;} } );
-	      d3.select(this).select("text")
-	        .style("font", "bold 20px Arial")
-	        .attr("fill", "Blue");
-
-          var legendBulletSelector = "." + "legendBullet-" + strippedTypeValue;
-          var selectedBullet = d3.selectAll(legendBulletSelector);
-          //document.writeln(legendBulletSelector);
-          selectedBullet.style("fill", "Maroon");
-	  selectedBullet.attr("r", 1.2*6);
-
-          var legendTextSelector = "." + "legendText-" + strippedTypeValue;
-          var selectedLegendText = d3.selectAll(legendTextSelector);
-          //document.writeln(legendBulletSelector);
-          selectedLegendText.style("font", "bold 14px Arial")
-          selectedLegendText.style("fill", "Maroon");
-
-        }
-
-        var nodeMouseOut = function() {
-          var thisObject = d3.select(this);
-          var typeValue = thisObject.attr("type_value");
-          var colorValue = thisObject.attr("color_value");
-          var strippedTypeValue = typeValue.replace(/ /g, "_");
-
-          d3.select(this).select("circle").transition()
-              .duration(250)
-	      .attr("r", function(d,i) { if(d.id==focalNodeID) {return centerNodeSize;} else {return nodeSize;} } );
-	  d3.select(this).select("text")
-	      .style("font", "normal 16px Arial")
-	      .attr("fill", "Blue");
-
-          var legendBulletSelector = "." + "legendBullet-" + strippedTypeValue;
-          var selectedBullet = d3.selectAll(legendBulletSelector);
-          //document.writeln(legendBulletSelector);
-          selectedBullet.style("fill", colorValue);
-	  selectedBullet.attr("r", 6);
-
-          var legendTextSelector = "." + "legendText-" + strippedTypeValue;
-          var selectedLegendText = d3.selectAll(legendTextSelector);
-          //document.writeln(legendBulletSelector);
-          selectedLegendText.style("font", "normal 14px Arial")
-          selectedLegendText.style("fill", "Black");
-
-        }
-
-        // Create a hash that maps colors to types...
-        nodeSet.forEach(function(d, i) {
-          color_hash[d.type] = d.type;
-          //document.writeln(color_hash[d.type]);
-        });
-
-        function keys(obj)
-        {
-          var keys = [];
-
-          for(var key in obj)
-          {
-            if(obj.hasOwnProperty(key))
-            {
-              keys.push(key);
-            }
-          }
-          return keys;
-        }
-
-        var sortedKeys = keys(color_hash).sort();
-
-        sortedKeys.forEach(function(d, i) {
-          color_hash[d] = colorScale(i);
-          //document.writeln(color_hash[d]);
-        });
-
-        // Add colors to original node records...
-        nodeSet.forEach(function(d,i) {
-          d.color = color_hash[d.type];
-          //document.writeln(d.type);
-        });
-	    
-	// Create a canvas...
-        var svgCanvas = d3.select(selectString)
-          .append("svg:svg")
-            .attr("width", width)
-	    .attr("height", height)
-          .append("svg:g")
-            .attr("class", "focalNodeCanvas")
-            .attr("transform", "translate(" + width/2 + "," + height/2 + ")")
-
-        var node_hash = [];
-        var type_hash = [];
-
-        // Create a hash that allows access to each node by its id
-        nodeSet.forEach(function(d, i) {
-          node_hash[d.id] = d;
-          type_hash[d.type] = d.type;
-        });
-      
-        // Append the source object node and the target object node to each link records...
-        linkSet.forEach(function(d, i) {
-          d.source = node_hash[d.sourceId];
-          d.target = node_hash[d.targetId];
-          if (d.sourceId == focalNodeID)
-	    { d.direction = "OUT"; }
-          else
-	    { d.direction = "IN"; }
-        });
-
-        // Create a force layout and bind Nodes and Links
-        var force = d3.layout.force()
-            .nodes(nodeSet)
-            .links(linkSet)
-            .charge(-1000)
-	    .gravity(.01)
-	    .friction(.2)
-            .linkStrength(9)
-            //.size([width/8, height/10])
-            .linkDistance( function(d) { if (width < height) { return width*1/3; } else { return height*1/3 } } ) // Controls edge length
-            .on("tick", tick)
-            .start();
-
-        // Draw lines for Links between Nodes
-        var link = svgCanvas.selectAll(".gLink")
-            .data(force.links())
-          .enter().append("g")
-            .attr("class", "gLink")
-          .append("line")
-            .attr("class", "link")
-            .style("stroke", "#ccc")
-            .attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-
-        // Create Nodes
-        var node = svgCanvas.selectAll(".node")
-            .data(force.nodes())
-          .enter().append("g")
-            .attr("class", "node")
-            .attr("type_value", function(d, i) { return d.type; })
-            .attr("color_value", function(d, i) { return color_hash[d.type]; })
-//.attr("fixed", function(d) { if (d.id==focalNodeID) { return true; } else { return false; } } )
-            .on("mouseover", nodeMouseOver)
-            .on("mouseout", nodeMouseOut)
-            .call(force.drag)
-	  .append("a")
-	    .attr("xlink:href", function(d) {return d.hlink; });
-
-        // Append circles to Nodes
-        node.append("circle")
-//.attr("x", function(d) { return d.x; })
-//.attr("y", function(d) { return d.y; })
-            .attr("r", function(d) { if (d.id==focalNodeID) { return centerNodeSize; } else { return nodeSize; } } )
-            .style("fill", "White") // Make the nodes hollow looking
-            .attr("type_value", function(d, i) { return d.type; })
-            .attr("color_value", function(d, i) { return color_hash[d.type]; })
-//.attr("fixed", function(d) { if (d.id==focalNodeID) { return true; } else { return false; } } )
-//.attr("x", function(d) { if (d.id==focalNodeID) { return width/2; } else { return d.x; } })
-//.attr("y", function(d) { if (d.id==focalNodeID) { return height/2; } else { return d.y; } })
-            .attr("class", function(d, i) {
-              var str = d.type;
-              var strippedString = str.replace(/ /g, "_")
-              //return "nodeCircle-" + strippedString; })
-	      if (d.id==focalNodeID) { return "focalNodeCircle"; }
-	      else { return "nodeCircle-" + strippedString; }
-            })
-            .style("stroke-width", 5) // Give the node strokes some thickness
-            .style("stroke", function(d, i) { return color_hash[d.type]; } ) // Node stroke colors
-	    .call(force.drag);
-
-        // Append text to Nodes
-        node.append("text")
-            .attr("x", function(d) { if (d.id==focalNodeID) { return 0; } else {return 20;} } )
-            .attr("y", function(d) { if (d.id==focalNodeID) { return 0; } else {return -10;} } )
-	    .attr("text-anchor", function(d) { if (d.id==focalNodeID) {return "middle";} else {return "start";} })
-	    .attr("font-family", "Arial, Helvetica, sans-serif")
-            .style("font", "normal 16px Arial")
-            .attr("fill", "Blue")
-            .style("fill", function(d, i) { return color_hash[d]; })
-            .attr("type_value", function(d, i) { return d.type; })
-            .attr("color_value", function(d, i) { return color_hash[d.type]; })
-            .attr("class", function(d, i) {
-              var str = d.type;
-              var strippedString = str.replace(/ /g, "_");
-              //return "nodeText-" + strippedString; })
-	      if (d.id==focalNodeID) { return "focalNodeText"; }
-	      else { return "nodeText-" + strippedString; }
-            })
-            .attr("dy", ".35em")
-            .text(function(d) { return  d.name; });
-
-        // Append text to Link edges
-        var linkText = svgCanvas.selectAll(".gLink")
-            .data(force.links())
-          .append("text")
-	    .attr("font-family", "Arial, Helvetica, sans-serif")
-	    .attr("x", function(d) {
-	        if (d.target.x > d.source.x) { return (d.source.x + (d.target.x - d.source.x)/2); }
-	        else { return (d.target.x + (d.source.x - d.target.x)/2); }
-	    })
-            .attr("y", function(d) {
-	        if (d.target.y > d.source.y) { return (d.source.y + (d.target.y - d.source.y)/2); }
-	        else { return (d.target.y + (d.source.y - d.target.y)/2); }
-	    })
-	    .attr("fill", "Black")
-            .style("font", "normal 12px Arial")
-            .attr("dy", ".35em")
-            .text(function(d) { return d.linkName; });
-
-
-        function tick() {
-          link
-            .attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-      
-          node
-            .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-
-          linkText
-	    .attr("x", function(d) {
-	        if (d.target.x > d.source.x) { return (d.source.x + (d.target.x - d.source.x)/2); }
-	        else { return (d.target.x + (d.source.x - d.target.x)/2); }
-	    })
-	    .attr("y", function(d) {
-	        if (d.target.y > d.source.y) { return (d.source.y + (d.target.y - d.source.y)/2); }
-	        else { return (d.target.y + (d.source.y - d.target.y)/2); }
-	    });
-        }
-
-
-        // Print Legend Title...
-        svgCanvas.append("text").attr("class","region")
-            .text("Color Keys for Predicates")
-            .attr("x", -1*(width/2 - 10))
-            .attr("y", (-height/7*3))
-            .style("fill", "Black")
-            .style("font", "bold 16px Arial")
-            .attr("text-anchor","start");
-
-        // Plot the bullet circles...
-        svgCanvas.selectAll("focalNodeCanvas")
-            .data(sortedKeys).enter().append("svg:circle") // Append circle elements
-            .attr("cx", -1*(width/2 - 25))
-            .attr("cy", function(d, i) { return (i*20-height/7*3 + 20); } )
-            .attr("stroke-width", ".5")
-            .style("fill", function(d, i) { return color_hash[d]; })
-            .attr("r", 6)
-            .attr("color_value", function(d, i) { return color_hash[d]; })
-            .attr("type_value", function(d, i) { return d; })
-            .attr("index_value", function(d, i) { return "index-" + i; })
-            .attr("class", function(d) {
-                var str = d;
-                var strippedString = str.replace(/ /g, "_")
-		return "legendBullet-" + strippedString; })
-            .on('mouseover', typeMouseOver)
-            .on("mouseout", typeMouseOut);
-
-        // Create legend text that acts as label keys...
-        svgCanvas.selectAll("a.legend_link")
-            .data(sortedKeys) // Instruct to bind dataSet to text elements
-          .enter().append("svg:a") // Append legend elements
-            .append("text")
-              .attr("text-anchor", "center")
-              .attr("x", -1*(width/2 - 40))
-              .attr("y", function(d, i) { return (i*20-height/7*3 + 20); } )
-              .attr("dx", 0)
-              .attr("dy", "4px") // Controls padding to place text in alignment with bullets
-              .text(function(d) { return typeLongHash[d];})
-              .attr("color_value", function(d, i) { return color_hash[d]; })
-              .attr("type_value", function(d, i) { return d; })
-              .attr("index_value", function(d, i) { return "index-" + i; })
-              .attr("class", function(d) {
-                var str = d;
-                var strippedString = str.replace(/ /g, "_")
-                return "legendText-" + strippedString; })
-              .style("fill", "Black")
-              .style("font", "normal 14px Arial")
-              .on('mouseover', typeMouseOver)
-              .on("mouseout", typeMouseOut);
-
-      };
-
-
-    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 
 
     <style type="text/css">
@@ -575,54 +137,7 @@
         color:White;
         text-align:center;
       }
-      p.p_if4itMessage {
-        width: 100%;        background: White;
-        font: bold .75em Arial;
-        font-family:Arial, Helvetica, sans-serif;
-        color:GoldenRod;
-        text-align:center;
-      }
-      .menuButton{
-        background-color: MidnightBlue;
-      }
-      .menuButton li{
-        height: 100%;
-        list-style: none;
-        display: inline;
-      }
-      .menuButton li a{
-        height: 100%;
-        padding: 3px 0.5em;
-        text-decoration: none;
-        color: White;
-        background-color: MidnightBlue;
-        border: 2px solid MidnightBlue;
-      }
-      .menuButton li a:hover{
-        height: 100%;
-        color: MidnightBlue;
-        background-color: White;
-        border-style: outset;
-        background-color: White;
-      }
-      .menuButton li a:active{
-        height: 100%;
-        border-style: inset;
-        color: MidnightBlue;
-        background-color: White;
-      }
-      .menuButton li a.disabled{
-        height: 100%;
-        padding: 3px 0.5em;
-        text-decoration: none;
-        color: MidnightBlue;        background-color: White;
-        border: 2px solid MidnightBlue;
-        border-style: inset;
-        border-color: White;
-      }
-    </STYLE>
-
-    <STYLE type="text/css">
+      
       div.div_RootBody {
         position: relative;
         border:2px solid White;
@@ -634,6 +149,29 @@
         padding: 0px 1em;
         text-align:left;
       }
+
+      .modal a.close-modal[class*="icon-"] {
+          top: -10px;
+          right: -10px;
+          width: 20px;
+          height: 20px;
+          color: #fff;
+          line-height: 1.25;
+          text-align: center;
+          text-decoration: none;
+          text-indent: 0;
+          background: #900;
+          border: 2px solid #fff;
+          -webkit-border-radius:  26px;
+          -moz-border-radius:     26px;
+          -o-border-radius:       26px;
+          -ms-border-radius:      26px;
+          -moz-box-shadow:    1px 1px 5px rgba(0,0,0,0.5);
+          -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+          box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        .blocker{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100%;overflow:auto;z-index:1;padding:20px;box-sizing:border-box;background-color:#000;background-color:rgba(0,0,0,0.75);text-align:center}.blocker:before{content:"";display:inline-block;height:100%;vertical-align:middle;margin-right:-0.05em}.blocker.behind{background-color:transparent}.modal{display:none;vertical-align:middle;position:relative;z-index:2;max-width:500px;box-sizing:border-box;width:90%;background:#fff;padding:15px 30px;-webkit-border-radius:8px;-moz-border-radius:8px;-o-border-radius:8px;-ms-border-radius:8px;border-radius:8px;-webkit-box-shadow:0 0 10px #000;-moz-box-shadow:0 0 10px #000;-o-box-shadow:0 0 10px #000;-ms-box-shadow:0 0 10px #000;box-shadow:0 0 10px #000;text-align:left}.modal a.close-modal{position:absolute;top:-12.5px;right:-12.5px;display:block;width:30px;height:30px;text-indent:-9999px;background-size:contain;background-repeat:no-repeat;background-position:center center;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA3hJREFUaAXlm8+K00Acx7MiCIJH/yw+gA9g25O49SL4AO3Bp1jw5NvktC+wF88qevK4BU97EmzxUBCEolK/n5gp3W6TTJPfpNPNF37MNsl85/vN/DaTmU6PknC4K+pniqeKJ3k8UnkvDxXJzzy+q/yaxxeVHxW/FNHjgRSeKt4rFoplzaAuHHDBGR2eS9G54reirsmienDCTRt7xwsp+KAoEmt9nLaGitZxrBbPFNaGfPloGw2t4JVamSt8xYW6Dg1oCYo3Yv+rCGViV160oMkcd8SYKnYV1Nb1aEOjCe6L5ZOiLfF120EjWhuBu3YIZt1NQmujnk5F4MgOpURzLfAwOBSTmzp3fpDxuI/pabxpqOoz2r2HLAb0GMbZKlNV5/Hg9XJypguryA7lPF5KMdTZQzHjqxNPhWhzIuAruOl1eNqKEx1tSh5rfbxdw7mOxCq4qS68ZTjKS1YVvilu559vWvFHhh4rZrdyZ69Vmpgdj8fJbDZLJpNJ0uv1cnr/gjrUhQMuI+ANjyuwftQ0bbL6Erp0mM/ny8Fg4M3LtdRxgMtKl3jwmIHVxYXChFy94/Rmpa/pTbNUhstKV+4Rr8lLQ9KlUvJKLyG8yvQ2s9SBy1Jb7jV5a0yapfF6apaZLjLLcWtd4sNrmJUMHyM+1xibTjH82Zh01TNlhsrOhdKTe00uAzZQmN6+KW+sDa/JD2PSVQ873m29yf+1Q9VDzfEYlHi1G5LKBBWZbtEsHbFwb1oYDwr1ZiF/2bnCSg1OBE/pfr9/bWx26UxJL3ONPISOLKUvQza0LZUxSKyjpdTGa/vDEr25rddbMM0Q3O6Lx3rqFvU+x6UrRKQY7tyrZecmD9FODy8uLizTmilwNj0kraNcAJhOp5aGVwsAGD5VmJBrWWbJSgWT9zrzWepQF47RaGSiKfeGx6Szi3gzmX/HHbihwBser4B9UJYpFBNX4R6vTn3VQnez0SymnrHQMsRYGTr1dSk34ljRqS/EMd2pLQ8YBp3a1PLfcqCpo8gtHkZFHKkTX6fs3MY0blKnth66rKCnU0VRGu37ONrQaA4eZDFtWAu2fXj9zjFkxTBOo8F7t926gTp/83Kyzzcy2kZD6xiqxTYnHLRFm3vHiRSwNSjkz3hoIzo8lCKWUlg/YtGs7tObunDAZfpDLbfEI15zsEIY3U/x/gHHc/G1zltnAgAAAABJRU5ErkJggg==')}.modal-spinner{display:none;position:fixed;top:50%;left:50%;transform:translateY(-50%) translateX(-50%);padding:12px 16px;border-radius:5px;background-color:#111;height:20px}.modal-spinner>div{border-radius:100px;background-color:#fff;height:20px;width:2px;margin:0 1px;display:inline-block;-webkit-animation:sk-stretchdelay 1.2s infinite ease-in-out;animation:sk-stretchdelay 1.2s infinite ease-in-out}.modal-spinner .rect2{-webkit-animation-delay:-1.1s;animation-delay:-1.1s}.modal-spinner .rect3{-webkit-animation-delay:-1.0s;animation-delay:-1.0s}.modal-spinner .rect4{-webkit-animation-delay:-0.9s;animation-delay:-0.9s}@-webkit-keyframes sk-stretchdelay{0%,40%,100%{-webkit-transform:scaleY(0.5)}20%{-webkit-transform:scaleY(1.0)}}@keyframes sk-stretchdelay{0%,40%,100%{transform:scaleY(0.5);-webkit-transform:scaleY(0.5)}20%{transform:scaleY(1.0);-webkit-transform:scaleY(1.0)}}
     </STYLE>
     <!--[if gt IE 7]>
       <style>body { overflow-y:scroll; } </style>
@@ -641,14 +179,18 @@
 
   </head>
   <body>
+    <div id="ex1" class="modal">
+      <p>Thanks for clicking. That felt good.</p>
+      <a href="#" rel="modal:close">Close</a>
+    </div>
     <table class="table_Body">
       <tr>
         <td class="td_BodyRight">
           <div class="div_RootBody">
             <h1 style="text-align:center; font: bold 1.5em Arial;">Knowledge Graph Summarization</h1>
           </div>
-          <div class="div_RootBody" id="cluster_chart">
-          <div class="chart"></div>
+          <div class="div_RootBody" id="chartRoot">
+          <div class="chartBox"></div>
           </div>
         </td>
       </tr>
@@ -657,9 +199,10 @@
 
         
       var dataset = {nodes:[],edges:[]};
-      var focalNodeID;
+      var subjectNodeID;
       var typeLongHash = [];
       var nodesRank = [];
+      var sidePanelHeight = 0;
 
       function readJsonData() {
         $.getJSON("output.json", function(data) {
@@ -676,7 +219,7 @@
                     type: "Master_Entity",
                     color: "#"+((1<<24)*Math.random()|0).toString(16)
                 });
-                focalNodeID = subject;
+                subjectNodeID = subject;
                 typeLongHash['Master_Entity'] = subject;
                 
                 $.each(typeList, function(predicate, objectList) {
@@ -688,7 +231,8 @@
                     // inserting subject nodes
                     dataset.nodes.push({
                         id: object.value,
-                        name: (nodesRank.indexOf(object.value) + 1) + ": " + uriParts[uriParts.length-1],
+                        name: uriParts[uriParts.length-1],
+                        rank: nodesRank.indexOf(object.value) + 1,
                         type: relType[relType.length-1],
                         color: "#"+((1<<24)*Math.random()|0).toString(16)
                     });
@@ -704,25 +248,100 @@
                     });
                 });
             });
-            drawCluster("Drawing 1", focalNodeID, dataset.nodes, dataset.edges, typeLongHash, nodesRank, "#cluster_chart .chart", "colorScale20c");
+            drawCluster( subjectNodeID, dataset, typeLongHash, nodesRank, "#chartRoot .chartBox");
+        });
+      }
+      function readEntitiesData() {
+        
+        $.ajax({ 
+            url: 'output.json', 
+            dataType: 'json', 
+            async: false, 
+            success: function(data){ 
+              $.each(data, function(subject, typeList) {
+                  
+                  uriParts = subject.split('/');
+                  // inserting subject nodes
+                  dataset.nodes.push({
+                      id: subject,
+                      name: uriParts[uriParts.length-1],
+                      fixed:true,
+                      x: 0,
+                      y:0,
+                      type: "Master_Entity",
+                      color: "#"+((1<<24)*Math.random()|0).toString(16)
+                  });
+                  subjectNodeID = subject;
+                  typeLongHash['Master_Entity'] = subject;
+                  
+                  $.each(typeList, function(predicate, objectList) {
+                      relType = predicate.split('/');
+                      $.each(objectList, function(index, object) {
+                      
+                      // inserting object nodes and their edges
+                      uriParts = object.value.split('/');
+                      // inserting subject nodes
+                      dataset.nodes.push({
+                          id: object.value,
+                          name: uriParts[uriParts.length-1],
+                          rank: nodesRank.indexOf(object.value) + 1,
+                          type: relType[relType.length-1],
+                          color: "#"+((1<<24)*Math.random()|0).toString(16)
+                      });
+                      
+                      typeLongHash[relType[relType.length-1]] = predicate;
+                      
+                      dataset.edges.push({
+                          linkName: relType[relType.length-1],
+                          relType: predicate,
+                          sourceId: subject,
+                          targetId: object.value
+                      });
+                      });
+                  });
+              });
+              drawCluster( subjectNodeID, dataset, typeLongHash, nodesRank, "#chartRoot .chartBox");
+            } 
         });
       }
 
-      
-        //           => "colorScale10"
-        //           => "colorScale20"
-        //           => "colorScale20b"
-        //           => "colorScale20c"
-
       $( document ).ready(function() {
-        $.get('output.nt', function(data) {
-          var tempList = data.split("> .\n");
+        // $.get('output.nt', function(data) {
+        //   var tempList = data.split("> .\n");
           
-          for (var i = 0; i < tempList.length -1; i++) {
-            nodesRank.push(tempList[i].split("> <")[2]);
-          }
-          readJsonData();
-        }, 'text');
+        //   for (var i = 0; i < tempList.length -1; i++) {
+
+            
+        //     nodesRank.push({
+        //       node: tempList[i].split("> <")[2],
+        //       type: tempList[i].split("> <")[1].split('/').pop()
+        //     });
+            
+        //   }
+          
+        //   readJsonData();
+        // }, 'text');
+        
+      $.ajax({ 
+          url: 'output.nt', 
+          dataType: 'text', 
+          async: false, 
+          success: function(data){ 
+            var tempList = data.split("> .\n");
+        
+            for (var i = 0; i < tempList.length -1; i++) {
+
+              
+              nodesRank.push({
+                node: tempList[i].split("> <")[2],
+                type: tempList[i].split("> <")[1].split('/').pop()
+              });
+              
+            }
+            readEntitiesData();
+          } 
+      });
+        
       });
       
     </script>

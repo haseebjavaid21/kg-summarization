@@ -2,4 +2,4 @@
 <http://dbpedia.org/resource/The_Honolulu_Advertiser> <http://dbpedia.org/ontology/headquarter> <http://dbpedia.org/resource/Hawaii> .
 <http://dbpedia.org/resource/The_Honolulu_Advertiser> <http://dbpedia.org/ontology/headquarter> <http://dbpedia.org/resource/Honolulu,_Hawaii> .
 <http://dbpedia.org/resource/The_Honolulu_Advertiser> <http://dbpedia.org/ontology/format> <http://dbpedia.org/resource/Broadsheet> .
-<http://dbpedia.org/resource/The_Honolulu_Advertiser> <http://purl.org/linguistics/gold/hypernym> <http://dbpedia.org/resource/Newspaper> .
+<http://dbpedia.org/resource/The_Honolulu_Advertiser> <http://dbpedia.org/ontology/type> <http://dbpedia.org/resource/Newspaper> .

@@ -12,7 +12,10 @@
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="includes/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="includes/vendor/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
@@ -22,52 +25,125 @@
 	<link rel="stylesheet" type="text/css" href="includes/css/main.css">
 <!--===============================================================================================-->
 </head>
-<body>
+<body style="background-image: url('includes/images/kg_bg.png'); background-size: cover;">
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('includes/images/kg_bg.png');">
-			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form id="search_form" class="login100-form validate-form">
+		<div class="container-login100">
+
+			<div class="content">
+					
 					<span class="login100-form-title p-b-49">
 						Knowledge Graph
 					</span>
 					<span class="login100-form-subtitle">
 						Summarization
 					</span>
-
-					<div class="wrap-input100 validate-input" data-validate="Entity is required">
-						<span class="label-input100">Entity</span>
-						<input class="input100" type="text" name="search_entity" id="search_entity" required placeholder="">
-					</div>
-
-					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-						<span class="label-input100">Predicate Mode</span>						
-						<select style="border:none;" class="input100" name="predicate_mode" id="predicate_mode" required>
+				<!-- Nav pills -->
+				<ul class="nav nav-pills" role="tablist">
+				  <li class="nav-item">
+					<a class="nav-link active" data-toggle="pill" href="#login">LinkSUM</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" data-toggle="pill" href="#regis">SALSA</a>
+				  </li>
+				</ul>
+				<!-- Tab panes -->
+				<div class="tab-content">
+				  <div id="login" class="container tab-pane active">
+					<form>
+						<div class="form-group">
+						  <label for="search_entity">Entity</label>
+						  <input type="text" class="form-control" required id="search_entity" placeholder="">
+						  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+						</div>
+						
+	
+					  <div class="form-group">
+						<label for="predicate_mode">Predicate Mode</label>						
+						<select style="border:none;" class="form-control" name="predicate_mode" id="predicate_mode" required>
 							<option value="DSC">DSC</option>
 							<option value="EXC">EXC</option>
 							<option value="FRQ ">FRQ</option>
-						  </select>
-					</div>
+						</select>
+					  </div>
 
-					<div class="wrap-input100 validate-input" data-validate="It is required">
-						<span class="label-input100">Max Enteries</span>
-						<input class="input100" type="number" value="5" name="max_enteries" id="max_enteries" required  min="1" step="1" placeholder="">
-					</div>
-
-					<div style="display: none;visibility:hidden;" class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-						<span class="label-input100">Type</span>
-						<input style="color: grey !important;" class="input100" type="text" name="type" id="type" value="Simple" disabled>
-					</div>
-					
-					<div class="container-login100-form-btn">
-							<button type="submit" id="btn_search" class="login100-form-btn">
-								Search
-							</button>
-					</div>
-				</form>
+					  
+					  <div class="form-group">
+						<label for="max_enteries">Max Enteries</label>
+						<input type="number" min="1" required class="form-control" id="max_enteries">
+						<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+					  </div>
+					  <br>
+					  
+					  <button type="submit" id="btn_search" class="btn btn-primary">Search</button>
+					</form>
+				  </div>
+				  <div id="regis" class="container tab-pane fade">
+					<form>
+					  <div class="form-group">
+						<label for="file_upload">File Upload</label>
+						<input type="file" id="file_upload">
+						<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+					  </div>
+					  <br>
+					  
+					  <button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				  </div>
+				</div>
 			</div>
+
+
+			<!-- <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<span class="login100-form-title p-b-49">
+					Knowledge Graph
+				</span>
+				<span class="login100-form-subtitle">
+					Summarization
+				</span> -->
+
+				<!-- =============================================================== -->
+
+
+
+					<!-- <form id="search_form" class="login100-form validate-form">
+	
+						<div class="wrap-input100 validate-input" data-validate="Entity is required">
+							<span class="label-input100">Entity</span>
+							<input class="input100" type="text" name="search_entity" id="search_entity" required placeholder="">
+						</div>
+	
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
+							<span class="label-input100">Predicate Mode</span>						
+							<select style="border:none;" class="input100" name="predicate_mode" id="predicate_mode" required>
+								<option value="DSC">DSC</option>
+								<option value="EXC">EXC</option>
+								<option value="FRQ ">FRQ</option>
+							  </select>
+						</div>
+	
+						<div class="wrap-input100 validate-input" data-validate="It is required">
+							<span class="label-input100">Max Enteries</span>
+							<input class="input100" type="number" value="5" name="max_enteries" id="max_enteries" required  min="1" step="1" placeholder="">
+						</div>
+	
+						<div style="display: none;visibility:hidden;" class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
+							<span class="label-input100">Type</span>
+							<input style="color: grey !important;" class="input100" type="text" name="type" id="type" value="Simple" disabled>
+						</div>
+						
+						<div class="container-login100-form-btn">
+								<button type="submit" id="btn_search" class="login100-form-btn">
+									Search
+								</button>
+						</div>
+					</form> -->
+				
 		</div>
 	</div>
+					
+				<!-- =============================================================== -->
+
 	<div id="overlay">
 		<div class="cv-spinner">
 			<span class="spinner"></span>
@@ -75,7 +151,6 @@
 	</div>
 	
 <!--===============================================================================================-->
-	<script src="includes/vendor/jquery/jquery-3.2.1.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			$(document).ajaxSend(function() {
