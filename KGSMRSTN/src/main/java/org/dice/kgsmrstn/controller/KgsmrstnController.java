@@ -23,13 +23,14 @@ import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorHits;
 import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorSalsa;
 import org.dice.kgsmrstn.selector.EntityTriplesSelector;
 import org.dice.kgsmrstn.selector.SimpleSelector;
+import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class KgsmrstnController {
 
 	private static final String DB_ONTOLOGY_PERSON = "<http://dbpedia.org/ontology/Person>";
@@ -47,6 +48,9 @@ public class KgsmrstnController {
 			@PathVariable("topk") int topk) {
 
 		log.info("In getKGraph");
+
+		// JSON Object for AJAX Response
+		JSONObject jsonResponse;
 
 		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
 		runConfig.setSqparqlEndPoint(DB_ENDPOINT);
@@ -74,19 +78,30 @@ public class KgsmrstnController {
 				m.add(stmt);
 			}
 		} catch (Exception e) {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e.getMessage() + "\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", e.getMessage());
+			return jsonResponse.toString();
 		}
 		FileOutputStream oFile = null;
 		try {
 			oFile = new FileOutputStream("./src/main/resources/webapp/output.json", false);
 		} catch (FileNotFoundException e1) {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e1.getMessage() + "\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", e1.getMessage());
+			return jsonResponse.toString();
 		}
 		m = m.write(oFile, "RDF/JSON");
 		if (!(m.isEmpty())) {
-			return "callback(" + "{" + "'status':" + true + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", true);
+			return jsonResponse.toString();
 		} else {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", " ");
+			return jsonResponse.toString();
 		}
 	}
 
@@ -95,6 +110,10 @@ public class KgsmrstnController {
 			@PathVariable("k") Integer k, @PathVariable("mode") String mode) {
 
 		log.info("In getSummarizedInfoOfAnEntity...");
+
+		// JSON Object for AJAX Response
+		JSONObject jsonResponse;
+
 		log.info("Current entity..." + entity);
 
 		entity = (entity.contains(" ") ? entity.replaceAll(" ", "_") : entity);
@@ -130,9 +149,14 @@ public class KgsmrstnController {
 			 */
 
 		} catch (FileNotFoundException e1) {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e1.getMessage() + "\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", true);
+			jsonResponse.put("msg", e1.getMessage());
+			return jsonResponse.toString();
 		}
-		return "callback(" + "{" + "'status':" + true + "}" + ")";
+		jsonResponse = new JSONObject();
+		jsonResponse.put("status", true);
+		return jsonResponse.toString();
 
 	}
 
@@ -202,10 +226,13 @@ public class KgsmrstnController {
 
 	}
 
-	@GetMapping(value = "/kgraphsalsa", produces = MediaType.APPLICATION_JSON_VALUE) // produces="text/json"
-	public String getKGraphSalsa() {
+	@PostMapping("/kgraphsalsa")
+	public String getKGraphSalsa(@RequestParam(name = "salsa_input")MultipartFile inputFile) {
 
 		log.info("In getKGraphSalsa");
+
+		// JSON Object for AJAX Response
+		JSONObject jsonResponse;
 
 		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
 
@@ -218,25 +245,37 @@ public class KgsmrstnController {
 
 		Model m = ModelFactory.createDefaultModel();
 		ListIterator<Statement> StmtIterator = triples.listIterator();
+
 		try {
 			while (StmtIterator.hasNext()) {
 				Statement stmt = (Statement) StmtIterator.next();
 				m.add(stmt);
 			}
 		} catch (Exception e) {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e.getMessage() + "\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", e.getMessage());
+			return jsonResponse.toString();
 		}
 		FileOutputStream oFile = null;
 		try {
 			oFile = new FileOutputStream("./src/main/resources/webapp/output_test2.ttl", false);
 		} catch (FileNotFoundException e1) {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e1.getMessage() + "\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", e1.getMessage());
+			return jsonResponse.toString();
 		}
 		m = m.write(oFile, "Turtle");
 		if (!(m.isEmpty())) {
-			return "callback(" + "{" + "'status':" + true + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", true);
+			return jsonResponse.toString();
 		} else {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", " ");
+			return jsonResponse.toString();
 		}
 
 	}
@@ -245,6 +284,9 @@ public class KgsmrstnController {
 	public String getKGraphHITS() {
 
 		log.info("In getKGraphHITS");
+
+		// JSON Object for AJAX Response
+		JSONObject jsonResponse;
 
 		KgsmrstnRunConfig runConfig = new KgsmrstnRunConfig();
 
@@ -261,19 +303,30 @@ public class KgsmrstnController {
 				m.add(stmt);
 			}
 		} catch (Exception e) {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e.getMessage() + "\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", e.getMessage());
+			return jsonResponse.toString();
 		}
 		FileOutputStream oFile = null;
 		try {
 			oFile = new FileOutputStream("./src/main/resources/webapp/output_hits.ttl", false);
 		} catch (FileNotFoundException e1) {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"" + e1.getMessage() + "\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", e1.getMessage());
+			return jsonResponse.toString();
 		}
 		m = m.write(oFile, "Turtle");
 		if (!(m.isEmpty())) {
-			return "callback(" + "{" + "'status':" + true + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", true);
+			return jsonResponse.toString();
 		} else {
-			return "callback(" + "{" + "'status':" + false + ",'msg' :\"\"" + "}" + ")";
+			jsonResponse = new JSONObject();
+			jsonResponse.put("status", false);
+			jsonResponse.put("msg", " ");
+			return jsonResponse.toString();
 		}
 
 	}
