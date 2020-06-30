@@ -161,6 +161,9 @@ iframe {
 .limiter {
   width: 100%;
   margin: 0 auto;
+  height: 100%;
+  background-image: url('../images/kg_bg.png'); 
+  background-size: cover;;
 }
 
 .container-login100 {
@@ -517,17 +520,17 @@ iframe {
 
 
 .content{
-  width: 510px;
+  width: 735px;
   height: auto;
   margin: 0 auto;
   padding: 30px;
 }
 
 .nav-pills{
-  width: 450px;
+  width: 675px;
 }
 .nav-item{
-  width: 50%;
+  width: 33.33%;
 }
 .nav-pills .nav-link{
   font-weight: bold;
@@ -544,7 +547,7 @@ iframe {
 }
 .tab-content{
   position: absolute;
-  width: 450px;
+  width: 675px;
   height: auto;
   margin-top: -50px;
   background: #fff;

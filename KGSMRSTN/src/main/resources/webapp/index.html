@@ -25,7 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="includes/css/main.css">
 <!--===============================================================================================-->
 </head>
-<body style="background-image: url('includes/images/kg_bg.png'); background-size: cover;">
+<body style="background-color:black;">
 	
 	<div class="limiter">
 		<div class="container-login100">
@@ -41,15 +41,18 @@
 				<!-- Nav pills -->
 				<ul class="nav nav-pills" role="tablist">
 				  <li class="nav-item">
-					<a class="nav-link active" data-toggle="pill" href="#login">LinkSUM</a>
+					<a class="nav-link active" data-toggle="pill" href="#linkSumTab">LinkSUM</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" data-toggle="pill" href="#regis">SALSA</a>
+					<a class="nav-link" data-toggle="pill" href="#salsaTab">SALSA</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" data-toggle="pill" href="#hitsTab">Hits</a>
 				  </li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content">
-				  <div id="login" class="container tab-pane active">
+				  <div id="linkSumTab" class="container tab-pane active">
 					<form id="linksum_form">
 						<div class="form-group">
 						  <label for="search_entity">Entity</label>
@@ -78,67 +81,32 @@
 					  <button type="submit" id="btn_search" class="btn btn-primary">Search</button>
 					</form>
 				  </div>
-				  <div id="regis" class="container tab-pane fade">
+				  <div id="salsaTab" class="container tab-pane fade">
 					<form id="salsa_form">
 					  <div class="form-group">
-						<label for="salsa_input">File Upload</label>
+						<label for="salsa_input">File Upload</label><br>
 						<input type="file" name="salsa_input" id="salsa_input">
-						<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+						<small id="emailHelp" class="form-text text-muted">Upload a Knowledge Base .ttl file.</small>
 					  </div>
 					  <br>
 					  
-					  <button type="submit" class="btn btn-primary">Submit</button>
+					  <button type="submit" class="btn btn-primary">Search</button>
+					</form>
+				  </div>
+				  <div id="hitsTab" class="container tab-pane fade">
+					<form id="hits_form">
+					  <div class="form-group">
+						<label for="hits_input">File Upload</label><br>
+						<input type="file" name="hits_input" id="hits_input">
+						<small id="emailHelp" class="form-text text-muted">Upload a Knowledge Base .ttl file.</small>
+					  </div>
+					  <br>
+					  
+					  <button type="submit" class="btn btn-primary">Search</button>
 					</form>
 				  </div>
 				</div>
-			</div>
-
-
-			<!-- <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<span class="login100-form-title p-b-49">
-					Knowledge Graph
-				</span>
-				<span class="login100-form-subtitle">
-					Summarization
-				</span> -->
-
-				<!-- =============================================================== -->
-
-
-
-					<!-- <form id="search_form" class="login100-form validate-form">
-	
-						<div class="wrap-input100 validate-input" data-validate="Entity is required">
-							<span class="label-input100">Entity</span>
-							<input class="input100" type="text" name="search_entity" id="search_entity" required placeholder="">
-						</div>
-	
-						<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-							<span class="label-input100">Predicate Mode</span>						
-							<select style="border:none;" class="input100" name="predicate_mode" id="predicate_mode" required>
-								<option value="DSC">DSC</option>
-								<option value="EXC">EXC</option>
-								<option value="FRQ ">FRQ</option>
-							  </select>
-						</div>
-	
-						<div class="wrap-input100 validate-input" data-validate="It is required">
-							<span class="label-input100">Max Enteries</span>
-							<input class="input100" type="number" value="5" name="max_enteries" id="max_enteries" required  min="1" step="1" placeholder="">
-						</div>
-	
-						<div style="display: none;visibility:hidden;" class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-							<span class="label-input100">Type</span>
-							<input style="color: grey !important;" class="input100" type="text" name="type" id="type" value="Simple" disabled>
-						</div>
-						
-						<div class="container-login100-form-btn">
-								<button type="submit" id="btn_search" class="login100-form-btn">
-									Search
-								</button>
-						</div>
-					</form> -->
-				
+			</div>				
 		</div>
 	</div>
 					
@@ -207,14 +175,8 @@
 
 			$( "#salsa_form" ).submit(function( event ) {
   				event.preventDefault();
-				
-				// var form = $('#salsa_form')[0];
-
-				// var data = new FormData(form);
 
 				var url = "http://localhost:8080/kg/kgraphsalsa";
-
-				// $("#btnSubmit").prop("disabled", true);
 
 				$.ajax({
 					url: url,
@@ -228,17 +190,9 @@
 
 						alert(data);
 
-						// $("#result").text(data);
-						// console.log("SUCCESS : ", data);
-						// $("#btnSubmit").prop("disabled", false);
-
 					},
 					error: function (e) {
-
-						// $("#result").text(e.responseText);
 						console.log("ERROR : ", e);
-						// $("#btnSubmit").prop("disabled", false);
-
 					}, 
 					complete: function(data) {
 						setTimeout(function(){
@@ -246,64 +200,65 @@
 						},500);
 					}
 				});
-
-
-
-
-
-
-
-
-
-
-
-
-  				// var fd = new FormData();
-  				// var files = $('#salsa_input')[0].files[0];
-  				// fd.append('file',files);
-
-				// // var type = $("#type").val();
-				// var type = "entity";
-				// var url = "http://localhost:8080/kg/kgraphsalsa";
-				// $.ajax({
-				// 	url: url,
-				// 	type: 'post',
-				// 	data: fd,
-				// 	contentType: false,
-				// 	processData: false,
-				// 	success: function(response){
-				// 		console.log(response);
-				// 		setTimeout(function(){
-				// 			$("#overlay").fadeOut(300);
-				// 		},500);
-				// 		// if(response != 0){
-				// 		// 	$("#img").attr("src",response); 
-				// 		// 	$(".preview img").show(); // Display image element
-				// 		// }else{
-				// 		// 	alert('file not uploaded');
-				// 		// }
-				// 	},
-				// });
-
-				// $.ajax({
-				// 	url: url,
-				// 	dataType: "JSONP",
-				// 	jsonpCallback: "callback",
-				// 	type: "GET",
-				// 	success: function(data) {
-				// 		if (data.status) {
-				// 			window.open("/results.html");
-				// 		} else if(data.status == false) {
-				// 			if(data.msg != "") {
-				// 				alert(data.msg);
-				// 			}
-				// 		}
-				// 		setTimeout(function(){
-				// 			$("#overlay").fadeOut(300);
-				// 		},500);
-				// 	}
-				// });
 			});
+
+			$( "#salsa_form" ).submit(function( event ) {
+  				event.preventDefault();
+
+				var url = "http://localhost:8080/kg/kgraphsalsa";
+
+				$.ajax({
+					url: url,
+					type: "POST",
+					data: new FormData(this),
+					enctype: 'multipart/form-data',
+					processData: false,
+					contentType: false,
+					cache: false,
+					success: function (data) {
+
+						alert(data);
+
+					},
+					error: function (e) {
+						console.log("ERROR : ", e);
+					}, 
+					complete: function(data) {
+						setTimeout(function(){
+							$("#overlay").fadeOut(300);
+						},500);
+					}
+				});
+			});
+
+			$( "#hits_form" ).submit(function( event ) {
+				event.preventDefault();
+
+				var url = "http://localhost:8080/kg/kgraphsalsa";
+
+				$.ajax({
+					url: url,
+					type: "POST",
+					data: new FormData(this),
+					enctype: 'multipart/form-data',
+					processData: false,
+					contentType: false,
+					cache: false,
+					success: function (data) {
+
+						alert(data);
+
+					},
+					error: function (e) {
+						console.log("ERROR : ", e);
+					}, 
+					complete: function(data) {
+						setTimeout(function(){
+							$("#overlay").fadeOut(300);
+						},500);
+					}
+				});
+			});		
 		});
 	</script>
 

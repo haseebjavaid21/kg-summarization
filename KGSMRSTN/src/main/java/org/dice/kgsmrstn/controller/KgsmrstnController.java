@@ -280,8 +280,9 @@ public class KgsmrstnController {
 
 	}
 
-	@GetMapping(value = "/kgraphHits", produces = MediaType.APPLICATION_JSON_VALUE) // produces="text/json"
-	public String getKGraphHITS() {
+
+	@PostMapping("/kgraphsalsa")
+	public String getKGraphHITS(@RequestParam(name = "hits_input")MultipartFile inputFile) {
 
 		log.info("In getKGraphHITS");
 
