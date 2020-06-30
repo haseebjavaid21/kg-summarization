@@ -203,6 +203,8 @@
       var typeLongHash = [];
       var nodesRank = [];
       var sidePanelHeight = 0;
+      var printPredicateCheck = true;
+      var printRankCheck = true;  
 
       function readJsonData() {
         $.getJSON("output.json", function(data) {
@@ -248,7 +250,7 @@
                     });
                 });
             });
-            drawCluster( subjectNodeID, dataset, typeLongHash, nodesRank, "#chartRoot .chartBox");
+            drawCluster( subjectNodeID, dataset, typeLongHash, nodesRank, "#chartRoot .chartBox", printPredicateCheck, printRankCheck);
         });
       }
       function readEntitiesData() {
@@ -284,7 +286,7 @@
                       dataset.nodes.push({
                           id: object.value,
                           name: uriParts[uriParts.length-1],
-                          rank: nodesRank.indexOf(object.value) + 1,
+                          rank: nodesRank.findIndex(x => x.node === object.value),
                           type: relType[relType.length-1],
                           color: "#"+((1<<24)*Math.random()|0).toString(16)
                       });
@@ -305,42 +307,26 @@
         });
       }
 
-      $( document ).ready(function() {
-        // $.get('output.nt', function(data) {
-        //   var tempList = data.split("> .\n");
+      $( document ).ready(function() {        
+        $.ajax({ 
+            url: 'output.nt', 
+            dataType: 'text', 
+            async: false, 
+            success: function(data){ 
+              var tempList = data.split("> .\n");
           
-        //   for (var i = 0; i < tempList.length -1; i++) {
+              for (var i = 0; i < tempList.length -1; i++) {
 
-            
-        //     nodesRank.push({
-        //       node: tempList[i].split("> <")[2],
-        //       type: tempList[i].split("> <")[1].split('/').pop()
-        //     });
-            
-        //   }
-          
-        //   readJsonData();
-        // }, 'text');
-        
-      $.ajax({ 
-          url: 'output.nt', 
-          dataType: 'text', 
-          async: false, 
-          success: function(data){ 
-            var tempList = data.split("> .\n");
-        
-            for (var i = 0; i < tempList.length -1; i++) {
-
-              
-              nodesRank.push({
-                node: tempList[i].split("> <")[2],
-                type: tempList[i].split("> <")[1].split('/').pop()
-              });
-              
-            }
-            readEntitiesData();
-          } 
-      });
+                
+                nodesRank.push({
+                  node: tempList[i].split("> <")[2],
+                  type: tempList[i].split("> <")[1].split('/').pop()
+                });
+                
+              }
+              readEntitiesData();
+            } 
+        });
         
       });
       
