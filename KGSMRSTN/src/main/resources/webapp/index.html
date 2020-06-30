@@ -50,7 +50,7 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 				  <div id="login" class="container tab-pane active">
-					<form>
+					<form id="linksum_form">
 						<div class="form-group">
 						  <label for="search_entity">Entity</label>
 						  <input type="text" class="form-control" required id="search_entity" placeholder="">
@@ -79,10 +79,10 @@
 					</form>
 				  </div>
 				  <div id="regis" class="container tab-pane fade">
-					<form>
+					<form id="salsa_form">
 					  <div class="form-group">
-						<label for="file_upload">File Upload</label>
-						<input type="file" id="file_upload">
+						<label for="salsa_input">File Upload</label>
+						<input type="file" name="file" id="salsa_input">
 						<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 					  </div>
 					  <br>
@@ -153,10 +153,12 @@
 <!--===============================================================================================-->
 	<script>
 		$(document).ready(function() {
+
 			$(document).ajaxSend(function() {
 				$("#overlay").fadeIn(300);　
 			});
-			$( "#search_form" ).submit(function( event ) {
+
+			$( "#linksum_form" ).submit(function( event ) {
   				event.preventDefault();
 				var entitySearch = $("#search_entity").val();
 				var predicateMode = $("#predicate_mode").val();
@@ -164,7 +166,7 @@
 				// var type = $("#type").val();
 				var type = "entity";
 				var url =
-					"http://localhost:8082/kg/kgraph/type/" +
+					"http://localhost:8080/kg/kgraph/type/" +
 					type +
 					"/name/" +
 					entitySearch  +
@@ -175,8 +177,7 @@
 
 				$.ajax({
 					url: url,
-					dataType: "JSONP",
-					jsonpCallback: "callback",
+					dataType: "json",
 					type: "GET",
 					success: function(data) {
 						if (data.status) {
@@ -186,11 +187,122 @@
 								alert(data.msg);
 							}
 						}
+					},
+					error: function (e) {
+
+						// $("#result").text(e.responseText);
+						console.log("ERROR : ", e);
+						// $("#btnSubmit").prop("disabled", false);
+
+					}, 
+					complete: function(data) {
+						
 						setTimeout(function(){
 							$("#overlay").fadeOut(300);
 						},500);
 					}
 				});
+			});
+
+
+			$( "#salsa_form" ).submit(function( event ) {
+  				event.preventDefault();
+				
+				// var form = $('#salsa_form')[0];
+
+				// var data = new FormData(form);
+
+				var url = "http://localhost:8080/kg/kgraphsalsa";
+
+				// $("#btnSubmit").prop("disabled", true);
+
+				$.ajax({
+					url: url,
+					type: "POST",
+					data: new FormData(this),
+					enctype: 'multipart/form-data',
+					processData: false,
+					contentType: false,
+					cache: false,
+					success: function (data) {
+
+						alert(data);
+
+						// $("#result").text(data);
+						// console.log("SUCCESS : ", data);
+						// $("#btnSubmit").prop("disabled", false);
+
+					},
+					error: function (e) {
+
+						// $("#result").text(e.responseText);
+						console.log("ERROR : ", e);
+						// $("#btnSubmit").prop("disabled", false);
+
+					}, 
+					complete: function(data) {
+						setTimeout(function(){
+							$("#overlay").fadeOut(300);
+						},500);
+					}
+				});
+
+
+
+
+
+
+
+
+
+
+
+
+  				// var fd = new FormData();
+  				// var files = $('#salsa_input')[0].files[0];
+  				// fd.append('file',files);
+
+				// // var type = $("#type").val();
+				// var type = "entity";
+				// var url = "http://localhost:8080/kg/kgraphsalsa";
+				// $.ajax({
+				// 	url: url,
+				// 	type: 'post',
+				// 	data: fd,
+				// 	contentType: false,
+				// 	processData: false,
+				// 	success: function(response){
+				// 		console.log(response);
+				// 		setTimeout(function(){
+				// 			$("#overlay").fadeOut(300);
+				// 		},500);
+				// 		// if(response != 0){
+				// 		// 	$("#img").attr("src",response); 
+				// 		// 	$(".preview img").show(); // Display image element
+				// 		// }else{
+				// 		// 	alert('file not uploaded');
+				// 		// }
+				// 	},
+				// });
+
+				// $.ajax({
+				// 	url: url,
+				// 	dataType: "JSONP",
+				// 	jsonpCallback: "callback",
+				// 	type: "GET",
+				// 	success: function(data) {
+				// 		if (data.status) {
+				// 			window.open("/results.html");
+				// 		} else if(data.status == false) {
+				// 			if(data.msg != "") {
+				// 				alert(data.msg);
+				// 			}
+				// 		}
+				// 		setTimeout(function(){
+				// 			$("#overlay").fadeOut(300);
+				// 		},500);
+				// 	}
+				// });
 			});
 		});
 	</script>
