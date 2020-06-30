@@ -281,7 +281,7 @@ public class KgsmrstnController {
 	}
 
 
-	@PostMapping("/kgraphsalsa")
+	@PostMapping("/kgraphhits")
 	public String getKGraphHITS(@RequestParam(name = "hits_input")MultipartFile inputFile) {
 
 		log.info("In getKGraphHITS");
