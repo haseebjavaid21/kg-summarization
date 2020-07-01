@@ -86,7 +86,7 @@
 					  <div class="form-group">
 						<label for="salsa_input">File Upload</label><br>
 						<input type="file" name="salsa_input" id="salsa_input">
-						<small id="emailHelp" class="form-text text-muted">Upload a Knowledge Base .ttl file.</small>
+						<small id="salsaInfo" class="form-text text-muted">Upload a Knowledge Base .ttl file.</small>
 					  </div>
 					  <br>
 					  
@@ -98,7 +98,7 @@
 					  <div class="form-group">
 						<label for="hits_input">File Upload</label><br>
 						<input type="file" name="hits_input" id="hits_input">
-						<small id="emailHelp" class="form-text text-muted">Upload a Knowledge Base .ttl file.</small>
+						<small id="hitsInfo" class="form-text text-muted">Upload a Knowledge Base .ttl file.</small>
 					  </div>
 					  <br>
 					  
@@ -117,6 +117,27 @@
 			<span class="spinner"></span>
 		</div>
 	</div>
+
+	
+<!-- Modal -->
+<div class="modal fade" id="outputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="outputModalTitle">Download Output File</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <p>Output file successfully generated. You can download it <a href="#" id="download_link"  download="output.ttl" class="badge badge-success"> here </a></p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 	
 <!--===============================================================================================-->
 	<script>
@@ -125,6 +146,7 @@
 			$(document).ajaxSend(function() {
 				$("#overlay").fadeIn(300);　
 			});
+
 
 			$( "#linksum_form" ).submit(function( event ) {
   				event.preventDefault();
@@ -172,7 +194,6 @@
 				});
 			});
 
-
 			$( "#salsa_form" ).submit(function( event ) {
   				event.preventDefault();
 
@@ -185,40 +206,17 @@
 					enctype: 'multipart/form-data',
 					processData: false,
 					contentType: false,
+					dataType: "json",
 					cache: false,
 					success: function (data) {
-
-						alert(data);
-
-					},
-					error: function (e) {
-						console.log("ERROR : ", e);
-					}, 
-					complete: function(data) {
-						setTimeout(function(){
-							$("#overlay").fadeOut(300);
-						},500);
-					}
-				});
-			});
-
-			$( "#salsa_form" ).submit(function( event ) {
-  				event.preventDefault();
-
-				var url = "http://localhost:8080/kg/kgraphhits";
-
-				$.ajax({
-					url: url,
-					type: "POST",
-					data: new FormData(this),
-					enctype: 'multipart/form-data',
-					processData: false,
-					contentType: false,
-					cache: false,
-					success: function (data) {
-
-						alert(data);
-
+						if(data) {
+							if(data.status == true && data.file_path != "") {
+								$("#outputModalTitle").html("SALSA Output File");
+								$('#download_link').attr('href', data.file_path.split('/').pop());
+								$('#download_link').attr('download', "salsa_output.ttl");			
+								$('#outputModal').modal('show');
+							}
+						}
 					},
 					error: function (e) {
 						console.log("ERROR : ", e);
@@ -234,7 +232,7 @@
 			$( "#hits_form" ).submit(function( event ) {
 				event.preventDefault();
 
-				var url = "http://localhost:8080/kg/kgraphsalsa";
+				var url = "http://localhost:8080/kg/kgraphHits";
 
 				$.ajax({
 					url: url,
@@ -243,16 +241,23 @@
 					enctype: 'multipart/form-data',
 					processData: false,
 					contentType: false,
+					dataType: "json",
 					cache: false,
 					success: function (data) {
-
-						alert(data);
-
+						if(data) {
+							if(data.status == true && data.file_path != "") {
+								$("#outputModalTitle").html("HITS Output File");
+								$('#download_link').attr('href', data.file_path.split('/').pop());	
+								$('#download_link').attr('download', "hits_output.ttl");		
+								$('#outputModal').modal('show');
+							}
+						}
 					},
 					error: function (e) {
 						console.log("ERROR : ", e);
 					}, 
 					complete: function(data) {
+						console.log(data);
 						setTimeout(function(){
 							$("#overlay").fadeOut(300);
 						},500);
