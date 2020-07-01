@@ -40,7 +40,7 @@ public class KgsmrstnController {
 	private static final String DB_ENDPOINT = "http://dbpedia.org/sparql";
 	private static final String DB_LIVE_ENDPOINT = "http://dbpedia-live.openlinksw.com/sparql";
 	private static final String WIKI_ENDPOINT = "https://query.wikidata.org/";
-	private static final String tempFilePath = "D:\\Project Data\\filefrompost.ttl";
+	private static final String tempFilePath = "filefrompost.ttl";
 	
 
 	private static Integer counter = 1;
@@ -263,7 +263,7 @@ public class KgsmrstnController {
 		}
 		FileOutputStream oFile = null;
 		try {
-			oFile = new FileOutputStream("./src/main/resources/webapp/output_test2.ttl", false);
+			oFile = new FileOutputStream("./src/main/resources/webapp/output_salsa.ttl", false);
 		} catch (FileNotFoundException e1) {
 			jsonResponse = new JSONObject();
 			jsonResponse.put("status", false);
@@ -274,6 +274,7 @@ public class KgsmrstnController {
 		if (!(m.isEmpty())) {
 			jsonResponse = new JSONObject();
 			jsonResponse.put("status", true);
+			jsonResponse.put("file_path", "src/main/resources/webapp/output_salsa.ttl");
 			return jsonResponse.toString();
 		} else {
 			jsonResponse = new JSONObject();
@@ -283,10 +284,10 @@ public class KgsmrstnController {
 		}
 
 	}
-
-  @PostMapping(value = "/kgraphHits")
+	
+	@PostMapping(value = "/kgraphHits")
 	public String getKGraphHITS(@RequestParam(name = "hits_input")MultipartFile inputFile) throws IOException {
-
+		
 		log.info("In getKGraphHITS");
 		this.writeToTempFolder(inputFile);
 		// JSON Object for AJAX Response
@@ -326,6 +327,7 @@ public class KgsmrstnController {
 		if (!(m.isEmpty())) {
 			jsonResponse = new JSONObject();
 			jsonResponse.put("status", true);
+			jsonResponse.put("file_path", "src/main/resources/webapp/output_hits.ttl");
 			return jsonResponse.toString();
 		} else {
 			jsonResponse = new JSONObject();
