@@ -13,8 +13,6 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
      * - d3.scale.category20c()
      */
 
-     console.log();
-
     nodeSet = dataSet.nodes;
     linkSet = dataSet.edges; 
 
@@ -132,101 +130,66 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
     var rankMouseOver = function() {
     
       var thisObject = d3.select(this);
-      var typeValue = thisObject.attr("type_value");
-      var strippedTypeValue = typeValue.replace(/ /g, "_");
+      var nodeValue = thisObject.attr("node_rank");
+      var strippedNodeValue = nodeValue;
 
-      var legendBulletSelector = "." + "legendBullet-" + strippedTypeValue;
+      var legendBulletSelector = "#" + "rankBulletId-" + strippedNodeValue;
       var selectedBullet = d3.selectAll(legendBulletSelector);
       //document.writeln(legendBulletSelector);
       selectedBullet.style("fill", "Maroon");
   selectedBullet.attr("r", 1.2*6);
 
-      var legendTextSelector = "." + "legendText-" + strippedTypeValue;
+      var legendTextSelector = "#" + "rankTextId-" + strippedNodeValue;
       var selectedLegendText = d3.selectAll(legendTextSelector);
       //document.writeln(legendBulletSelector);
       selectedLegendText.style("font", "bold 14px Arial")
       selectedLegendText.style("fill", "Maroon");
 
-      var nodeTextSelector = "." + "nodeText-" + strippedTypeValue;
+      var nodeTextSelector = "#" + "nodeTextId-" + strippedNodeValue;
       var selectedNodeText = d3.selectAll(nodeTextSelector);
       //document.writeln(pie3SliceSelector);
       selectedNodeText.style("font", "bold 16px Arial")
       selectedNodeText.style("fill", "Maroon");
 
-      var nodeCircleSelector = "." + "nodeCircle-" + strippedTypeValue;
+      var nodeCircleSelector = "#" + "nodeCircleId-" + strippedNodeValue;
       var selectedCircle = d3.selectAll(nodeCircleSelector);
       //document.writeln(nodeCircleSelector);
       selectedCircle.style("fill", "Maroon");
       selectedCircle.style("stroke", "Maroon");
   selectedCircle.attr("r", 1.2*objNodeRad);
-
-      var subjectNodeCircleSelector = "." + "subjectNodeCircle";
-      var selectedSubjectNodeCircle = d3.selectAll(subjectNodeCircleSelector);
-      //document.writeln(subjectNodeCircleSelector);
-      var subjectNodeType = selectedSubjectNodeCircle.attr("type_value");
-      if (typeValue == subjectNodeType){
-        selectedSubjectNodeCircle.style("stroke", "Maroon");
-        selectedSubjectNodeCircle.style("fill", "White");
-      };
-
-      var subjectNodeTextSelector = "." + "subjectNodeText";
-      var selectedSubjectNodeText = d3.selectAll(subjectNodeTextSelector);
-      var subjectNodeTextType = selectedSubjectNodeText.attr("type_value");
-      //document.writeln(pie3SliceSelector);
-      if (typeValue == subjectNodeTextType) {
-        selectedSubjectNodeText.style("fill", "Maroon");
-        selectedSubjectNodeText.style("font", "bold 16px Arial")
-      };
-
     };
 
     var rankMouseOut = function() {
-
+    
       var thisObject = d3.select(this);
-      var typeValue = thisObject.attr("type_value");
+      var nodeValue = thisObject.attr("node_rank");
+      var strippedNodeValue = nodeValue;
       var colorValue = thisObject.attr("color_value");
-      var strippedTypeValue = typeValue.replace(/ /g, "_");
 
-      var legendBulletSelector = "." + "legendBullet-" + strippedTypeValue;
+      var legendBulletSelector = "#" + "rankBulletId-" + strippedNodeValue;
       var selectedBullet = d3.selectAll(legendBulletSelector);
       //document.writeln(legendBulletSelector);
       selectedBullet.style("fill", colorValue);
-  selectedBullet.attr("r", 6);
+      selectedBullet.attr("r", 6);
 
-      var legendTextSelector = "." + "legendText-" + strippedTypeValue;
+      var legendTextSelector = "#" + "rankTextId-" + strippedNodeValue;
       var selectedLegendText = d3.selectAll(legendTextSelector);
       //document.writeln(legendBulletSelector);
       selectedLegendText.style("font", "normal 14px Arial")
       selectedLegendText.style("fill", "Black");
 
-      var nodeTextSelector = "." + "nodeText-" + strippedTypeValue;
+      var nodeTextSelector = "#" + "nodeTextId-" + strippedNodeValue;
       var selectedNodeText = d3.selectAll(nodeTextSelector);
       //document.writeln(pie3SliceSelector);
       selectedNodeText.style("font", "normal 16px Arial")
       selectedNodeText.style("fill", "Blue");
 
-      var nodeCircleSelector = "." + "nodeCircle-" + strippedTypeValue;
+      var nodeCircleSelector = "#" + "nodeCircleId-" + strippedNodeValue;
       var selectedCircle = d3.selectAll(nodeCircleSelector);
       //document.writeln(nodeCircleSelector);
       selectedCircle.style("fill", "White");
       selectedCircle.style("stroke", colorValue);
   selectedCircle.attr("r", objNodeRad);
-
-      var subjectNodeCircleSelector = "." + "subjectNodeCircle";
-      var selectedSubjectNodeCircle = d3.selectAll(subjectNodeCircleSelector);
-      //document.writeln(subjectNodeCircleSelector);
-      var subjectNodeType = selectedSubjectNodeCircle.attr("type_value");
-      if (typeValue == subjectNodeType){
-        selectedSubjectNodeCircle.style("stroke", colorValue);
-        selectedSubjectNodeCircle.style("fill", "White");
-      };
-
-      var subjectNodeTextSelector = "." + "subjectNodeText";
-      var selectedSubjectNodeText = d3.selectAll(subjectNodeTextSelector);
-      //document.writeln(pie3SliceSelector);
-      selectedSubjectNodeText.style("fill", "Blue");
-      selectedSubjectNodeText.style("font", "normal 14px Arial")
-
     };
 
     var nodeMouseOver = function() {
@@ -382,11 +345,11 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
       .enter().append("g")
         .attr("class", "node")
         .attr("type_value", function(d, i) { return d.type; })
+        .attr("node_value", function(d, i) { return d.id; })
         .attr("color_value", function(d, i) { return colorMap[d.type]; })
 //.attr("fixed", function(d) { if (d.id==subjectNodeID) { return true; } else { return false; } } )
         .on("mouseover", nodeMouseOver)
         .on("mouseout", nodeMouseOut)
-        .on("click", nodeClick)
         .call(force.drag)
   .append("a")
     .attr("xlink:href", function(d) {return d.hlink; });
@@ -398,6 +361,7 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
         .attr("r", function(d) { if (d.id==subjectNodeID) { return subjectNodeRad; } else { return objNodeRad; } } )
         .style("fill", "White") // Make the nodes hollow looking
         .attr("type_value", function(d, i) { return d.type; })
+        .attr("node_value", function(d, i) { return d.id; })
         .attr("color_value", function(d, i) { return colorMap[d.type]; })
 //.attr("fixed", function(d) { if (d.id==subjectNodeID) { return true; } else { return false; } } )
 //.attr("x", function(d) { if (d.id==subjectNodeID) { return width/2; } else { return d.x; } })
@@ -408,6 +372,13 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
           //return "nodeCircle-" + strippedString; })
       if (d.id==subjectNodeID) { return "subjectNodeCircle"; }
       else { return "nodeCircle-" + strippedString; }
+        })
+        .attr("id", function(d, i) {
+          var str = d.name;
+          var strippedString = str.replace(/ /g, "_")
+          //return "nodeCircle-" + strippedString; })
+          if (d.id==subjectNodeID) { return "subjectNodeCircleId"; }
+          else { return "nodeCircleId-" + d.rank; }
         })
         .style("stroke-width", 5) // Give the node strokes some thickness
         .style("stroke", function(d, i) { return colorMap[d.type]; } ) // Node stroke colors
@@ -423,13 +394,22 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
         .attr("fill", "Blue")
         .style("fill", function(d, i) { return colorMap[d]; })
         .attr("type_value", function(d, i) { return d.type; })
+        .attr("node_value", function(d, i) { return d.id; })
         .attr("color_value", function(d, i) { return colorMap[d.type]; })
         .attr("class", function(d, i) {
           var str = d.type;
           var strippedString = str.replace(/ /g, "_");
           //return "nodeText-" + strippedString; })
-      if (d.id==subjectNodeID) { return "subjectNodeText"; }
-      else { return "nodeText-" + strippedString; }
+          if (d.id==subjectNodeID) { return "subjectNodeText"; }
+          else { return "nodeText-" + strippedString; }
+        })
+        .attr("id", function(d, i) {
+          var str = d.name;
+          var strippedString = str.replace(/ /g, "_");
+          // console.log(nodesRank.findIndex(x => x.node === d.id), d.id);
+          //return "nodeText-" + strippedString; })
+          if (d.id==subjectNodeID) { return "subjectNodeTextId"; }
+          else { return "nodeTextId-" + d.rank; }
         })
         .attr("dy", ".35em")
         .text(function(d) { return  d.name; });
@@ -532,7 +512,7 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
         // Print Legend Title...
         svgCanvas.append("text").attr("class","region")
         .text("Node Ranks")
-        .attr("x", (width/2 - 300))
+        .attr("x", (width/2 - 370))
         .attr("y", (-height/7*3))
         .style("fill", "Black")
         .style("font", "bold 16px Arial")
@@ -541,18 +521,21 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
         // Plot the bullet circles...
         svgCanvas.selectAll("subjectNodeCanvas")
             .data(nodesRank).enter().append("svg:circle") // Append circle elements
-            .attr("cx", (width/2 - 285))
+            .attr("cx", (width/2 - 355))
             .attr("cy", function(d, i) { return (i*20-height/7*3 + 20); } )
             .attr("stroke-width", ".5")
             .style("fill", function(d, i) { return colorMap[d.type]; })
             .attr("r", 6)
             .attr("color_value", function(d, i) { return colorMap[d.type]; })
             .attr("type_value", function(d, i) { return d.type; })
+            .attr("node_rank", function(d, i) { return i; })
             .attr("index_value", function(d, i) { return "index-" + i; })
-            .attr("class", function(d) {
+            .attr("id", function(d) {
                 var str = d.type;
                 var strippedString = str.replace(/ /g, "_")
-        return "legendBullet-" + strippedString; })
+                return "legendBullet-" + strippedString; })
+            .attr("id", function(d, i) {
+                    return "rankBulletId-" + i; })
             .on('mouseover', rankMouseOver)
             .on("mouseout", rankMouseOut);
 
@@ -562,26 +545,32 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
         .enter().append("svg:a") // Append legend elements
             .append("text")
             .attr("text-anchor", "center")
-            .attr("x", (width/2 - 270))
+            .attr("x", (width/2 - 340))
             .attr("y", function(d, i) { return (i*20-height/7*3 + 20); } )
             .attr("dx", 0)
             .attr("dy", "4px") // Controls padding to place text in alignment with bullets
             .text(function(d, i) { return "#" + (parseInt(i)+1) + " - " + d.node;})
-            .attr("color_value", function(d, i) { return colorMap[d.type]; })
+            .attr("color_value", function(d, i) {return colorMap[d.type]; })
             .attr("type_value", function(d, i) { return d.type; })
+            .attr("node_rank", function(d, i) { return i; })
             .attr("index_value", function(d, i) { return "index-" + i; })
             .attr("class", function(d) {
                 var str = d.type;
                 var strippedString = str.replace(/ /g, "_")
                 return "legendText-" + strippedString; })
+            .attr("id", function(d, i) {
+                    return "rankTextId-" + i; })
             .style("fill", "Black")
             .style("font", "normal 14px Arial")
             .on('mouseover', rankMouseOver)
             .on("mouseout", rankMouseOut);
     }
 
-    printPredicates();
-    printNodeRanks();
+    if(printPredicateCheck)
+      printPredicates();
+    
+    if(printRankCheck)
+      printNodeRanks();
 
   };
 

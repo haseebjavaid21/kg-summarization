@@ -283,10 +283,10 @@ public class KgsmrstnController {
 		}
 
 	}
-	
-	@PostMapping(value = "/kgraphHits")
+
+  @PostMapping(value = "/kgraphHits")
 	public String getKGraphHITS(@RequestParam(name = "hits_input")MultipartFile inputFile) throws IOException {
-		
+
 		log.info("In getKGraphHITS");
 		this.writeToTempFolder(inputFile);
 		// JSON Object for AJAX Response
