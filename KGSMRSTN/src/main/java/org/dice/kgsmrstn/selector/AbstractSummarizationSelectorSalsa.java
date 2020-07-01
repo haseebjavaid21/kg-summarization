@@ -24,6 +24,7 @@ import org.dice.kgsmrstn.graph.NodeURI;
 import org.dice.kgsmrstn.graph.SALSA;
 import org.dice.kgsmrstn.util.StatementComparator;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
@@ -46,10 +47,11 @@ public class AbstractSummarizationSelectorSalsa {
 		this.endpoint = endpoint;
 	}
 
-	public List<Statement> getResources() {
+	public List<Statement> getResources(String filePath) {
 
 		Model m = ModelFactory.createDefaultModel();
-		m.read("persondata_en4.ttl");
+		//m.read("D:\\Project Data\\persondata_en4.ttl");
+		m.read(filePath);
 		double total_weight;
 
 		Iterator<Statement> st = m.listStatements();

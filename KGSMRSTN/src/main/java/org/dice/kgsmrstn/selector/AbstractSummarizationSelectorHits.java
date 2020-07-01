@@ -40,9 +40,9 @@ public class AbstractSummarizationSelectorHits {
 		this.endpoint = endpoint;
 	}
 
-	public List<Statement> getResources() {
+	public List<Statement> getResources(String filePath) {
 
-		this.readFromTTL("D:\\Project Data\\persondata_en4.ttl");
+		this.readFromTTL(filePath);
 
 		try {
 			HITSAlgorithm ht = new HITSAlgorithm();
