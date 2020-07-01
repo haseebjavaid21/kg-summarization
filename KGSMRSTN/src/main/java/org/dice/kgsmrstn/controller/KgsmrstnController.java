@@ -3,6 +3,7 @@ package org.dice.kgsmrstn.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
@@ -39,6 +40,8 @@ public class KgsmrstnController {
 	private static final String DB_ENDPOINT = "http://dbpedia.org/sparql";
 	private static final String DB_LIVE_ENDPOINT = "http://dbpedia-live.openlinksw.com/sparql";
 	private static final String WIKI_ENDPOINT = "https://query.wikidata.org/";
+	private static final String tempFilePath = "D:\\Project Data\\filefrompost.ttl";
+	
 
 	private static Integer counter = 1;
 
@@ -227,10 +230,10 @@ public class KgsmrstnController {
 	}
 
 	@PostMapping("/kgraphsalsa")
-	public String getKGraphSalsa(@RequestParam(name = "salsa_input")MultipartFile inputFile) {
+	public String getKGraphSalsa(@RequestParam(name = "salsa_input")MultipartFile inputFile) throws IOException {
 
-		log.info("In getKGraphSalsa");
-
+		log.info("In getKGraphSalsa", inputFile);
+		this.writeToTempFolder(inputFile);
 		// JSON Object for AJAX Response
 		JSONObject jsonResponse;
 
@@ -241,8 +244,9 @@ public class KgsmrstnController {
 		AbstractSummarizationSelectorSalsa ass = new AbstractSummarizationSelectorSalsa(runConfig.getSqparqlEndPoint(),
 				null);
 
-		triples = ass.getResources();
-
+		triples = ass.getResources(tempFilePath);
+		this.deleteTempFile();
+		
 		Model m = ModelFactory.createDefaultModel();
 		ListIterator<Statement> StmtIterator = triples.listIterator();
 
@@ -280,12 +284,11 @@ public class KgsmrstnController {
 
 	}
 
-
-	@PostMapping("/kgraphhits")
-	public String getKGraphHITS(@RequestParam(name = "hits_input")MultipartFile inputFile) {
+  @PostMapping(value = "/kgraphHits")
+	public String getKGraphHITS(@RequestParam(name = "hits_input")MultipartFile inputFile) throws IOException {
 
 		log.info("In getKGraphHITS");
-
+		this.writeToTempFolder(inputFile);
 		// JSON Object for AJAX Response
 		JSONObject jsonResponse;
 
@@ -294,7 +297,8 @@ public class KgsmrstnController {
 		List<Statement> triples;
 		AbstractSummarizationSelectorHits Ash = new AbstractSummarizationSelectorHits(runConfig.getSqparqlEndPoint(),
 				null);
-		triples = Ash.getResources();
+		triples = Ash.getResources(tempFilePath);
+		this.deleteTempFile();
 
 		Model m = ModelFactory.createDefaultModel();
 		ListIterator<Statement> StmtIterator = triples.listIterator();
@@ -330,6 +334,25 @@ public class KgsmrstnController {
 			return jsonResponse.toString();
 		}
 
+	}
+	
+	public Boolean writeToTempFolder(MultipartFile inputFile) throws IOException {
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(tempFilePath);
+			fos.write(inputFile.getBytes());
+	        fos.close();
+	        return true;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public void deleteTempFile() {
+		File ttl = new File(tempFilePath);
+		ttl.delete();
 	}
 
 }
