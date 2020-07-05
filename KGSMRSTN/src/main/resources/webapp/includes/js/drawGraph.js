@@ -530,10 +530,6 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
             .attr("type_value", function(d, i) { return d.type; })
             .attr("node_rank", function(d, i) { return i; })
             .attr("index_value", function(d, i) { return "index-" + i; })
-            .attr("id", function(d) {
-                var str = d.type;
-                var strippedString = str.replace(/ /g, "_")
-                return "legendBullet-" + strippedString; })
             .attr("id", function(d, i) {
                     return "rankBulletId-" + i; })
             .on('mouseover', rankMouseOver)
@@ -554,10 +550,6 @@ function drawCluster(subjectNode, dataSet, typeLongHash, nodesRank, domElement )
             .attr("type_value", function(d, i) { return d.type; })
             .attr("node_rank", function(d, i) { return i; })
             .attr("index_value", function(d, i) { return "index-" + i; })
-            .attr("class", function(d) {
-                var str = d.type;
-                var strippedString = str.replace(/ /g, "_")
-                return "legendText-" + strippedString; })
             .attr("id", function(d, i) {
                     return "rankTextId-" + i; })
             .style("fill", "Black")

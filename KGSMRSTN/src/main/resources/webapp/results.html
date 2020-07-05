@@ -179,10 +179,6 @@
 
   </head>
   <body>
-    <div id="ex1" class="modal">
-      <p>Thanks for clicking. That felt good.</p>
-      <a href="#" rel="modal:close">Close</a>
-    </div>
     <table class="table_Body">
       <tr>
         <td class="td_BodyRight">
@@ -256,6 +252,7 @@
       function readEntitiesData() {
         
         $.ajax({ 
+            cache: false,
             url: 'output.json', 
             dataType: 'json', 
             async: false, 
@@ -307,8 +304,16 @@
         });
       }
 
-      $( document ).ready(function() {        
+      $( document ).ready(function() {  
+        dataset = {nodes:[],edges:[]};
+        subjectNodeID;
+        typeLongHash = [];
+        nodesRank = [];
+        sidePanelHeight = 0;
+        printPredicateCheck = true;
+        printRankCheck = true;      
         $.ajax({ 
+            cache: false,
             url: 'output.nt', 
             dataType: 'text', 
             async: false, 

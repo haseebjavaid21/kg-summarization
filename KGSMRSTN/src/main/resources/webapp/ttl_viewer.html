@@ -1,0 +1,506 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+    xml:lang="en-US"
+    lang="en-US">
+  <head profile="http://www.w3.org/2005/10/profile">
+    <title>Knowledge Graph - Results</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--===============================================================================================-->	
+    <link rel="apple-touch-icon" sizes="180x180" href="includes/images/icons/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="includes/images/icons/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="includes/images/icons/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta name="Description" content="This page tries to mix charts with html formatting and layout constructs." />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="-l" />
+
+
+    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
+
+    <style type="text/css">
+      /* svg {
+        font: 10px sans-serif;
+        display: block;
+      } */
+      #sliderBox {
+        position: absolute;
+        top: -500px;
+        left: 20px;
+        z-index: 1000;
+      }
+    </style>
+
+
+<STYLE type="text/css">
+  div.div_Header {
+    width: 100%;
+    border:2px solid White;
+    border-radius:7px;
+    background: WhiteSmoke;
+    font: bold 14px Arial;
+    font-family:Arial, Helvetica, sans-serif;
+    color:WhiteSmoke;
+    text-align:center;
+  }
+  h1.h1_BodyHeader {        text-align:center;
+    font: bold 1.5em Arial;
+  }
+  h2.h2_LeftMenuHeader {
+    text-align:center;
+    font: bold 1.2em Arial;
+  }
+  h3.h3_Body {
+    text-align:center;
+  }
+  p.p_Red {
+    color:Red;
+  }
+  table.table_Header {
+    width: 100%;
+    text-align:center;
+  }
+  td.td_HeaderLeft {
+    text-align:left;
+  }
+  td.td_HeaderRight {
+    text-align:right;
+  }
+  div.div_Menu {
+    width: 100%;
+    border:2px solid White;
+    border-radius:7px;
+    background: MidnightBlue;
+    font: bold 14px Arial;
+    font-family:Arial, Helvetica, sans-serif;
+    color:White;
+    text-align:center;
+  }
+  p.p_Left {
+    font-family:Arial, Helvetica, sans-serif;
+    color:Black;
+    text-align:left;
+    padding-left: 5px;
+    font: normal 14px Arial;
+  }
+  table.table_Body {        width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  td.td_BodyLeft {
+    vertical-align: top;
+    width: 250px;
+    height: 100%;
+    padding: 0;
+  }
+  td.td_BodyRight {
+    vertical-align: top;
+  }
+  li.li_LeftMenu {
+    text-align:left;
+    font: normal 14px Arial;
+  }
+  a.a_LeftMenuNoUnderLine {
+    text-decoration:  none;
+  }
+  div.div_Body {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    border:2px solid White;
+    border-radius:7px;
+    background: WhiteSmoke;
+    font: bold 14px Arial;
+    font-family:Arial, Helvetica, sans-serif;
+    color:Black;
+    text-align:center;
+  }
+  div.div_Footer {
+    width: 100%;
+    border:2px solid White;
+    border-radius:7px;
+    background: MidnightBlue;
+    font: bold 14px Arial;
+    font-family:Arial, Helvetica, sans-serif;
+    color:White;
+    text-align:center;
+  }
+  
+  div.div_RootBody {
+    position: relative;
+    border:2px solid White;
+    border-radius:7px;
+    background: WhiteSmoke;
+    font: normal 14px Arial;
+    font-family:Arial, Helvetica, sans-serif;
+    color:Black;
+    padding: 0px 1em;
+    text-align:left;
+  }
+
+  .modal a.close-modal[class*="icon-"] {
+      top: -10px;
+      right: -10px;
+      width: 20px;
+      height: 20px;
+      color: #fff;
+      line-height: 1.25;
+      text-align: center;
+      text-decoration: none;
+      text-indent: 0;
+      background: #900;
+      border: 2px solid #fff;
+      -webkit-border-radius:  26px;
+      -moz-border-radius:     26px;
+      -o-border-radius:       26px;
+      -ms-border-radius:      26px;
+      -moz-box-shadow:    1px 1px 5px rgba(0,0,0,0.5);
+      -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+      box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
+    }
+
+    .blocker{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100%;overflow:auto;z-index:1;padding:20px;box-sizing:border-box;background-color:#000;background-color:rgba(0,0,0,0.75);text-align:center}.blocker:before{content:"";display:inline-block;height:100%;vertical-align:middle;margin-right:-0.05em}.blocker.behind{background-color:transparent}.modal{display:none;vertical-align:middle;position:relative;z-index:2;max-width:500px;box-sizing:border-box;width:90%;background:#fff;padding:15px 30px;-webkit-border-radius:8px;-moz-border-radius:8px;-o-border-radius:8px;-ms-border-radius:8px;border-radius:8px;-webkit-box-shadow:0 0 10px #000;-moz-box-shadow:0 0 10px #000;-o-box-shadow:0 0 10px #000;-ms-box-shadow:0 0 10px #000;box-shadow:0 0 10px #000;text-align:left}.modal a.close-modal{position:absolute;top:-12.5px;right:-12.5px;display:block;width:30px;height:30px;text-indent:-9999px;background-size:contain;background-repeat:no-repeat;background-position:center center;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA3hJREFUaAXlm8+K00Acx7MiCIJH/yw+gA9g25O49SL4AO3Bp1jw5NvktC+wF88qevK4BU97EmzxUBCEolK/n5gp3W6TTJPfpNPNF37MNsl85/vN/DaTmU6PknC4K+pniqeKJ3k8UnkvDxXJzzy+q/yaxxeVHxW/FNHjgRSeKt4rFoplzaAuHHDBGR2eS9G54reirsmienDCTRt7xwsp+KAoEmt9nLaGitZxrBbPFNaGfPloGw2t4JVamSt8xYW6Dg1oCYo3Yv+rCGViV160oMkcd8SYKnYV1Nb1aEOjCe6L5ZOiLfF120EjWhuBu3YIZt1NQmujnk5F4MgOpURzLfAwOBSTmzp3fpDxuI/pabxpqOoz2r2HLAb0GMbZKlNV5/Hg9XJypguryA7lPF5KMdTZQzHjqxNPhWhzIuAruOl1eNqKEx1tSh5rfbxdw7mOxCq4qS68ZTjKS1YVvilu559vWvFHhh4rZrdyZ69Vmpgdj8fJbDZLJpNJ0uv1cnr/gjrUhQMuI+ANjyuwftQ0bbL6Erp0mM/ny8Fg4M3LtdRxgMtKl3jwmIHVxYXChFy94/Rmpa/pTbNUhstKV+4Rr8lLQ9KlUvJKLyG8yvQ2s9SBy1Jb7jV5a0yapfF6apaZLjLLcWtd4sNrmJUMHyM+1xibTjH82Zh01TNlhsrOhdKTe00uAzZQmN6+KW+sDa/JD2PSVQ873m29yf+1Q9VDzfEYlHi1G5LKBBWZbtEsHbFwb1oYDwr1ZiF/2bnCSg1OBE/pfr9/bWx26UxJL3ONPISOLKUvQza0LZUxSKyjpdTGa/vDEr25rddbMM0Q3O6Lx3rqFvU+x6UrRKQY7tyrZecmD9FODy8uLizTmilwNj0kraNcAJhOp5aGVwsAGD5VmJBrWWbJSgWT9zrzWepQF47RaGSiKfeGx6Szi3gzmX/HHbihwBser4B9UJYpFBNX4R6vTn3VQnez0SymnrHQMsRYGTr1dSk34ljRqS/EMd2pLQ8YBp3a1PLfcqCpo8gtHkZFHKkTX6fs3MY0blKnth66rKCnU0VRGu37ONrQaA4eZDFtWAu2fXj9zjFkxTBOo8F7t926gTp/83Kyzzcy2kZD6xiqxTYnHLRFm3vHiRSwNSjkz3hoIzo8lCKWUlg/YtGs7tObunDAZfpDLbfEI15zsEIY3U/x/gHHc/G1zltnAgAAAABJRU5ErkJggg==')}.modal-spinner{display:none;position:fixed;top:50%;left:50%;transform:translateY(-50%) translateX(-50%);padding:12px 16px;border-radius:5px;background-color:#111;height:20px}.modal-spinner>div{border-radius:100px;background-color:#fff;height:20px;width:2px;margin:0 1px;display:inline-block;-webkit-animation:sk-stretchdelay 1.2s infinite ease-in-out;animation:sk-stretchdelay 1.2s infinite ease-in-out}.modal-spinner .rect2{-webkit-animation-delay:-1.1s;animation-delay:-1.1s}.modal-spinner .rect3{-webkit-animation-delay:-1.0s;animation-delay:-1.0s}.modal-spinner .rect4{-webkit-animation-delay:-0.9s;animation-delay:-0.9s}@-webkit-keyframes sk-stretchdelay{0%,40%,100%{-webkit-transform:scaleY(0.5)}20%{-webkit-transform:scaleY(1.0)}}@keyframes sk-stretchdelay{0%,40%,100%{transform:scaleY(0.5);-webkit-transform:scaleY(0.5)}20%{transform:scaleY(1.0);-webkit-transform:scaleY(1.0)}}
+</STYLE>
+</head>
+  <body>
+    <div id="sliderBox">
+      <p>Slide to load number of Entity groups</p>
+      <input type="range" min="1" max="25" value="5" id="rangeSlider"> <span id="rangeCount"></span>
+    </div>
+
+    
+    <table class="table_Body">
+      <tr>
+        <td class="td_BodyRight">
+          <div class="div_RootBody">
+            <h1 style="text-align:center; font: bold 1.5em Arial;">Knowledge Graph Summarization</h1>
+          </div>
+          <div class="div_RootBody" id="chartRoot">
+          
+            <svg id='viz'></svg>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+
+    <script>
+    var width = 1500;
+    var height = 680;
+    var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+
+    var subjectBlockList = [];
+    var trippleParts = [];
+    var nodes = [];
+    var links = [];
+    var subNodeId = "";
+    var objNodeId = "";
+    var nodeName = "";
+    var nodeIds = [];
+
+    
+    function loadData(depthLevel) {
+        $.ajax({ 
+          cache: false,
+          url: 'output_salsa.ttl', 
+          dataType: 'text', 
+          async: false, 
+          success: function(data){ 
+            subjectBlockList = data.split(/>[ ]*[.][\n]*[ ]*</);
+            subjectBlockList[0] = subjectBlockList[0].substring(1);
+            // subjectBlockList.length -1
+
+            var randomNum = Math.floor(Math.random() * (subjectBlockList.length -1));
+
+            for (var i = randomNum; i < (randomNum+depthLevel) %subjectBlockList.length; i++) {
+              trippleList = subjectBlockList[i].split(/>[ ]*[;][\n]*[ ]*</);
+              
+              // Subject Node insertion
+              trippleParts = trippleList[0].split(/>[ ]*[\n]*[ ]*</);
+              subNodeId = trippleParts[0];
+              console.log(trippleParts[0].split('/').pop());
+              if(nodeIds.indexOf(trippleParts[0]) == -1) {
+                nodes.push({
+                  id : trippleParts[0],
+                  name : trippleParts[0].split('/').pop(),
+                  group: i+1
+                });
+                nodeIds.push(trippleParts[0]);
+              }
+              if(nodeIds.indexOf(trippleParts[2]) == -1) {
+                nodeName = trippleParts[2].split('/').pop();
+                if(nodeName != "XMLSchema#date") {
+                  nodes.push({
+                    id : trippleParts[2],
+                    name : nodeName,
+                    group: i+1
+                  });
+                } else {
+                  nodes.push({
+                    id : trippleParts[2],
+                    name : trippleParts[2].split('^^')[0],
+                    group: i+1
+                  });
+                }
+                nodeIds.push(trippleParts[0]);
+              }
+
+              // Link insertion
+              links.push({
+                source: subNodeId,
+                target: trippleParts[2]
+              });
+
+
+
+              for (var j = 1; j< trippleList.length; j++) {
+                trippleParts = trippleList[j].split(/>[ ]*[\n]*[ ]*</);
+                
+                // node insertion
+                if(nodeIds.indexOf(trippleParts[1]) == -1) {
+                  nodeName = trippleParts[1].split('/').pop();
+                  if(nodeName != "XMLSchema#date") {
+                    nodes.push({
+                      id : trippleParts[1],
+                      name : nodeName,
+                      group: i+1
+                    });
+                  } else {
+                    nodes.push({
+                      id : trippleParts[1],
+                      name : trippleParts[1].split('^^')[0],
+                      group: i+1
+                    });
+                  }
+                  nodeIds.push(trippleParts[1]);
+                }
+                
+
+                // Link insertion
+                links.push({
+                  source: subNodeId,
+                  target: trippleParts[1]
+                });
+                
+              }
+              
+            }
+            drawGraph({nodes: nodes, links: links});
+          } 
+      });
+    }
+
+            
+
+    function drawGraph(graph) {
+      
+
+      var label = {
+          'nodes': [],
+          'links': []
+      };
+
+      graph.nodes.forEach(function(d, i) {
+          label.nodes.push({node: d});
+          label.nodes.push({node: d});
+          label.links.push({
+              source: i * 2,
+              target: i * 2 + 1
+          });
+      });
+
+      var labelLayout = d3.forceSimulation(label.nodes)
+          .force("charge", d3.forceManyBody().strength(-50))
+          .force("link", d3.forceLink(label.links).distance(0).strength(2));
+
+      var graphLayout = d3.forceSimulation(graph.nodes)
+          .force("charge", d3.forceManyBody().strength(-3000))
+          .force("center", d3.forceCenter(width / 2, height / 2))
+          .force("x", d3.forceX(width / 2).strength(1))
+          .force("y", d3.forceY(height / 2).strength(1))
+          .force("link", d3.forceLink(graph.links).id(function(d) {return d.id; }).distance(50).strength(1))
+          .on("tick", ticked);
+
+      var adjlist = [];
+
+      graph.links.forEach(function(d) {
+          adjlist[d.source.index + "-" + d.target.index] = true;
+          adjlist[d.target.index + "-" + d.source.index] = true;
+      });
+
+      function neigh(a, b) {
+          return a == b || adjlist[a + "-" + b];
+      }
+
+
+      var svg = d3.select("#viz").attr("width", width).attr("height", height);
+      var container = svg.append("g");
+
+      svg.call(
+          d3.zoom()
+              .scaleExtent([.1, 4])
+              .on("zoom", function() { container.attr("transform", d3.event.transform); })
+      );
+
+      var link = container.append("g").attr("class", "links")
+          .selectAll("line")
+          .data(graph.links)
+          .enter()
+          .append("line")
+          .attr("stroke", "#aaa")
+          .attr("stroke-width", "1px");
+
+      var node = container.append("g").attr("class", "nodes")
+          .selectAll("g")
+          .data(graph.nodes)
+          .enter()
+          .append("circle")
+          .attr("r", 5)
+          .attr("fill", function(d) { return color(d.group); })
+
+      node.on("mouseover", focus).on("mouseout", unfocus);
+
+      node.call(
+          d3.drag()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended)
+      );
+
+      var labelNode = container.append("g").attr("class", "labelNodes")
+          .selectAll("text")
+          .data(label.nodes)
+          .enter()
+          .append("text")
+          .text(function(d, i) { return i % 2 == 0 ? "" : d.node.id; })
+          .style("fill", "#555")
+          .style("font-family", "Arial")
+          .style("font-size", 12)
+          .style("pointer-events", "none"); // to prevent mouseover/drag capture
+
+      node.on("mouseover", focus).on("mouseout", unfocus);
+
+      function ticked() {
+
+          node.call(updateNode);
+          link.call(updateLink);
+
+          labelLayout.alphaTarget(0.3).restart();
+          labelNode.each(function(d, i) {
+              if(i % 2 == 0) {
+                  d.x = d.node.x;
+                  d.y = d.node.y;
+              } else {
+                  var b = this.getBBox();
+
+                  var diffX = d.x - d.node.x;
+                  var diffY = d.y - d.node.y;
+
+                  var dist = Math.sqrt(diffX * diffX + diffY * diffY);
+
+                  var shiftX = b.width * (diffX - dist) / (dist * 2);
+                  shiftX = Math.max(-b.width, Math.min(0, shiftX));
+                  var shiftY = 16;
+                  this.setAttribute("transform", "translate(" + shiftX + "," + shiftY + ")");
+              }
+          });
+          labelNode.call(updateNode);
+          setTimeout(function() {
+            $('#rangeSlider').prop("disabled", false);
+          }, 2000);
+
+      }
+
+      function fixna(x) {
+          if (isFinite(x)) return x;
+          return 0;
+      }
+
+      function focus(d) {
+          var index = d3.select(d3.event.target).datum().index;
+          node.style("opacity", function(o) {
+              return neigh(index, o.index) ? 1 : 0.1;
+          });
+          labelNode.attr("display", function(o) {
+            return neigh(index, o.node.index) ? "block": "none";
+          });
+          link.style("opacity", function(o) {
+              return o.source.index == index || o.target.index == index ? 1 : 0.1;
+          });
+      }
+
+      function unfocus() {
+        labelNode.attr("display", "block");
+        node.style("opacity", 1);
+        link.style("opacity", 1);
+      }
+
+      function updateLink(link) {
+          link.attr("x1", function(d) { return fixna(d.source.x); })
+              .attr("y1", function(d) { return fixna(d.source.y); })
+              .attr("x2", function(d) { return fixna(d.target.x); })
+              .attr("y2", function(d) { return fixna(d.target.y); });
+      }
+
+      function updateNode(node) {
+          node.attr("transform", function(d) {
+              return "translate(" + fixna(d.x) + "," + fixna(d.y) + ")";
+          });
+      }
+
+      function dragstarted(d) {
+          d3.event.sourceEvent.stopPropagation();
+          if (!d3.event.active) graphLayout.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+      }
+
+      function dragged(d) {
+          d.fx = d3.event.x;
+          d.fy = d3.event.y;
+      }
+
+      function dragended(d) {
+          if (!d3.event.active) graphLayout.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+      }
+    }
+
+
+
+      $( document ).ready(function() {
+        
+
+        // $('#rangeSlider').on('change', function () {
+        //   $(this).prop("disabled", true);
+        //   console.log(this.value);
+        //   loadData(this.value);
+        // });
+
+        // $('#rangeSlider').on('input', function () {
+        //   $("#rangeCount").html(this.value);
+        // });  
+
+        loadData(10);
+
+              
+      });
+    </script>
+  </body>
+</html>

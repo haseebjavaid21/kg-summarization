@@ -130,11 +130,12 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-		  <p>Output file successfully generated. You can download it <a href="#" id="download_link"  download="output.ttl" class="badge badge-success"> here </a></p>
+			<p id="modelBodyMessage">Output file successfully generated. You can download it <a style="font-size: 1.2em;" href="#" id="download_link"  download="output.ttl" class="badge badge-info"> here </a></p>
+			<br><p id="demoGraphMessage">Click <a style=" " target="_blank" href="ttl_viewer.html" class="badge badge-warning"> here </a> for a demo graph of top 10 entities.</p>
 		</div>
-		<div class="modal-footer">
+		<!-- <div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		</div>
+		</div> -->
 	  </div>
 	</div>
   </div>
@@ -173,8 +174,12 @@
 						if (data.status) {
 							window.open("/results.html");
 						} else if(data.status == false) {
-							if(data.msg != "") {
-								alert(data.msg);
+							if(data.msg != "" || data.msg != " ") {
+								$("#outputModalTitle").html("Error");
+								$("#outputModalTitle").parent().css("background-color", "#FF5555");
+								$("#outputModalTitle").css("color", "#fff");
+								$('#modelBodyMessage').html(data.msg);			
+								$('#outputModal').modal('show');
 							}
 						}
 					},
@@ -212,9 +217,19 @@
 						if(data) {
 							if(data.status == true && data.file_path != "") {
 								$("#outputModalTitle").html("SALSA Output File");
+								$("#outputModalTitle").parent().css("background-color", "#050");
+								$("#outputModalTitle").css("color", "#fff");
 								$('#download_link').attr('href', data.file_path.split('/').pop());
 								$('#download_link').attr('download', "salsa_output.ttl");			
 								$('#outputModal').modal('show');
+							} else if(data.status == false) {
+								if(data.msg != "" || data.msg != " ") {
+									$("#outputModalTitle").html("Error");
+									$("#outputModalTitle").parent().css("background-color", "#FF5555");
+									$("#outputModalTitle").css("color", "#fff");
+									$('#modelBodyMessage').html(data.msg);			
+									$('#outputModal').modal('show');
+								}
 							}
 						}
 					},
@@ -247,9 +262,20 @@
 						if(data) {
 							if(data.status == true && data.file_path != "") {
 								$("#outputModalTitle").html("HITS Output File");
+								$("#outputModalTitle").parent().css("background-color", "#050");
+								$("#outputModalTitle").css("color", "#fff");
+								$("#demoGraphMessage").css("display", "none");
 								$('#download_link').attr('href', data.file_path.split('/').pop());	
 								$('#download_link').attr('download', "hits_output.ttl");		
 								$('#outputModal').modal('show');
+							} else if(data.status == false) {
+								if(data.msg != "" || data.msg != " ") {
+									$("#outputModalTitle").html("Error");
+									$("#outputModalTitle").parent().css("background-color", "#FF5555");
+									$("#outputModalTitle").css("color", "#fff");
+									$('#modelBodyMessage').html(data.msg);			
+									$('#outputModal').modal('show');
+								}
 							}
 						}
 					},
