@@ -24,10 +24,15 @@ import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorHits;
 import org.dice.kgsmrstn.selector.AbstractSummarizationSelectorSalsa;
 import org.dice.kgsmrstn.selector.EntityTriplesSelector;
 import org.dice.kgsmrstn.selector.SimpleSelector;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -41,7 +46,6 @@ public class KgsmrstnController {
 	private static final String DB_LIVE_ENDPOINT = "http://dbpedia-live.openlinksw.com/sparql";
 	private static final String WIKI_ENDPOINT = "https://query.wikidata.org/";
 	private static final String tempFilePath = "filefrompost.ttl";
-	
 
 	private static Integer counter = 1;
 
@@ -82,8 +86,12 @@ public class KgsmrstnController {
 			}
 		} catch (Exception e) {
 			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", e.getMessage());
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", e.getMessage());
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
 			return jsonResponse.toString();
 		}
 		FileOutputStream oFile = null;
@@ -91,21 +99,32 @@ public class KgsmrstnController {
 			oFile = new FileOutputStream("./src/main/resources/webapp/output.json", false);
 		} catch (FileNotFoundException e1) {
 			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", e1.getMessage());
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", e1.getMessage());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			return jsonResponse.toString();
 		}
 		m = m.write(oFile, "RDF/JSON");
+		jsonResponse = new JSONObject();
 		if (!(m.isEmpty())) {
-			jsonResponse = new JSONObject();
-			jsonResponse.put("status", true);
-			return jsonResponse.toString();
+			try {
+				jsonResponse.put("status", true);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		} else {
-			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", " ");
-			return jsonResponse.toString();
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", " ");
+				return jsonResponse.toString();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
+		return jsonResponse.toString();
 	}
 
 	@GetMapping(value = "kgraph/type/{type}/name/{entity}/top/{k}/predicatemode/{mode}")
@@ -126,6 +145,17 @@ public class KgsmrstnController {
 		EntityTriplesSelector selector = new EntityTriplesSelector(DB_ENDPOINT, entity, k, mode);
 		triples = selector.getTriples();
 		model = selector.getModel();
+
+		if (triples == null) {
+			jsonResponse = new JSONObject();
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", "Invalid Input Entity");
+				return jsonResponse.toString();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 
 		FileOutputStream oFile = null;
 		try {
@@ -153,12 +183,19 @@ public class KgsmrstnController {
 
 		} catch (FileNotFoundException e1) {
 			jsonResponse = new JSONObject();
-			jsonResponse.put("status", true);
-			jsonResponse.put("msg", e1.getMessage());
-			return jsonResponse.toString();
+			try {
+				jsonResponse.put("status", true);
+				jsonResponse.put("msg", e1.getMessage());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 		jsonResponse = new JSONObject();
-		jsonResponse.put("status", true);
+		try {
+			jsonResponse.put("status", true);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return jsonResponse.toString();
 
 	}
@@ -230,7 +267,7 @@ public class KgsmrstnController {
 	}
 
 	@PostMapping("/kgraphsalsa")
-	public String getKGraphSalsa(@RequestParam(name = "salsa_input")MultipartFile inputFile) throws IOException {
+	public String getKGraphSalsa(@RequestParam(name = "salsa_input") MultipartFile inputFile) throws IOException {
 
 		log.info("In getKGraphSalsa", inputFile);
 		this.writeToTempFolder(inputFile);
@@ -246,7 +283,7 @@ public class KgsmrstnController {
 
 		triples = ass.getResources(tempFilePath);
 		this.deleteTempFile();
-		
+
 		Model m = ModelFactory.createDefaultModel();
 		ListIterator<Statement> StmtIterator = triples.listIterator();
 
@@ -257,8 +294,12 @@ public class KgsmrstnController {
 			}
 		} catch (Exception e) {
 			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", e.getMessage());
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", e.getMessage());
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
 			return jsonResponse.toString();
 		}
 		FileOutputStream oFile = null;
@@ -266,28 +307,39 @@ public class KgsmrstnController {
 			oFile = new FileOutputStream("./src/main/resources/webapp/output_salsa.ttl", false);
 		} catch (FileNotFoundException e1) {
 			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", e1.getMessage());
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", e1.getMessage());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			return jsonResponse.toString();
 		}
 		m = m.write(oFile, "Turtle");
+		jsonResponse = new JSONObject();
 		if (!(m.isEmpty())) {
-			jsonResponse = new JSONObject();
-			jsonResponse.put("status", true);
-			jsonResponse.put("file_path", "src/main/resources/webapp/output_salsa.ttl");
+			try {
+				jsonResponse.put("status", true);
+				jsonResponse.put("file_path", "src/main/resources/webapp/output_salsa.ttl");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			return jsonResponse.toString();
 		} else {
-			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", " ");
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", " ");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			return jsonResponse.toString();
 		}
 
 	}
-	
+
 	@PostMapping(value = "/kgraphHits")
-	public String getKGraphHITS(@RequestParam(name = "hits_input")MultipartFile inputFile) throws IOException {
-		
+	public String getKGraphHITS(@RequestParam(name = "hits_input") MultipartFile inputFile) throws IOException {
+
 		log.info("In getKGraphHITS");
 		this.writeToTempFolder(inputFile);
 		// JSON Object for AJAX Response
@@ -310,8 +362,12 @@ public class KgsmrstnController {
 			}
 		} catch (Exception e) {
 			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", e.getMessage());
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", e.getMessage());
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
 			return jsonResponse.toString();
 		}
 		FileOutputStream oFile = null;
@@ -319,39 +375,49 @@ public class KgsmrstnController {
 			oFile = new FileOutputStream("./src/main/resources/webapp/output_hits.ttl", false);
 		} catch (FileNotFoundException e1) {
 			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", e1.getMessage());
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", e1.getMessage());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			return jsonResponse.toString();
 		}
 		m = m.write(oFile, "Turtle");
+		jsonResponse = new JSONObject();
 		if (!(m.isEmpty())) {
-			jsonResponse = new JSONObject();
-			jsonResponse.put("status", true);
-			jsonResponse.put("file_path", "src/main/resources/webapp/output_hits.ttl");
+			try {
+				jsonResponse.put("status", true);
+				jsonResponse.put("file_path", "src/main/resources/webapp/output_hits.ttl");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			return jsonResponse.toString();
 		} else {
-			jsonResponse = new JSONObject();
-			jsonResponse.put("status", false);
-			jsonResponse.put("msg", " ");
+			try {
+				jsonResponse.put("status", false);
+				jsonResponse.put("msg", " ");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			return jsonResponse.toString();
 		}
 
 	}
-	
+
 	public Boolean writeToTempFolder(MultipartFile inputFile) throws IOException {
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(tempFilePath);
 			fos.write(inputFile.getBytes());
-	        fos.close();
-	        return true;
+			fos.close();
+			return true;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
 	}
-	
+
 	public void deleteTempFile() {
 		File ttl = new File(tempFilePath);
 		ttl.delete();

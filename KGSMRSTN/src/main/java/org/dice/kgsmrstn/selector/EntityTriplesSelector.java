@@ -68,14 +68,18 @@ public class EntityTriplesSelector {
 	}
 
 	public LinkedList<Triple> getTriples() {
-		return getAllTriples();
+		try {
+			return getAllTriples();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public Model getModel() {
 		return model;
 	}
 
-	private LinkedList<Triple> getAllTriples() {
+	private LinkedList<Triple> getAllTriples() throws Exception {
 
 		List<String> nodesReversed = new ArrayList<>();
 		String resource = "<http://dbpedia.org/resource/" + entity + ">";
@@ -181,7 +185,11 @@ public class EntityTriplesSelector {
 				.collect(Collectors.toList());
 
 		// Apply LinkSum score for all Resources and sort them by it
-		nodesHavingBacklink = applyLinkSum(rankedInitialNodes, nodesHavingBacklink);
+		try {
+			nodesHavingBacklink = applyLinkSum(rankedInitialNodes, nodesHavingBacklink);
+		} catch (Exception e) {
+			throw e;
+		}
 		nodesHavingBacklink.sort(Comparator.comparing(node -> node.getLinksumScore()));
 		nodesHavingBacklink.stream().forEach(node -> System.out.println(
 				node.getCandidateURI() + " : " + " PR: " + node.getPageRank() + " , LS: " + node.getLinksumScore()));
@@ -427,7 +435,8 @@ public class EntityTriplesSelector {
 
 	}
 
-	private List<Node> applyLinkSum(List<Node> rankedInitialNodes, List<Node> nodesHavingBacklink) {
+	private List<Node> applyLinkSum(List<Node> rankedInitialNodes, List<Node> nodesHavingBacklink)
+			throws NoSuchElementException {
 		double max = rankedInitialNodes.stream().mapToDouble(node -> node.getPageRank()).max()
 				.orElseThrow(NoSuchElementException::new);
 
