@@ -131,7 +131,8 @@
 		</div>
 		<div class="modal-body">
 			<p id="modelBodyMessage">Output file successfully generated. You can download it <a style="font-size: 1.2em;" href="#" id="download_link"  download="output.ttl" class="badge badge-info"> here </a></p>
-			<br><p id="demoGraphMessage">Click <a style=" " target="_blank" href="ttl_viewer.html" class="badge badge-warning"> here </a> for a demo graph of top 10 entities.</p>
+			<br>
+			<!-- <p id="demoGraphMessage">Click <a style=" " target="_blank" href="ttl_viewer.html" class="badge badge-warning"> here </a> for a demo graph of top 10 entities.</p> -->
 		</div>
 		<!-- <div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -264,7 +265,7 @@
 								$("#outputModalTitle").html("HITS Output File");
 								$("#outputModalTitle").parent().css("background-color", "#050");
 								$("#outputModalTitle").css("color", "#fff");
-								$("#demoGraphMessage").css("display", "none");
+								// $("#demoGraphMessage").css("display", "none");
 								$('#download_link').attr('href', data.file_path.split('/').pop());	
 								$('#download_link').attr('download', "hits_output.ttl");		
 								$('#outputModal').modal('show');
