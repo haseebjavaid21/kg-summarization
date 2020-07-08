@@ -11,7 +11,7 @@ The UI implemented will allow the user to execute Summarization using LinkSum  f
 
 ## Installation / Project Setup
 Setup Apache server on your local system.
-In the root folder of the server clone the repository from https://github.com/haseebjavaid21/kg-summarization.git 
+In the root folder of the server clone the repository from https://github.com/haseebjavaid21/kg-summarization.git  
 Import prpoject in your IDE with the folder KGSMRSTN as source folder.  
 Place the .ttl files containing KG which needs to be summarized in KGSMRSTN folder and modify the file path accordingly in - AbstractSummarization Selector of respective algorithm.  
 Run maven install.  
