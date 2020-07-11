@@ -40,7 +40,9 @@ public class AbstractSummarizationSelectorSalsa {
 
 	private String endpoint;
 	private DirectedSparseGraph<Node, String> g = new DirectedSparseGraph<Node, String>();
+	//BiphariteGraph
 	HashMap<Node, List<Node>> adjNodes = new HashMap<>();
+	//Components
 	HashMap<Integer, List<Node>> component = new HashMap<>();
 
 	public AbstractSummarizationSelectorSalsa(String endpoint, String graph) {
@@ -48,15 +50,14 @@ public class AbstractSummarizationSelectorSalsa {
 	}
 
 	public List<Statement> getResources(String filePath) {
-
+		//model
 		Model m = ModelFactory.createDefaultModel();
-		//m.read("D:\\Project Data\\persondata_en4.ttl");
+
+	    //Reading KnowledgeGraph
 		m.read(filePath);
 		double total_weight;
 
 		Iterator<Statement> st = m.listStatements();
-
-		System.out.println("model obtained");
 
 		int count = 0;
 
@@ -88,39 +89,35 @@ public class AbstractSummarizationSelectorSalsa {
 
 		}
 
-		System.out.println("graph obtained");
 
-		List<Node> allNodesRanked = new ArrayList<>();
-		allNodesRanked.addAll(g.getVertices());
 
 		ComponentId comp = new ComponentId();
-
+        //Creating components
 		component = comp.findComponets(adjNodes, g);
 
 		adjNodes.clear();
 
-		// Finally run the Page Rank algorithm to the entities after their BFS
-		// expansion
+		//Run Salsa algorithm
 		List<Node> topNodes = runSalsa(g, component);
 		component.clear();
-		Collections.reverse(topNodes);
+
 		System.gc();
 		List<Node> temp = new ArrayList<>();
-
+		//Filter nodes with level 1
 		temp = topNodes.parallelStream().filter(node -> node.getLevel() == 1).collect(Collectors.toList());
-
+        //Compute sum of authoritative weights
 		total_weight = topNodes.parallelStream().filter(node -> node.getLevel() == 1)
 				.map(node -> node.getAuthorityWeight()).reduce(0.0, Double::sum);
+         //mean computation
+		double mean = total_weight / temp.size();
 
-		double mean1 = total_weight / temp.size();
 
-		System.out.println("Mean of " + temp.size() + " entities is " + mean1);
-
-		List<Node> temp1 = temp.parallelStream().filter(node -> node.getAuthorityWeight() >= mean1)
+		//filter nodes greater than mean
+		List<Node> temp1 = temp.parallelStream().filter(node -> node.getAuthorityWeight() >= mean)
 				.collect(Collectors.toList());
 
 		List<Statement> tempstats = new ArrayList<>();
-		System.out.println("number of final entities" + temp1.size());
+
 
 		Model model = ModelFactory.createDefaultModel();
 		// form the triples of all the top nodes
@@ -139,7 +136,7 @@ public class AbstractSummarizationSelectorSalsa {
 				}
 			});
 
-			// neighbourNodes.subList(0, topP);
+             //Creating model to construct Knowledge graph
 			for (Node succesorNode : neighbourNodes) {
 
 				String sub = node.getCandidateURI();
@@ -181,31 +178,11 @@ public class AbstractSummarizationSelectorSalsa {
 
 		ArrayList<Node> orderedList = new ArrayList<Node>();
 		orderedList.addAll(g.getVertices());
-		Collections.sort(orderedList, new Comparator<Node>() {
 
-			@Override
-			public int compare(Node o1, Node o2) {
-				// TODO Auto-generated method stub
-				return Double.compare(o1.getAuthorityWeight(), o2.getAuthorityWeight());
-			}
-		});
 
 		return orderedList;
 
 	}
 
-	protected List<Statement> sortStatements(StmtIterator stmtIterator) {
-		List<Statement> result = new ArrayList<Statement>();
-		while (stmtIterator.hasNext()) {
-			result.add(stmtIterator.next());
-		}
-		Collections.sort(result, new StatementComparator());
-		return result;
-	}
 
-	protected List<Statement> sortStatements(Set<Statement> statements) {
-		List<Statement> result = new ArrayList<Statement>(statements);
-		Collections.sort(result, new StatementComparator());
-		return result;
-	}
 }
