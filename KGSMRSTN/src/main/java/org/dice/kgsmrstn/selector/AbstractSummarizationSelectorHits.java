@@ -24,7 +24,7 @@ import com.github.andrewoma.dexx.collection.HashMap;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
 /**
- *
+ * Selector Class for HITS Algorithm
  * @author Haseeb Javaid
  */
 public class AbstractSummarizationSelectorHits {
@@ -36,15 +36,27 @@ public class AbstractSummarizationSelectorHits {
 
 	HashMap<Node, List<Node>> adjNodes = new HashMap<>();
 
+	/**
+	 * Setting the endpoint
+	 * @param endpoint
+	 * @param graph
+	 */
 	public AbstractSummarizationSelectorHits(String endpoint, String graph) {
 		this.endpoint = endpoint;
 	}
 
+	/**
+	 * Function to execute the HITS Algorithm with the created graph
+	 * @param filePath
+	 * @return
+	 */
 	public List<Statement> getResources(String filePath) {
-
 		this.readFromTTL(filePath);
 
 		try {
+			/**
+			 * Calling HITS execution
+			 */
 			HITSAlgorithm ht = new HITSAlgorithm();
 			ht.runHits(g, 10);
 		} catch (InterruptedException e) {
@@ -52,8 +64,10 @@ public class AbstractSummarizationSelectorHits {
 			e.printStackTrace();
 		}
 
+		/**
+		 * Getting node from the updated graph and returning the finalized list of triples
+		 */
 		List<Node> processedHighRankNodes = this.getHighRankNdes();
-		System.out.println("Finished :" + processedHighRankNodes.size());
 		return sortStatements(this.generateList(processedHighRankNodes).listStatements());
 	}
 
@@ -66,12 +80,10 @@ public class AbstractSummarizationSelectorHits {
 		return result;
 	}
 
-	protected List<Statement> sortStatements(Set<Statement> statements) {
-		List<Statement> result = new ArrayList<Statement>(statements);
-		Collections.sort(result, new StatementComparator());
-		return result;
-	}
-
+	/**
+	 * Sorting the list of nodes and filtering them using threshold
+	 * @return Filtered List
+	 */
 	protected List<Node> getHighRankNdes() {
 		List<Node> reversedNodeList = new ArrayList<Node>();
 		List<Node> NodeIteration = new ArrayList<>();
@@ -80,18 +92,26 @@ public class AbstractSummarizationSelectorHits {
 		NodeIteration = reversedNodeList.parallelStream().filter(node -> node.getLevel() == 1)
 				.collect(Collectors.toList());
 		double temp_weight = 0.0;
+		/**
+		 * Total Sum of the authority weights for all nodes on level 1
+		 */
 		double total_weight = reversedNodeList.parallelStream().filter(node -> node.getLevel() == 1)
 				.map(node -> node.getAuthorityWeight()).reduce(0.0, Double::sum);
+
+		/**
+		 * Calculating mean of the authority weights that willbe used as threshold
+		 */
 		double meanNodes = total_weight / NodeIteration.size();
-		System.out.println("Mean of " + NodeIteration.size() + " entities is " + meanNodes);
 
 		List<Node> filteredList = NodeIteration.parallelStream()
 				.filter(node -> node.getAuthorityWeight() >= (meanNodes)).collect(Collectors.toList());
-
-		System.out.println("final number of entities is " + filteredList.size());
 		return filteredList;
 	}
 
+	/**
+	 * Reading triples from the TTL file on the provided path using Jena model reader
+	 * @param ttl_path
+	 */
 	protected void readFromTTL(String ttl_path) {
 		Model m = ModelFactory.createDefaultModel();
 		// read into the model.
@@ -108,6 +128,9 @@ public class AbstractSummarizationSelectorHits {
 				Node curr_s = new Node(o, 0, 0, ALGORITHM);
 				Node curr_o = new Node(s, 0, 1, ALGORITHM);
 
+				/**
+				 * Creation of sparsed graph using the nodes created with the triples
+				 */
 				if (!(g.containsEdge(p) && g.containsVertex(curr_s)))
 					g.addEdge(g.getEdgeCount() + ";" + p, curr_s, curr_o);
 
@@ -117,6 +140,11 @@ public class AbstractSummarizationSelectorHits {
 		}
 	}
 
+	/**
+	 * Generating model from all the finalized nodes for writing to the ttl file
+	 * @param temp
+	 * @return model
+	 */
 	protected Model generateList(List<Node> temp) {
 		Model model = ModelFactory.createDefaultModel();
 		// form the triples of all the top nodes
@@ -146,10 +174,15 @@ public class AbstractSummarizationSelectorHits {
 				}
 			}
 		}
-		System.out.println("Final Size : " + model.size());
 		return model;
 	}
 
+	/**
+	 * Get all the nodes from the graph and create a list after sorting them
+	 * based on Authority Weight in descending order
+	 * @param Sparsed Graph g
+	 * @return Ordered List of Nodes
+	 */
 	protected ArrayList<Node> sortAndReverse(DirectedSparseGraph<Node, String> g) {
 		ArrayList<Node> orderedList = new ArrayList<Node>();
 		orderedList.addAll(g.getVertices());
@@ -163,6 +196,5 @@ public class AbstractSummarizationSelectorHits {
 
 		Collections.reverse(orderedList);
 		return orderedList;
-
 	}
 }
