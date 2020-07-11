@@ -95,7 +95,7 @@ public class AbstractSummarizationSelectorSalsa {
 
 		ComponentId comp = new ComponentId();
 
-		component = comp.findComponets1(adjNodes, g);
+		component = comp.findComponets(adjNodes, g);
 
 		adjNodes.clear();
 

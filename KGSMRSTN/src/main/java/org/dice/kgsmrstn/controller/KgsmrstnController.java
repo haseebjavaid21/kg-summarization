@@ -292,6 +292,8 @@ public class KgsmrstnController {
 				Statement stmt = (Statement) StmtIterator.next();
 				m.add(stmt);
 			}
+			triples.clear();
+
 		} catch (Exception e) {
 			jsonResponse = new JSONObject();
 			try {
