@@ -61,3 +61,8 @@ This project is licensed under the Dice Group
 ## Acknowledgments
 Diego Moussallem  
 Dice Group  
+
+## References
+Lempel, R. & Moran, Shlomo. (2000). The Stochastic Approach for Link Structure Analysis (SALSA) and the TKC effect. Computer Networks. 33. 387-401. 10.1016/S1389-1286(00)00034-7.   
+Borodin, Allan & Roberts, Gareth & Rosenthal, Jeffrey & Tsaparas, Panayiotis. (2002). Finding Authorities and Hubs From Link Structures on the World Wide Web. Proceedings of WWW10. 10.1145/371920.372096.  
+Thalhammer, Andreas & Lasierra, Nelia & Rettinger, Achim. (2016). LinkSUM: Using Link Analysis to Summarize Entity Data. 244-261. 10.1007/978-3-319-38791-8_14.  
