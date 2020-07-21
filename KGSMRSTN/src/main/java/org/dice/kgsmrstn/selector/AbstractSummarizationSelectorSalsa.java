@@ -31,7 +31,7 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
 public class AbstractSummarizationSelectorSalsa {
 
-	private static final String ALGORITHM = "Sals";
+	private static final String ALGORITHM = "Salsa";
 
 	private org.slf4j.Logger log = LoggerFactory.getLogger(AbstractSummarizationSelectorSalsa.class);
 
