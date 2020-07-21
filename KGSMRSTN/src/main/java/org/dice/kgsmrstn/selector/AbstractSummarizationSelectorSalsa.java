@@ -28,13 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
-/**
- *
- * @author Haseeb Javaid
- */
+
 public class AbstractSummarizationSelectorSalsa {
 
-	private static final String ALGORITHM = "pagerank";
+	private static final String ALGORITHM = "Sals";
 
 	private org.slf4j.Logger log = LoggerFactory.getLogger(AbstractSummarizationSelectorSalsa.class);
 
