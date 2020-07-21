@@ -4,7 +4,11 @@
 Knowledge Graph Summarization
 
 ## Description
-Knowledge graphs (KG) are graphs/structures consisting of facts in the form of triples. Triples are a combination of subjects, objects and predicates. In general, knowledge graphs are huge in size and may contain redundant information. Knowledge Graphs’ humongous size makes it difficult to process and represent them. The goal of this project group is to obtain a pruned KG. This consists of selecting a sub knowledge graph based on endpoints and summarizing those subgraphs by considering facts based on ranks.
+Knowledge graphs (KG) are graphs/structures consisting of facts in the form of triples. Triples are a combination of subjects, objects and predicates. In general, knowledge graphs are huge in size and may contain redundant information. Knowledge Graphs’ humongous size makes it difficult to process and represent them. The goal of this project group is to obtain a pruned KG. This consists of selecting a sub knowledge graph based on endpoints and summarizing those subgraphs by considering facts based on ranks. The three algorithms used for summarization are:  
+
+[1] HITS  
+[2] SALSA  
+[3] LinkSUM  
 
 The UI implemented will allow the user to execute Summarization using LinkSUM for a selected entity using the selected mode and see a visualization of the summarized entity. In case of HITS and SALSA Algorithms, user can download the summarized ttl file.
 
@@ -63,6 +67,6 @@ Diego Moussallem
 Dice Group  
 
 ## References
-Lempel, R. & Moran, Shlomo. (2000). The Stochastic Approach for Link Structure Analysis (SALSA) and the TKC effect. Computer Networks. 33. 387-401. 10.1016/S1389-1286(00)00034-7.   
-Borodin, Allan & Roberts, Gareth & Rosenthal, Jeffrey & Tsaparas, Panayiotis. (2002). Finding Authorities and Hubs From Link Structures on the World Wide Web. Proceedings of WWW10. 10.1145/371920.372096.  
-Thalhammer, Andreas & Lasierra, Nelia & Rettinger, Achim. (2016). LinkSUM: Using Link Analysis to Summarize Entity Data. 244-261. 10.1007/978-3-319-38791-8_14.  
+[1] Lempel, R. & Moran, Shlomo. (2000). The Stochastic Approach for Link Structure Analysis (SALSA) and the TKC effect. Computer Networks. 33. 387-401. 10.1016/S1389-1286(00)00034-7.   
+[2] Borodin, Allan & Roberts, Gareth & Rosenthal, Jeffrey & Tsaparas, Panayiotis. (2002). Finding Authorities and Hubs From Link Structures on the World Wide Web. Proceedings of WWW10. 10.1145/371920.372096.  
+[3] Thalhammer, Andreas & Lasierra, Nelia & Rettinger, Achim. (2016). LinkSUM: Using Link Analysis to Summarize Entity Data. 244-261. 10.1007/978-3-319-38791-8_14.  
