@@ -6,8 +6,8 @@ Knowledge Graph Summarization
 ## Description
 Knowledge graphs (KG) are graphs/structures consisting of facts in the form of triples. Triples are a combination of subjects, objects and predicates. In general, knowledge graphs are huge in size and may contain redundant information. Knowledge Graphs’ humongous size makes it difficult to process and represent them. The goal of this project group is to obtain a pruned KG. This consists of selecting a sub knowledge graph based on endpoints and summarizing those subgraphs by considering facts based on ranks. The three algorithms used for summarization are:  
 
-[1] HITS  
-[2] SALSA  
+[1] SALSA  
+[2] HITS  
 [3] LinkSUM  
 
 The UI implemented will allow the user to execute Summarization using LinkSUM for a selected entity using the selected mode and see a visualization of the summarized entity. In case of HITS and SALSA Algorithms, user can download the summarized ttl file.
